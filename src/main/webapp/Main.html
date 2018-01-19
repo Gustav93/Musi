@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Datos del Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+
+	h1 {text-align: center;}
+	
+	input[type=text]{margin-bottom: 15px;}
+	
+	input[type=submit],[type=button]
+	{
+    background-color: rgb(44, 102, 255);
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 0px;
+	}
+	
+	form
+	{
+		width:40%;
+		margin:0 auto;
+	}
+	
+</style>
+
+<script>
+	function goServlet(servlet) 
+	{
+		document.user_form.action = servlet;
+		document.user_form.submit();
+	}
+</script>
+
+<body>
+
+	<h1>Nuevo Usuario</h1>
+	
+	<div class="form-group">
+	<form name="user_form" action="add_user" method="POST">
+
+		<p>Dni:</p>
+		<input class = "form-control" type="text" name="dni_usuario">
+		<p>Nombre:</p>
+		<input class = "form-control" type="text" name="nombre_usuario">
+		<p>Fecha de Nacimiento:</p>
+		<input class = "form-control" type="text" name="fecha_nacimiento"><br><br>
+		<input class = "form-control" type="submit" value="Crear" onclick="alert('Usuario creado')">
+		<input class = "form-control" type="button" value="Mostrar Usuarios" onclick="goServlet('users_list');">
+		<input class = "form-control" type="button" value="Mostrar Usuarios (Data Table)" onclick=$(location).attr('href','lista.html');>
+
+	</form>
+	</div>
+
+	<form name="form" method="POST" action="/subir_archivo" enctype="multipart/form-data">
+		Seleccione el archivo: <input type="file" name="archivo">
+		<input type="submit" value="Subir Archivo" >
+	</form>
+</body>
+</html>

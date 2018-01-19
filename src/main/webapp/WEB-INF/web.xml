@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>HelloWorld Application</display-name>
+    <description>
+        This is a simple web application with a source code organization
+        based on the recommendations of the Application Developer's Guide.
+    </description>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>UsersListJson</display-name>
+    	<servlet-name>UsersListJson</servlet-name>
+    	<servlet-class>servlet.UsersListJson</servlet-class>
+    </servlet>
+    <servlet>
+    	<description>
+    	</description>
+    	<display-name>Ajax</display-name>
+    	<servlet-name>Ajax</servlet-name>
+    	<servlet-class>Ajax</servlet-class>
+    </servlet>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>SubirArchivo</display-name>
+		<servlet-name>SubirArchivo</servlet-name>
+		<servlet-class>servlet.SubirArchivo</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubirArchivo</servlet-name>
+		<url-pattern>/subir_archivo</url-pattern>
+	</servlet-mapping>
+
+    <servlet-mapping>
+    	<servlet-name>UsersListJson</servlet-name>
+    	<url-pattern>/UsersListJson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>Ajax</servlet-name>
+    	<url-pattern>/Ajax</url-pattern>
+    </servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>
+		Main.html
+		</welcome-file>
+	</welcome-file-list>
+   
+</web-app>  

@@ -1,0 +1,44 @@
+	table 
+	{
+		border-collapse: collapse;
+		width: 75%;
+		font-family: Arial, Helvetica, sans-serif;
+		margin: auto;
+	}
+	
+	th, td 
+	{	
+		text-align: left;
+		padding: 8px;
+		border-bottom: 1px solid #ddd;
+	}
+	
+	table tr:nth-child(even) 
+	{
+    	background-color: rgb(238,238,238);
+	}
+	
+	th 
+	{
+    	background-color: rgb(44, 102, 255);
+    	color: white;
+	}
+	
+	h1
+	{
+		font-family: Arial, Helvetica, sans-serif;
+		text-align: center;	
+	}
+	
+	button
+	{
+	background-color: rgb(44, 102, 255);
+    color: white;
+    padding: 2px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+	}
+	
+	#backButton{padding: 14px 25px;}
