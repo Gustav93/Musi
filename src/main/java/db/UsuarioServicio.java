@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DataBase.DBConectionManager;
 import entidad_usuario.Usuario;
 import utilidades.FechaUtil;
 
@@ -19,139 +20,139 @@ public class UsuarioServicio implements UsuarioDAO
     private final String BORRAR = "DELETE FROM USUARIOS WHERE dni = ?";
     private final String LISTAR = "SELECT * FROM USUARIOS";
     private final String CONSULTAR = "SELECT * FROM USUARIOS WHERE dni = ?";
-	
-//	public UsuarioServicio() 
+
+//	public UsuarioServicio()
 //	{
-//		
+//
 //	}
-	
+
     public void crearTabla()
     {
-    	Connection c = DBManager.openConnection();
-    	
-    	try 
+    	Connection c = DBConectionManager.openConnection();
+
+    	try
     	{
 			PreparedStatement ps = c.prepareStatement(CREAR_TABLA);
 			ps.execute();
-			DBManager.commit(c);
-		} 
+			DBConectionManager.commit(c);
+		}
     	catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	try 
+
+    	try
     	{
-			DBManager.closeConnection(c);
-		} 
-    	
-    	catch (Exception e) 
+			DBConectionManager.closeConnection(c);
+		}
+
+    	catch (Exception e)
     	{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
-    
+
     public void eliminarTabla()
     {
-    	Connection c = DBManager.openConnection();
-    	
-    	try 
+    	Connection c = DBConectionManager.openConnection();
+
+    	try
     	{
 			PreparedStatement ps = c.prepareStatement(ELIMINAR_TABLA);
 			ps.execute();
-			DBManager.commit(c);
-		} 
+			DBConectionManager.commit(c);
+		}
     	catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	try 
+
+    	try
     	{
-			DBManager.closeConnection(c);
-		} 
-    	
-    	catch (Exception e) 
+			DBConectionManager.closeConnection(c);
+		}
+
+    	catch (Exception e)
     	{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
-    
+
 	@Override
 	public void crearUsuario(Usuario u)
 	{
-		Connection c = DBManager.openConnection();
-		
-		try 
+		Connection c = DBConectionManager.openConnection();
+
+		try
 		{
 			PreparedStatement ps = c.prepareStatement(INSERTAR);
 			java.sql.Date fecha = new java.sql.Date(u.getFechaDenacimiento().getTime());
-			
+
 			ps.setInt(1, u.getDni());
 			ps.setString(2, u.getNombre());
 			ps.setDate(3, fecha);
 			ps.executeUpdate();
-			
-			DBManager.commit(c);
-		} 
-		
-		catch (Exception e) 
+
+			DBConectionManager.commit(c);
+		}
+
+		catch (Exception e)
 		{
-			DBManager.rollback(c);
+			DBConectionManager.rollback(c);
 		}
 		finally {
-			
+
 			try {
-				DBManager.closeConnection(c);
+				DBConectionManager.closeConnection(c);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	@Override
-	public void modificarUsuario(Usuario u) 
+	public void modificarUsuario(Usuario u)
 	{
-		Connection c = DBManager.openConnection();
-		
-		try 
+		Connection c = DBConectionManager.openConnection();
+
+		try
 		{
 			PreparedStatement ps = c.prepareStatement(EDITAR);
-			
-			ps.setString(1, u.getNombre());		
+
+			ps.setString(1, u.getNombre());
 			ps.setDate(2, FechaUtil.getFecha(u.getFechaDenacimiento()));
 			ps.setInt(3, u.getDni());
 			ps.executeUpdate();
-			
-			DBManager.commit(c);
-			
-			
-		} 
-		catch (Exception e) 
-		{
-			DBManager.rollback(c);
+
+			DBConectionManager.commit(c);
+
+
 		}
-		
+		catch (Exception e)
+		{
+			DBConectionManager.rollback(c);
+		}
+
 		finally
 		{
 			try {
-				DBManager.closeConnection(c);
+				DBConectionManager.closeConnection(c);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 //	@Override
-//	public void modificarUsuario(Usuario u) 
+//	public void modificarUsuario(Usuario u)
 //	{
-//        Connection connection = DBManager.openConnection();
+//        Connection connection = DBConecionManager.openConnection();
 //        try {
 //            PreparedStatement ps = connection.prepareStatement(EDITAR);
 //            ps.setString(1, u.getNombre());
@@ -160,89 +161,89 @@ public class UsuarioServicio implements UsuarioDAO
 //            ps.setInt(3, u.getDni());
 //            ps.executeUpdate();
 //
-//            DBManager.commit(connection);
+//            DBConecionManager.commit(connection);
 //
 //        } catch (SQLException e) {
-//            DBManager.rollback(connection);
+//            DBConecionManager.rollback(connection);
 //            e.printStackTrace();
-//  
+//
 //        } finally {
 //            try {
-//				DBManager.closeConnection(connection);
+//				DBConecionManager.closeConnection(connection);
 //			} catch (DBOperationException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //        }
 //	}
-	
-	
+
+
 	@Override
 	public void eliminarUsuario(int dni)
 	{
-		Connection c = DBManager.openConnection();
-		
-		try 
+		Connection c = DBConectionManager.openConnection();
+
+		try
 		{
 			PreparedStatement ps = c.prepareStatement(BORRAR);
 			ps.setInt(1, dni);
 			ps.executeUpdate();
-			DBManager.commit(c);
-		} 
-		catch (Exception e) 
-		{
-			DBManager.rollback(c);
+			DBConectionManager.commit(c);
 		}
-		
-		finally 
+		catch (Exception e)
+		{
+			DBConectionManager.rollback(c);
+		}
+
+		finally
 		{
 				try {
-					DBManager.closeConnection(c);
+					DBConectionManager.closeConnection(c);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}
-		
+
 	}
-	
+
 //    @Override
-//    public void eliminarUsuario(int id) 
+//    public void eliminarUsuario(int id)
 //    {
-//        Connection connection = DBManager.openConnection();
+//        Connection connection = DBConecionManager.openConnection();
 //        try {
 //            PreparedStatement ps = connection.prepareStatement(BORRAR);
 //            ps.setInt(1, id);
 //            ps.executeUpdate();
 //
-//            DBManager.commit(connection);
+//            DBConecionManager.commit(connection);
 //
 //        } catch (SQLException e) {
-//            DBManager.rollback(connection);
+//            DBConecionManager.rollback(connection);
 //            //e.printStackTrace();
-//            
+//
 //        } finally {
 //            try {
-//				DBManager.closeConnection(connection);
+//				DBConecionManager.closeConnection(connection);
 //			} catch (DBOperationException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //        }
 //    }
-	
+
 	@Override
-	public Usuario consultarUsuario(int dni) 
+	public Usuario consultarUsuario(int dni)
 	{
 		Usuario u = new Usuario();
-		Connection c = DBManager.openConnection();
-		
-		try 
+		Connection c = DBConectionManager.openConnection();
+
+		try
 		{
 			PreparedStatement ps = c.prepareStatement(CONSULTAR);
 			ps.setInt(1, dni);
 			ResultSet res = ps.executeQuery();
-			
+
 			while(res.next())
 			{
 				java.sql.Date fecha_nacimiento_sql = res.getDate("fecha_nacimiento");
@@ -252,53 +253,53 @@ public class UsuarioServicio implements UsuarioDAO
 				u.setNombre(res.getString("nombre"));
 
 			}
-		} 
-		catch (Exception e) 
-		{
-			DBManager.rollback(c);
 		}
-		
+		catch (Exception e)
+		{
+			DBConectionManager.rollback(c);
+		}
+
 		finally
 		{
 			try {
-				DBManager.closeConnection(c);
+				DBConectionManager.closeConnection(c);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
+
 		return u;
 	}
-	
+
 	@Override
-	public List<Usuario> listarUsuarios() 
+	public List<Usuario> listarUsuarios()
 	{
 		ArrayList<Usuario> users = new ArrayList<>();
-		Connection c = DBManager.openConnection();
-		
-		try 
+		Connection c = DBConectionManager.openConnection();
+
+		try
 		{
 			PreparedStatement statement = c.prepareStatement(LISTAR);
 			ResultSet res = statement.executeQuery();
-			
+
 			while(res.next())
-			{	
+			{
 				java.sql.Date fecha_nacimiento_sql = res.getDate("fecha_nacimiento");
 				java.util.Date fechaNacimiento = new java.util.Date(fecha_nacimiento_sql.getTime());
-				
+
 				Usuario u = new Usuario();
 				u.setDni(res.getInt("dni"));
 				u.setNombre(res.getString("nombre"));
 				u.setFechaDenacimiento(fechaNacimiento);
 				users.add(u);
 			}
-		} 
-		
+		}
+
 		catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		return users;
 	}
 }

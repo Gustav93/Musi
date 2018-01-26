@@ -1,11 +1,11 @@
-package db;
+package DataBase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConectionManager
-{
+public class DBConectionManager {
+
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_BASE_URL = "jdbc:h2:tcp://localhost//{DIR}";
     private static final String DB_NAME = "/feed";

@@ -1,4 +1,6 @@
-package servlet;
+package servlet.reporteStock;
+
+import DataBase.DBStock;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class Servlet extends HttpServlet {
+public class CantStockNoPocesados extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("75").append(request.getRequestURL());
+        DBStock dbStock = new DBStock();
+        response.getWriter().append(String.valueOf(dbStock.getNumberNotProcessed()));
     }
 }

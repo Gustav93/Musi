@@ -1,4 +1,7 @@
-package db;
+package DataBase;
+
+import Feed.Price;
+import Utilities.Utilities;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +18,9 @@ public class DBPrice
     private final String GET_PRICE = "SELECT * FROM PRICE WHERE productCode = ?";
     private final String PRICE_LIST = "SELECT * FROM PRICE";
     private final String EDIT = "UPDATE PRICE SET processed = ?, errorDescription = ? WHERE productCode = ?";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'NO'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'YES'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM STOCK WHERE processed = 'ERROR'";
+    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM PRICE WHERE processed = 'Sin Procesar'";
+    private final String FILTER_BY_PROCESSED = "SELECT * FROM PRICE WHERE processed = 'Procesado'";
+    private final String FILTER_BY_ERROR = "SELECT * FROM PRICE WHERE processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE PRICE ADD INDEX indicePrice (productCode, importOrigin)";
 
 
@@ -35,7 +38,7 @@ public class DBPrice
 
         DBConectionManager.closeConnection(c);
 
-//        Utilities.createIndex(ADD_INDEX);
+        Utilities.createIndex(ADD_INDEX);
 
     }
 
@@ -204,5 +207,25 @@ public class DBPrice
         }
 
         return list;
+    }
+
+    public int getNumberTotal()
+    {
+        return getPriceList().size();
+    }
+
+    public int getNumberProcessed()
+    {
+        return filterByProcessed().size();
+    }
+
+    public int getNumberNotProcessed()
+    {
+        return filterByNotProcessed().size();
+    }
+
+    public int getNumberProcessedError()
+    {
+        return filterByError().size();
     }
 }

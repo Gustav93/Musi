@@ -1,4 +1,4 @@
-package db;
+package Feed;
 
 public class Price
 {
@@ -12,7 +12,7 @@ public class Price
         this.storePrice = null;
         this.hasPriority = null;
         this.importOrigin = null;
-        this.processed = "NO";
+        this.processed = "Sin Procesar";
         this.errorDescription = "";
     }
 

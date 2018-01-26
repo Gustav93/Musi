@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Datos del Usuario</title>
+	<title>Feeds</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="assets/js/Main.js"></script>
 </head>
 <style>
 
 	h1 {text-align: center;}
 	
 	input[type=text]{margin-bottom: 15px;}
-	
-	input[type=submit],[type=button]
+
+	input[type=submit]
 	{
-    background-color: rgb(44, 102, 255);
-    color: white;
-    margin-bottom: 10px;
-    border-radius: 0px;
+
+		background-color: rgb(47, 67, 86);
+		color: white;
+		margin-bottom: 10px;
+		border-radius: 4px;
 	}
-	
+
+	input[type=button]
+	{
+		background-color: rgb(115, 135, 156);
+		color: white;
+		margin-bottom: 10px;
+		border-radius: 4px;
+	}
+
 	form
 	{
 		width:40%;
@@ -32,34 +42,60 @@
 <script>
 	function goServlet(servlet) 
 	{
-		document.user_form.action = servlet;
-		document.user_form.submit();
+		document.form.action = servlet;
+		document.form.submit();
 	}
 </script>
 
 <body>
 
-	<h1>Nuevo Usuario</h1>
+	<h1>Feeds</h1>
 	
 	<div class="form-group">
 	<form name="user_form" action="add_user" method="POST">
 
-		<p>Dni:</p>
-		<input class = "form-control" type="text" name="dni_usuario">
-		<p>Nombre:</p>
-		<input class = "form-control" type="text" name="nombre_usuario">
-		<p>Fecha de Nacimiento:</p>
-		<input class = "form-control" type="text" name="fecha_nacimiento"><br><br>
-		<input class = "form-control" type="submit" value="Crear" onclick="alert('Usuario creado')">
-		<input class = "form-control" type="button" value="Mostrar Usuarios" onclick="goServlet('users_list');">
-		<input class = "form-control" type="button" value="Mostrar Usuarios (Data Table)" onclick=$(location).attr('href','lista.html');>
+		<!--<p>Dni:</p>-->
+		<!--<input class = "form-control" type="text" name="dni_usuario">-->
+		<!--<p>Nombre:</p>-->
+		<!--<input class = "form-control" type="text" name="nombre_usuario">-->
+		<!--<p>Fecha de Nacimiento:</p>-->
+		<!--<input class = "form-control" type="text" name="fecha_nacimiento"><br><br>-->
+		<!--<input class = "form-control" type="submit" value="Crear" onclick="alert('Usuario creado')">-->
+		<!--<input class = "form-control" type="button" value="Mostrar Usuarios" onclick="goServlet('users_list');">-->
+		<!--<input class = "form-control" type="button" value="Mostrar Usuarios (Data Table)" onclick=$(location).attr('href','lista.html');>-->
+
+
 
 	</form>
 	</div>
 
-	<form name="form" method="POST" action="/subir_archivo" enctype="multipart/form-data">
-		Seleccione el archivo: <input type="file" name="archivo">
-		<input type="submit" value="Subir Archivo" >
+	<form name="form"  method="POST" enctype="multipart/form-data">
+		Seleccione el archivo: <input class = "form-control" type="file" name="archivo" onchange="subirArchivo(this)" accept="text/csv">
+		<input type="hidden" name="nombreArchivo" value=""><br>
+		<input class = "form-control" type="submit" value="Subir Archivo" onclick="validarExtension(this.form.archivo.value)">
 	</form>
+
+	<br><br>
+
+	<form name="procesar" method="get">
+		<input class = "form-control" type="button" value="Mostrar Productos" onclick=$(location).attr('href','Productos.html');>
+		<input class = "form-control" type="button" value="Mostrar Auditoria" onclick=$(location).attr('href','Auditoria.html');>
+		<input class = "form-control" type="button" value="Mostrar Stock" onclick=$(location).attr('href','Stock.html');>
+		<input class = "form-control" type="button" value="Mostrar Precios" onclick=$(location).attr('href','Precios.html');>
+		<!--<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">-->
+	</form>
+
+	<br><br>
+
+	<form name="procesarDatos" method="post" action="procesar">
+
+		Seleccionar el Feed a Procesar: <select class = "form-control" name="Feed">
+			<option value="Productos">Productos</option>
+			<option value="Precios">Precios</option>
+			<option value="Stock">Stock</option>
+		</select><br>
+		<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">
+	</form>
+
 </body>
 </html>

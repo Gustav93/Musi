@@ -4,8 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import db.UsuarioServicio;
-
 /**
  * Application Lifecycle Listener implementation class AppContextListener
  *
@@ -25,8 +23,8 @@ public class AppContextListener implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent sce)  
     { 
-    	UsuarioServicio db = new UsuarioServicio();
-    	db.eliminarTabla();
+//    	UsuarioServicio db = new UsuarioServicio();
+//    	db.eliminarTabla();
     	System.out.println("BAJANDO APP");
     }
 
@@ -35,8 +33,8 @@ public class AppContextListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent sce)  
     { 
-    	UsuarioServicio db = new UsuarioServicio();
-    	db.crearTabla();
+//    	UsuarioServicio db = new UsuarioServicio();
+//    	db.crearTabla();
         System.out.println("LEVANTANDO APP");
     }
 	

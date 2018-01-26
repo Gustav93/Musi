@@ -6,18 +6,22 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DataBase.DBAudit;
+import DataBase.DBPrice;
+import DataBase.DBProduct;
+import Feed.AuditItem;
+import Feed.Price;
+import Feed.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import db.*;
 import entidad_usuario.Usuario;
-import utilidades.FechaUtil;
 
 /**
  * Servlet implementation class UsersListJson
@@ -46,11 +50,13 @@ public class UsersListJson extends HttpServlet {
 
 		DBAudit dbAudit = new DBAudit();
 		DBPrice dbPrice = new DBPrice();
+		DBProduct dbProduct = new DBProduct();
 
-		List<AuditItem> auditItemList = dbAudit.getAuditItemList();
+//		List<AuditItem> auditItemList = dbAudit.getAuditItemList();
 		List<Price> priceList = dbPrice.getPriceList();
+//		List<Product> productList = dbProduct.getProductList();
 
-		List<Usuario> users = db.listarUsuarios();
+//		List<Usuario> users = db.listarUsuarios();
 
 		
 //		mapper.setDateFormat(df);
@@ -59,6 +65,7 @@ public class UsersListJson extends HttpServlet {
 
 //		String jsonString = mapper.writeValueAsString(auditItemList);
 		String jsonString = mapper.writeValueAsString(priceList);
+//		String jsonString = mapper.writeValueAsString(productList);
 
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream

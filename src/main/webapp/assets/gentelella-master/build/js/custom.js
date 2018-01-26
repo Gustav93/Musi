@@ -2489,36 +2489,57 @@ if (typeof NProgress != 'undefined') {
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
 				console.log('init_DataTables');
 				
-				var handleDataTableButtons = function() {
-				  if ($("#datatable-buttons").length) {
-					$("#datatable-buttons").DataTable({
-					  dom: "Blfrtip",
-					  buttons: [
-						{
-						  extend: "copy",
-						  className: "btn-sm"
-						},
-						{
-						  extend: "csv",
-						  className: "btn-sm"
-						},
-						{
-						  extend: "excel",
-						  className: "btn-sm"
-						},
-						{
-						  extend: "pdfHtml5",
-						  className: "btn-sm"
-						},
-						{
-						  extend: "print",
-						  className: "btn-sm"
-						},
-					  ],
-					  responsive: true
-					});
-				  }
-				};
+				// var handleDataTableButtons = function() {
+				//   if ($("#datatable_productos_procesados").length)
+				//   {
+				// 	$("#datatable_productos_procesados").DataTable({
+                //
+                 //        ajax:{url:'/mostrar_productos',dataSrc:""},
+                 //        columns: [
+                //
+                 //            {"data": "code" },
+                 //            {"data": "ean" },
+                 //            {"data": "brand" },
+                 //            {"data": "name" },
+                 //            {"data": "category" },
+                 //            {"data": "weight" },
+                 //            {"data": "onlineDateTime" },
+                 //            {"data": "offlineDateTime" },
+                 //            {"data": "approvalStatus" },
+                 //            {"data": "description" },
+                 //            {"data": "importOrigin" },
+                 //            {"data": "processed" },
+                 //            {"data": "errorDescription" },
+                 //        ],
+                //
+				// 	  dom: "Blfrtip",
+				// 	  buttons: [
+				// 		// {
+				// 		//   extend: "copy",
+				// 		//   className: "btn-sm"
+				// 		// },
+				// 		{
+				// 		  extend: "csv",
+				// 		  className: "btn-sm"
+				// 		},
+				// 		// {
+				// 		//   extend: "excel",
+				// 		//   className: "btn-sm"
+				// 		// },
+				// 		// {
+				// 		//   extend: "pdfHtml5",
+				// 		//   className: "btn-sm"
+				// 		// },
+				// 		// {
+				// 		//   extend: "print",
+				// 		//   className: "btn-sm"
+				// 		// },
+				// 	  ],
+				// 	  responsive: true
+				// 	});
+				//   }
+                //
+				// };
 
 				TableManageButtons = function() {
 				  "use strict";
@@ -2529,41 +2550,73 @@ if (typeof NProgress != 'undefined') {
 				  };
 				}();
 
-				$('#datatable').dataTable(
+				$('#datatable_productos').dataTable(
                     {
-                        ajax:{url:'/users_list_json',dataSrc:""},
-                        // columns: [
-                        //     { "data": "dni" },
-                        //     { "data": "nombre" },
-                        //     { "data": "fechaDenacimiento" }
-                        // ]
-
-						// columns: [
-                        //
-						// 	{"data": "auditLevel" },
-                         //    {"data": "auditType" },
-                         //    {"data": "auditDate" },
-                         //    {"data": "errorCode" },
-                         //    {"data": "description" },
-                         //    {"data": "empresa" },
-                         //    {"data": "productCode" },
-                         //    {"data": "importOrigin" },
-                         //    {"data": "feedType" }
-						// ]
-
+                        ajax:{url:'/mostrar_productos',dataSrc:""},
                         columns: [
 
-                            {"data": "productCode" },
-                            {"data": "onlinePrice" },
-                            {"data": "currency" },
-                            {"data": "storePrice" },
-                            {"data": "hasPriority" },
+                            {"data": "code" },
+                            {"data": "ean" },
+                            {"data": "brand" },
+                            {"data": "name" },
+                            {"data": "category" },
+                            {"data": "weight" },
+                            {"data": "onlineDateTime" },
+                            {"data": "offlineDateTime" },
+                            {"data": "approvalStatus" },
+                            {"data": "description" },
                             {"data": "importOrigin" },
                             {"data": "processed" },
                             {"data": "errorDescription" },
                         ]
                     }
 				);
+
+				$('#datatable_stock').DataTable({
+                    ajax:{url:'/mostrar_stock',dataSrc:""},
+                    columns: [
+
+                        {"data": "productCode" },
+                        {"data": "stock" },
+                        {"data": "warehouse" },
+                        {"data": "status" },
+                        {"data": "importOrigin" },
+                        {"data": "processed" },
+                        {"data": "errorDescription" }
+                    ]
+				});
+
+				$('#datatable_audit').DataTable({
+                    ajax:{url:'/mostrar_auditoria',dataSrc:""},
+                    columns: [
+
+                    	{"data": "auditLevel" },
+                       {"data": "auditType" },
+                       {"data": "auditDate" },
+                       {"data": "errorCode" },
+                       {"data": "description" },
+                       {"data": "empresa" },
+                       {"data": "productCode" },
+                       {"data": "importOrigin" },
+                       {"data": "feedType" }
+                    ]
+				});
+
+				$('#datatable_precios').DataTable({
+                    ajax:{url:'/users_list_json',dataSrc:""},
+                    columns: [
+
+                        {"data": "productCode" },
+                        {"data": "onlinePrice" },
+                        {"data": "currency" },
+                        {"data": "storePrice" },
+                        {"data": "hasPriority" },
+                        {"data": "importOrigin" },
+                        {"data": "processed" },
+                        {"data": "errorDescription" },
+                    ]
+				});
+
 
 				$('#datatable-keytable').DataTable({
 				  keys: true

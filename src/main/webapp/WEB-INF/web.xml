@@ -13,10 +13,16 @@
     <servlet>
     	<description>
     	</description>
-    	<display-name>UsersListJson</display-name>
-    	<servlet-name>UsersListJson</servlet-name>
-    	<servlet-class>servlet.UsersListJson</servlet-class>
+    	<display-name>MostrarProductos</display-name>
+    	<servlet-name>MostrarProductos</servlet-name>
+    	<servlet-class>servlet.MostrarProductos</servlet-class>
     </servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarProductos</servlet-name>
+		<url-pattern>/mostrar_productos</url-pattern>
+	</servlet-mapping>
+
     <servlet>
     	<description>
     	</description>
@@ -38,14 +44,246 @@
 		<url-pattern>/subir_archivo</url-pattern>
 	</servlet-mapping>
 
-    <servlet-mapping>
-    	<servlet-name>UsersListJson</servlet-name>
-    	<url-pattern>/UsersListJson</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
     	<servlet-name>Ajax</servlet-name>
     	<url-pattern>/Ajax</url-pattern>
     </servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>MostrarAuditoria</display-name>
+		<servlet-name>MostrarAuditoria</servlet-name>
+		<servlet-class>servlet.MostrarAuditoria</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarAuditoria</servlet-name>
+		<url-pattern>/mostrar_auditoria</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	<description>
+	</description>
+	<display-name>MostrarPrecios</display-name>
+	<servlet-name>MostrarPrecios</servlet-name>
+	<servlet-class>servlet.MostrarPrecios</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarPrecios</servlet-name>
+		<url-pattern>/mostrar_precios</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>MostrarStock</display-name>
+		<servlet-name>MostrarStock</servlet-name>
+		<servlet-class>servlet.MostrarStock</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarStock</servlet-name>
+		<url-pattern>/mostrar_stock</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	<description>
+	</description>
+	<display-name>Procesar</display-name>
+	<servlet-name>Procesar</servlet-name>
+	<servlet-class>servlet.Procesar</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Procesar</servlet-name>
+		<url-pattern>/procesar</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailProductos</display-name>
+		<servlet-name>EnviarMailProductos</servlet-name>
+		<servlet-class>servlet.EnviarMailProductos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailProductos</servlet-name>
+		<url-pattern>/enviar_mail_productos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>Servlet</display-name>
+		<servlet-name>Servlet</servlet-name>
+		<servlet-class>servlet.Servlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Servlet</servlet-name>
+		<url-pattern>/servlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantProductosTotal</display-name>
+		<servlet-name>CantProductosTotal</servlet-name>
+		<servlet-class>servlet.ReportProduct.CantProductosTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantProductosTotal</servlet-name>
+		<url-pattern>/cant_productos_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantProductosProcesados</display-name>
+		<servlet-name>CantProductosProcesados</servlet-name>
+		<servlet-class>servlet.ReportProduct.CantProductosProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantProductosProcesados</servlet-name>
+		<url-pattern>/cant_productos_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantProductosNoProcesados</display-name>
+		<servlet-name>CantProductosNoProcesados</servlet-name>
+		<servlet-class>servlet.ReportProduct.CantProductosNoProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantProductosNoProcesados</servlet-name>
+		<url-pattern>/cant_productos_no_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantProductosError</display-name>
+		<servlet-name>CantProductosError</servlet-name>
+		<servlet-class>servlet.ReportProduct.CantProductosError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantProductosError</servlet-name>
+		<url-pattern>/cant_productos_error</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantStockTotal</display-name>
+		<servlet-name>CantStockTotal</servlet-name>
+		<servlet-class>servlet.reporteStock.CantStockTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantStockTotal</servlet-name>
+		<url-pattern>/cant_stock_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantStockProcesados</display-name>
+		<servlet-name>CantStockProcesados</servlet-name>
+		<servlet-class>servlet.reporteStock.CantStockProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantStockProcesados</servlet-name>
+		<url-pattern>/cant_stock_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantStockNoProcesados</display-name>
+		<servlet-name>CantStockNoProcesados</servlet-name>
+		<servlet-class>servlet.reporteStock.CantStockNoPocesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantStockNoProcesados</servlet-name>
+		<url-pattern>/cant_stock_no_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantStockError</display-name>
+		<servlet-name>CantStockError</servlet-name>
+		<servlet-class>servlet.reporteStock.CantStockError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantStockError</servlet-name>
+		<url-pattern>/cant_stock_error</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantPreciosTotal</display-name>
+		<servlet-name>CantPreciosTotal</servlet-name>
+		<servlet-class>servlet.reportePrecios.CantPreciosTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantPreciosTotal</servlet-name>
+		<url-pattern>/cant_precios_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantPreciosProcesados</display-name>
+		<servlet-name>CantPreciosProcesados</servlet-name>
+		<servlet-class>servlet.reportePrecios.CantPreciosProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantPreciosProcesados</servlet-name>
+		<url-pattern>/cant_precios_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantPreciosNoProcesados</display-name>
+		<servlet-name>CantPreciosNoProcesados</servlet-name>
+		<servlet-class>servlet.reportePrecios.CantPreciosNoProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantPreciosNoProcesados</servlet-name>
+		<url-pattern>/cant_precios_no_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantPreciosError</display-name>
+		<servlet-name>CantPreciosError</servlet-name>
+		<servlet-class>servlet.reporteStock.CantStockError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantPreciosError</servlet-name>
+		<url-pattern>/cant_precios_error</url-pattern>
+	</servlet-mapping>
+
 
 	<welcome-file-list>
 		<welcome-file>
