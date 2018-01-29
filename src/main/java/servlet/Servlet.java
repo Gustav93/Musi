@@ -14,6 +14,9 @@ public class Servlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("75").append(request.getRequestURL());
+        response.setContentType("fileType");
+
+        response.setHeader("Content-disposition","attachment; filename=prueba.txt");
+        response.getWriter().append("asdasd");
     }
 }

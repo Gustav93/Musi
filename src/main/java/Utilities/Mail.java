@@ -23,7 +23,7 @@ public class Mail
     }
 
 
-    public void sendStockFeed(String email) throws MessagingException
+    public void sendStockFeed(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -150,7 +150,7 @@ public class Mail
 
     }
 
-    public void sendPriceFeed(String email) throws MessagingException
+    public void sendPriceFeed(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");

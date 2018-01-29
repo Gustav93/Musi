@@ -70,7 +70,7 @@
 	</div>
 
 	<form name="form"  method="POST" enctype="multipart/form-data">
-		Seleccione el archivo: <input class = "form-control" type="file" name="archivo" onchange="subirArchivo(this)" accept="text/csv">
+		Seleccione el archivo: <input class = "form-control" type="file" name="archivo" onchange="subirArchivo(this)" accept="text/csv" multiple>
 		<input type="hidden" name="nombreArchivo" value=""><br>
 		<input class = "form-control" type="submit" value="Subir Archivo" onclick="validarExtension(this.form.archivo.value)">
 	</form>
@@ -96,6 +96,8 @@
 		</select><br>
 		<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">
 	</form>
+
+	<a href="servlet" download="texto"> download</a>
 
 </body>
 </html>

@@ -1,8 +1,30 @@
 function subirArchivo(elemento)
 {
-    var file = elemento.files[0];
+    // var file = elemento.files[0];
+    // var nombreArchivo = document.form.nombreArchivo;
+    // nombreArchivo.value = file.name;
+
+    var files = elemento.files;
+    console.log(files.length);
     var nombreArchivo = document.form.nombreArchivo;
-    nombreArchivo.value = file.name;
+    var nombreArchivos = [];
+
+    for(var i=0; i<files.length; i++)
+    {
+        nombreArchivos.push(files[i].name);
+
+    }
+
+
+    // console.log(nombreArchivos);
+
+    // nombreArchivo.value = JSON.parse(JSON.stringify(nombreArchivos));
+    nombreArchivo.value = nombreArchivos;
+
+
+
+    console.log(nombreArchivo.value);
+
 
 
     // document.form.submit();

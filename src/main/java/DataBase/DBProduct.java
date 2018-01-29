@@ -1,7 +1,6 @@
 package DataBase;
 
 import Feed.Product;
-import Report.Report;
 import Utilities.Utilities;
 
 import java.sql.Connection;
@@ -229,17 +228,6 @@ public class DBProduct
         }
 
         return list;
-    }
-    
-    public Report getReport()
-    {
-        Report report = new Report();
-        
-        report.setProcessed(filterByProcessed().size());
-        report.setNotProcessed(filterByNotProcessed().size());
-        report.setProcessedError(filterByError().size());
-        
-        return report;
     }
 
     public int getNumberTotal()

@@ -1,7 +1,9 @@
+import DataBase.DBArchivos;
 import DataBase.DBManager;
 import DataBase.DBProduct;
 import FileLoader.FileLoader;
-import Report.Report;
+
+import java.io.File;
 
 public class Main
 {
@@ -56,11 +58,17 @@ public class Main
 //        FeedBuilder.buscarImportOrigin(r.process());
 
 
-        DBProduct dbProduct = new DBProduct();
+//        DBProduct dbProduct = new DBProduct();
+//
+//        Report r = dbProduct.getReport();
+//
+//        System.out.println(r);
 
-        Report r = dbProduct.getReport();
+        DBArchivos dbArchivos = new DBArchivos();
 
-        System.out.println(r);
+        dbArchivos.crearTabla();
+        File f = new File("ah.txt");
+        dbArchivos.setArchivo(f);
 
     }
 }

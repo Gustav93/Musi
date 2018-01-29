@@ -107,12 +107,38 @@
 		</description>
 		<display-name>EnviarMailProductos</display-name>
 		<servlet-name>EnviarMailProductos</servlet-name>
-		<servlet-class>servlet.EnviarMailProductos</servlet-class>
+		<servlet-class>servlet.mail.EnviarMailProductos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>EnviarMailProductos</servlet-name>
 		<url-pattern>/enviar_mail_productos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailPrecios</display-name>
+		<servlet-name>EnviarMailPrecios</servlet-name>
+		<servlet-class>servlet.mail.EnviarMailPrecios</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailPrecios</servlet-name>
+		<url-pattern>/enviar_mail_precios</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailStock</display-name>
+		<servlet-name>EnviarMailStock</servlet-name>
+		<servlet-class>servlet.mail.EnviarMailStock</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailStock</servlet-name>
+		<url-pattern>/enviar_mail_stock</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
