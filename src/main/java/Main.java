@@ -1,9 +1,4 @@
-import DataBase.DBArchivos;
-import DataBase.DBManager;
-import DataBase.DBProduct;
-import FileLoader.FileLoader;
-
-import java.io.File;
+import DataBase.Historico.HistoricoProductos;
 
 public class Main
 {
@@ -64,11 +59,20 @@ public class Main
 //
 //        System.out.println(r);
 
-        DBArchivos dbArchivos = new DBArchivos();
+//        DBArchivos dbArchivos = new DBArchivos();
+//
+//        dbArchivos.crearTabla();
+//        File f = new File("ah.txt");
+//        dbArchivos.setArchivo(f);
 
-        dbArchivos.crearTabla();
-        File f = new File("ah.txt");
-        dbArchivos.setArchivo(f);
+//        HistoricoProductos productos = new HistoricoProductos();
+//
+////        productos.createTable();
+//        productos.importarProductos();
 
+        String s = "producto-1801270001 (procesado).csv";
+
+        String s1 = s.replaceAll(" \\(procesado\\)","");
+        System.out.println(s1);
     }
 }

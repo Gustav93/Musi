@@ -108,6 +108,7 @@ public class Reader
         }
 
 //        filas.remove(0);
+        reader.close();
 
         return filas;
     }

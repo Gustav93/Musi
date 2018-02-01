@@ -1,8 +1,10 @@
 package DataBase;
 
+import DataBase.Historico.HistoricoProductos;
 import Feed.*;
 import Utilities.Utilities;
 
+import java.io.File;
 import java.util.List;
 
 public class DBManager {
@@ -12,6 +14,9 @@ public class DBManager {
     private DBPrice db_price;
     private DBProduct db_product;
     private DBStock db_stock;
+    private DBNombreArchivosProcesados dbNombreArchivosProcesados;
+    private HistoricoProductos db_historico_productos;
+
     static int i = 0;
 
     public DBManager() {
@@ -21,10 +26,17 @@ public class DBManager {
         db_merchandise = new DBMerchandise();
         db_price = new DBPrice();
         db_stock = new DBStock();
+//        db_archivos = new DBArchivos();
+        dbNombreArchivosProcesados = new DBNombreArchivosProcesados();
+        db_historico_productos = new HistoricoProductos();
     }
 
     public void addProductList(List<Product> productList) {
         db_product.createTable();
+
+//        String nombreArchivo = productList.get(0).getImportOrigin();
+
+//        if(dbNombreArchivosProcesados.existeArchivo(nombreArchivo))
 
         for (Product p : productList)
         {
@@ -93,6 +105,20 @@ public class DBManager {
                 }
             }
         }
+
+//        DBArchivos dbArchivos = new DBArchivos();
+//        dbArchivos.crearTabla();
+//        CSV.Writer writer = new CSV.Writer();
+//        File archivo = writer.getCsvProduct();
+//        dbArchivos.setArchivo(archivo);
+////        archivo.delete();
+//
+////        CSV.Writer writer = new CSV.Writer();
+////        File archivo = writer.getCsvProduct();
+////
+////        db_archivos.setArchivo(archivo);
+//        db_historico_productos.importarProductos();
+//        db_product.deleteTable();
     }
 
     public void verfyPrice()

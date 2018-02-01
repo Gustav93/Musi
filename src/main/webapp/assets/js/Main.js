@@ -21,12 +21,6 @@ function subirArchivo(elemento)
     // nombreArchivo.value = JSON.parse(JSON.stringify(nombreArchivos));
     nombreArchivo.value = nombreArchivos;
 
-
-
-    console.log(nombreArchivo.value);
-
-
-
     // document.form.submit();
 }
 
@@ -53,10 +47,4 @@ function validarExtension(archivo)
             alert("Extension del archivo invalida");
         }
     }
-}
-
-function alertaMail() {
-
-    alert("Se enviara un mail con el feed procesado");
-
 }

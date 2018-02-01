@@ -30,10 +30,19 @@ public class FileLoader
             db.addAuditList(builder.createAuditList(reader.process()));
 
         else if(Utilities.isPriceFeed(path))
+        {
             db.addPriceList(builder.createPriceList(reader.process()));
+//            db.verfyPrice();
+        }
+//            db.addPriceList(builder.createPriceList(reader.process()));
 
         if (Utilities.isProductFeed(path))
+        {
             db.addProductList(builder.createProductList(reader.process()));
+//            db.verfyProducts();
+//            db.addProductList(builder.createProductList(reader.process()));
+        }
+
 
         else if(Utilities.isMerchandiseFeed(path))
             db.addMerchandiseList(builder.createMerchandiseList(reader.process()));
@@ -42,7 +51,11 @@ public class FileLoader
             db.addMediaList(builder.createMediaList(reader.process()));
 
         else if(Utilities.isStockFeed(path))
+        {
             db.addStockList(builder.createStockList(reader.process()));
+//            db.verfyStock();
+        }
+//            db.addStockList(builder.createStockList(reader.process()));
 
         System.out.println("ok");
     }

@@ -1,6 +1,7 @@
 package servlet;
 
 import DataBase.DBArchivos;
+import DataBase.DBNombreArchivosProcesados;
 import FileLoader.FileLoader;
 import Utilities.Utilities;
 
@@ -30,8 +31,12 @@ public class SubirArchivo extends HttpServlet
 //        Los nombres de los archivos los recibo en un solo string. Como estos se separan por comas, utilizo el metodo split
 //        para armarme un arreglo que contenga los nombres de los archivos.
 
-        DBArchivos dbArchivos = new DBArchivos();
-        dbArchivos.crearTabla();
+//        DBArchivos dbArchivos = new DBArchivos();
+//        dbArchivos.crearTabla();
+
+        DBNombreArchivosProcesados dbNombreArchivosProcesados = new DBNombreArchivosProcesados();
+        dbNombreArchivosProcesados.crearTabla();
+
 
 
 
@@ -44,8 +49,10 @@ public class SubirArchivo extends HttpServlet
 
         for(Part file : files)
         {
-            if(dbArchivos.existeArchivo(fileNames[i]))
+            if(dbNombreArchivosProcesados.existeArchivo(fileNames[i]))
                 continue;
+
+            dbNombreArchivosProcesados.setNombreArchivo(fileNames[i]);
 
             InputStream is = file.getInputStream();
             String nombreArchivo = fileNames[i];
@@ -60,63 +67,17 @@ public class SubirArchivo extends HttpServlet
                 fos.write(dato);
                 dato = is.read();
             }
-
             FileLoader fl = new FileLoader();
             fl.loadFile(nombreArchivo);
 
-
-
-            dbArchivos.setArchivo(archivo);
             fos.close();
             is.close();
-
-
-
-//        FileReader fr= new FileReader(nombreArchivo);
-//        BufferedReader br = new BufferedReader(fr);
-//        PrintWriter out = response.getWriter();
-//        String linea = br.readLine();
-//        while(linea != null)
-//        {
-//            out.println(linea);
-//            linea = br.readLine();
-//        }
-//
-//        out.println(nombreArchivo);
-//        fr.close();
-//        br.close();
-
-            file.delete();
+            archivo.delete();
             i++;
-
-
-//            if(Utilities.isProductFeed(nombreArchivo))
-//            {
-//                RequestDispatcher rq = request.getRequestDispatcher("Productos.html");
-//                rq.forward(request, response);
-//            }
-//
-//            else if(Utilities.isAudit(nombreArchivo))
-//            {
-//                RequestDispatcher rq = request.getRequestDispatcher("Auditoria.html");
-//                rq.forward(request, response);
-//            }
-//
-//            else if(Utilities.isPriceFeed(nombreArchivo))
-//            {
-//                RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
-//                rq.forward(request, response);
-//            }
-//
-//            else if(Utilities.isStockFeed(nombreArchivo))
-//            {
-//                RequestDispatcher rq = request.getRequestDispatcher("Stock.html");
-//                rq.forward(request, response);
-//            }
         }
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
-                rq.forward(request, response);
+        rq.forward(request, response);
 
 
 
@@ -167,7 +128,7 @@ public class SubirArchivo extends HttpServlet
 //
 //        if(Utilities.isProductFeed(nombreArchivo))
 //        {
-//            RequestDispatcher rq = request.getRequestDispatcher("Productos.html");
+//            RequestDispatcher rq = request.getRequestDispatcher("HistoricoProductos.html");
 //            rq.forward(request, response);
 //        }
 //

@@ -8,6 +8,7 @@ import Feed.Product;
 import Feed.Stock;
 import com.csvreader.CsvWriter;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
@@ -25,10 +26,15 @@ public class Writer
             throw new RuntimeException("No hay productos para exportar");
 
 
-        String archiveName = productList.get(0).getImportOrigin();
+        String archiveName = productList.get(0).getImportOrigin().substring(0, productList.get(0).getImportOrigin().length()-4)+ " (procesado).csv";
         try
         {
             file = new File(archiveName);
+//            FileWriter fr = new FileWriter(file, true);
+//            BufferedWriter bw = new BufferedWriter(fr);
+//            bw.write("");
+//            bw.close();
+
             FileWriter fileWriter = new FileWriter(file, true);
             writer = new CsvWriter(fileWriter, ',');
 
@@ -64,16 +70,17 @@ public class Writer
                 writer.write(p.getErrorDescription());
                 writer.endRecord();
             }
-
+            fileWriter.close();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        finally
-        {
+        finally {
             writer.close();
         }
+
+
         return file;
     }
 
@@ -137,7 +144,12 @@ public class Writer
         try
         {
             file = new File(archiveName);
+
             FileWriter fileWriter = new FileWriter(file, true);
+//            BufferedWriter bw = new BufferedWriter(fileWriter);
+//            bw.write("");
+//            bw.close();
+
             writer = new CsvWriter(fileWriter, ',');
 
             writer.write("Product Code");
