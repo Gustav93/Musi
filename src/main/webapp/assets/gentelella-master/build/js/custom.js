@@ -2550,24 +2550,25 @@ if (typeof NProgress != 'undefined') {
 				  };
 				}();
 
-                // function getQueryVariable(variable) {
-                //     // Estoy asumiendo que query es window.location.search.substring(1);
-                //     var query = window.location.search.substring(1);
-                //     var vars = query.split("&");
-                //     // alert(vars);
-                //     for (var i=0; i < vars.length; i++) {
-                //         var pair = vars[i].split("=");
-                //         if (pair[0] == variable) {
-                //             return pair[1];
-                //         }
-                //     }
-                //     return false;
-                // }
-                // var codigoProducto = getQueryVariable('producto');
+                function getQueryVariable(variable) {
+                    // Estoy asumiendo que query es window.location.search.substring(1);
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    // alert(vars);
+                    for (var i=0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) {
+                            return pair[1];
+                        }
+                    }
+                    return false;
+                }
+                var codigoProducto = getQueryVariable('codigo');
+                // console.log(codigoProducto);
 				$('#datatable_productos').dataTable(
                     {
 
-                        ajax:{url:'/mostrar_productos',dataSrc:""},
+                        ajax:{url:'/mostrar_productos?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                         columns: [
 
                             {"data": "code" },
@@ -2588,7 +2589,7 @@ if (typeof NProgress != 'undefined') {
 				);
 
 				$('#datatable_stock').DataTable({
-                    ajax:{url:'/mostrar_stock',dataSrc:""},
+                    ajax:{url:'/mostrar_stock?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                     columns: [
 
                         {"data": "productCode" },
@@ -2618,7 +2619,7 @@ if (typeof NProgress != 'undefined') {
 				});
 
 				$('#datatable_precios').DataTable({
-                    ajax:{url:'/users_list_json',dataSrc:""},
+                    ajax:{url:'/mostrar_precios?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                     columns: [
 
                         {"data": "productCode" },

@@ -2,6 +2,8 @@ package servlet;
 
 import DataBase.DBAudit;
 import DataBase.DBProduct;
+import DataBase.Historico.HistoricoProductos;
+import DataBase.Historico.HistoricoStock;
 import Feed.AuditItem;
 import Feed.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,8 +25,18 @@ public class MostrarProductos extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBProduct dbProduct = new DBProduct();
+        HistoricoProductos historicoProductos = new HistoricoProductos();
 
-        List<Product> productList = dbProduct.getProductList();
+        String codigo = request.getParameter("codigo");
+        List<Product> productList;
+
+//        System.out.println(codigo);
+
+        if(codigo.equals("false"))
+            productList = dbProduct.getProductList();
+
+        else
+            productList = historicoProductos.getProducts(codigo);
 
         ObjectMapper mapper = new ObjectMapper();
 

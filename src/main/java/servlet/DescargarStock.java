@@ -1,4 +1,4 @@
-package servlet.descargarArchivos;
+package servlet;
 
 import CSV.Writer;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 @WebServlet
-public class DescargarPrecios extends HttpServlet {
+public class DescargarStock extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -19,7 +19,7 @@ public class DescargarPrecios extends HttpServlet {
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvPrice();
+        File archivo = writer.getCsvStock();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

@@ -1,7 +1,6 @@
-package servlet.descargarArchivos;
+package servlet;
 
-import CSV.Writer;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,18 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 @WebServlet
-public class DescargarProductos extends HttpServlet {
+public class DescargarProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        DBArchivos dbArchivos = new DBArchivos();
 //        String nombreArchivo = request.getParameter("nombreArchivo");
 //        File archivo = dbArchivos.getArchivo(nombreArchivo);
         PrintWriter out = response.getWriter();
-        CSV.Writer writer = new Writer();
+        CSV.Writer writer = new CSV.Writer();
         File archivo = writer.getCsvProduct();
         String nombreArchivo = archivo.getName();
 
@@ -52,6 +50,7 @@ public class DescargarProductos extends HttpServlet {
         reader.close();
         archivo.delete();
 
-//        response.getWriter().append(out.toString());
+//        response.getWriter().append("asd");
     }
+
 }

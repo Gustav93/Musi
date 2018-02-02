@@ -1,4 +1,4 @@
-package servlet.cargarHistorico;
+package servlet;
 
 import DataBase.DBPrice;
 import DataBase.Historico.HistoricoPrecios;
@@ -26,6 +26,7 @@ public class CargarHistoricoPrecios extends HttpServlet
 
         historicoPrecios.createTable();
         historicoPrecios.importarPrecios();
+
         dbPrice.deleteTable();
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");

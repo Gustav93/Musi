@@ -1,6 +1,7 @@
 package servlet;
 
 import DataBase.DBPrice;
+import DataBase.Historico.HistoricoPrecios;
 import Feed.Price;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,8 +22,16 @@ public class MostrarPrecios extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBPrice dbPrice = new DBPrice();
+        HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 
-        List<Price> priceList = dbPrice.getPriceList();
+        String codigo = request.getParameter("codigo");
+        List<Price> priceList;
+
+        if(codigo.equals("false"))
+            priceList = dbPrice.getPriceList();
+
+        else
+            priceList = historicoPrecios.getPrice(codigo);
 
         ObjectMapper mapper = new ObjectMapper();
 

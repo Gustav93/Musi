@@ -19,9 +19,9 @@ public class HistoricoPrecios
     private final String GET_PRICE = "SELECT * FROM HISTORICO_PRECIOS WHERE productCode = ?";
     private final String PRICE_LIST = "SELECT * FROM HISTORICO_PRRECIOS";
     private final String EDIT = "UPDATE HISTORICO_PRECIOS SET processed = ?, errorDescription = ? WHERE productCode = ?";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_PRECIOS WHERE processed = 'Procesado con error'";
+    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Sin Procesar'";
+    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Procesado'";
+    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE HISTORICO_PRECIOS ADD INDEX indiceHistoricoPrecios (productCode)";
     private final String IMPORTAR_PRECIOS = "INSERT INTO HISTORICO_PRECIOS SELECT * FROM PRICE";
 
@@ -128,29 +128,29 @@ public class HistoricoPrecios
         return priceList;
     }
 
-    public List<Price> getPriceList()
+//    public List<Price> getPriceList()
+//    {
+//        return filterBy(PRICE_LIST);
+//    }
+
+
+
+    public List<Price> filterByNotProcessed(String codigoProducto)
     {
-        return filterBy(PRICE_LIST);
+        return filterBy(FILTER_BY_NOT_PROCESSED, codigoProducto);
     }
 
-
-
-    public List<Price> filterByNotProcessed()
+    public List<Price> filterByProcessed(String codigoProducto)
     {
-        return filterBy(FILTER_BY_NOT_PROCESSED);
+        return filterBy(FILTER_BY_PROCESSED, codigoProducto);
     }
 
-    public List<Price> filterByProcessed()
+    public List<Price> filterByError(String codigoProducto)
     {
-        return filterBy(FILTER_BY_PROCESSED);
+        return filterBy(FILTER_BY_ERROR, codigoProducto);
     }
 
-    public List<Price> filterByError()
-    {
-        return filterBy(FILTER_BY_ERROR);
-    }
-
-    private List<Price> filterBy(String query)
+    private List<Price> filterBy(String query, String codigoProducto)
     {
         List<Price> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
@@ -158,6 +158,7 @@ public class HistoricoPrecios
         try
         {
             PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
@@ -188,25 +189,24 @@ public class HistoricoPrecios
 
         return list;
     }
-
-    public int getNumberTotal()
-    {
-        return getPriceList().size();
+    public int getNumberPrecios(String codigoProducto){
+        return getPrice(codigoProducto).size();
     }
 
-    public int getNumberProcessed()
+
+    public int getNumberProcessed(String codigoProducto)
     {
-        return filterByProcessed().size();
+        return filterByProcessed(codigoProducto).size();
     }
 
-    public int getNumberNotProcessed()
+    public int getNumberNotProcessed(String codigoProducto)
     {
-        return filterByNotProcessed().size();
+        return filterByNotProcessed(codigoProducto).size();
     }
 
-    public int getNumberProcessedError()
+    public int getNumberProcessedError(String codigoProducto)
     {
-        return filterByError().size();
+        return filterByError(codigoProducto).size();
     }
 
     public void importarPrecios()

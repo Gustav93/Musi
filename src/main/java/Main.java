@@ -1,5 +1,11 @@
 import DataBase.Historico.HistoricoProductos;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Main
 {
     public static void main(String[] args) throws Exception
@@ -70,9 +76,28 @@ public class Main
 ////        productos.createTable();
 //        productos.importarProductos();
 
-        String s = "producto-1801270001 (procesado).csv";
+//        String s = "producto-1801270001 (procesado).csv";
+//
+//        String s1 = s.replaceAll(" \\(procesado\\)","");
+//        System.out.println(s1);
 
-        String s1 = s.replaceAll(" \\(procesado\\)","");
-        System.out.println(s1);
+//        File archivo = new File("C:\\Users\\gsanchez\\Google Drive\\prueba.txt");
+//
+//        BufferedWriter bw;
+//        if(archivo.exists()) {
+//            bw = new BufferedWriter(new FileWriter(archivo));
+//            bw.write("El fichero de texto ya estaba creado.");
+//        } else {
+//            bw = new BufferedWriter(new FileWriter(archivo));
+//            bw.write("Acabo de crear el fichero de texto.");
+//        }
+//        bw.close();
+
+        Calendar calendar = new GregorianCalendar();
+
+        System.out.println(calendar.get(calendar.YEAR));
+        System.out.println((calendar.get(calendar.MONTH)+1));
+        System.out.println(calendar.get(calendar.DAY_OF_MONTH));
+
     }
 }

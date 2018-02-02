@@ -19,9 +19,9 @@ public class HistoricoStock
     private final String GET_STOCK = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ?";
     private final String STOCK_LIST = "SELECT * FROM HISTORICO_STOCK";
     private final String EDIT = "UPDATE HISTORICO_STOCK SET processed = ?, errorDescription = ? WHERE productCode = ? ";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_STOCK WHERE processed = 'Procesado con error'";
+    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Sin Procesar'";
+    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Procesado'";
+    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE HISTORICO_STOCK ADD INDEX indiceHistoricoStock (productCode)";
     private final String IMPORTAR_STOCK = "INSERT INTO HISTORICO_STOCK SELECT * FROM STOCK";
 
@@ -130,30 +130,30 @@ public class HistoricoStock
         return stockList;
     }
 
-    public List<Stock> getStockList()
+//    public List<Stock> getStockList(String codigoProducto)
+//    {
+//        return filterBy(STOCK_LIST, codigoProducto);
+//    }
+
+
+    public List<Stock> filterByNotProcessed(String codigoProducto)
     {
-        return filterBy(STOCK_LIST);
+        return filterBy(FILTER_BY_NOT_PROCESSED, codigoProducto);
+    }
+
+    public List<Stock> filterByProcessed(String codigoProducto)
+    {
+        return filterBy(FILTER_BY_PROCESSED, codigoProducto);
+    }
+
+    public List<Stock> filterByError(String codigoProducto)
+    {
+        return filterBy(FILTER_BY_ERROR, codigoProducto);
     }
 
 
-    public List<Stock> filterByNotProcessed()
-    {
-        return filterBy(FILTER_BY_NOT_PROCESSED);
-    }
 
-    public List<Stock> filterByProcessed()
-    {
-        return filterBy(FILTER_BY_PROCESSED);
-    }
-
-    public List<Stock> filterByError()
-    {
-        return filterBy(FILTER_BY_ERROR);
-    }
-
-
-
-    private List<Stock> filterBy(String query)
+    private List<Stock> filterBy(String query, String codigoProducto)
     {
         List<Stock> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
@@ -161,6 +161,7 @@ public class HistoricoStock
         try
         {
             PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
@@ -191,24 +192,24 @@ public class HistoricoStock
         return list;
     }
 
-    public int getNumberStockTotal()
+    public int getNumberStock(String codigoProducto)
     {
-        return getStockList().size();
+        return getStock(codigoProducto).size();
     }
 
-    public int getNumberProcessed()
+    public int getNumberProcessed(String codigoProducto)
     {
-        return filterByProcessed().size();
+        return filterByProcessed(codigoProducto).size();
     }
 
-    public int getNumberNotProcessed()
+    public int getNumberNotProcessed(String codigoProducto)
     {
-        return filterByNotProcessed().size();
+        return filterByNotProcessed(codigoProducto).size();
     }
 
-    public int getNumberProcessedError()
+    public int getNumberProcessedError(String codigoProducto)
     {
-        return filterByError().size();
+        return filterByError(codigoProducto).size();
     }
 
     public void importarStock()

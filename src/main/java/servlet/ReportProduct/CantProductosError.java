@@ -1,6 +1,7 @@
 package servlet.ReportProduct;
 
 import DataBase.DBProduct;
+import DataBase.Historico.HistoricoProductos;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +14,28 @@ public class CantProductosError extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBProduct dbProduct = new DBProduct();
-        response.getWriter().append(String.valueOf(dbProduct.getNumberProcessedError()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+//        DBProduct dbProduct = new DBProduct();
+//        response.getWriter().append(String.valueOf(dbProduct.getNumberProcessedError()));
+
+        String codigoProducto = request.getParameter("codigo");
+        String cantProductosError;
+
+        if(codigoProducto.equals("false"))
+        {
+            DBProduct dbProduct = new DBProduct();
+            cantProductosError = String.valueOf(dbProduct.getNumberProcessedError());
+        }
+
+        else
+        {
+            HistoricoProductos historicoProductos = new HistoricoProductos();
+
+            cantProductosError = String.valueOf(historicoProductos.getNumberProcessedError(codigoProducto));
+        }
+
+        response.getWriter().append(cantProductosError);
 
     }
 }

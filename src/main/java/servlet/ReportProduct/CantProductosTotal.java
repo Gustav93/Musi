@@ -1,6 +1,7 @@
 package servlet.ReportProduct;
 
 import DataBase.DBProduct;
+import DataBase.Historico.HistoricoProductos;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,24 @@ public class CantProductosTotal extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBProduct dbProduct = new DBProduct();
-        response.getWriter().append(String.valueOf(dbProduct.getNumberTotal()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String codigoProducto = request.getParameter("codigo");
+        String totalProductos;
+
+        if(codigoProducto.equals("false"))
+        {
+            DBProduct dbProduct = new DBProduct();
+            totalProductos = String.valueOf(dbProduct.getNumberTotal());
+        }
+
+        else
+        {
+            HistoricoProductos historicoProductos = new HistoricoProductos();
+
+            totalProductos = String.valueOf(historicoProductos.getNumberProducts(codigoProducto));
+        }
+
+        response.getWriter().append(totalProductos);
     }
 }

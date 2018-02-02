@@ -1,6 +1,7 @@
 package servlet.ReportProduct;
 
 import DataBase.DBProduct;
+import DataBase.Historico.HistoricoProductos;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,24 @@ public class CantProductosProcesados extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBProduct dbProduct = new DBProduct();
-        response.getWriter().append(String.valueOf(dbProduct.getNumberProcessed()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String codigoProducto = request.getParameter("codigo");
+        String cantProcesados;
+
+        if(codigoProducto.equals("false"))
+        {
+            DBProduct dbProduct = new DBProduct();
+            cantProcesados = String.valueOf(dbProduct.getNumberProcessed());
+        }
+
+        else
+        {
+            HistoricoProductos historicoProductos = new HistoricoProductos();
+
+            cantProcesados = String.valueOf(historicoProductos.getNumberProcessed(codigoProducto));
+        }
+
+        response.getWriter().append(cantProcesados);
     }
 }

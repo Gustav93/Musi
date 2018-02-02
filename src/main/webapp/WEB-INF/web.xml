@@ -323,51 +323,13 @@
 		<url-pattern>/lista_nombre_archivos</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<description>
-		</description>
-		<display-name>DescargarProductos</display-name>
-		<servlet-name>DescargarProductos</servlet-name>
-		<servlet-class>servlet.descargarArchivos.DescargarProductos</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>DescargarProductos</servlet-name>
-		<url-pattern>/descargar_productos</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<description>
 		</description>
-		<display-name>DescargarPrecios</display-name>
-		<servlet-name>DescargarPrecios</servlet-name>
-		<servlet-class>servlet.descargarArchivos.DescargarPrecios</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>DescargarPrecios</servlet-name>
-		<url-pattern>/descargar_precios</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description>
-		</description>
-		<display-name>DescargarStock</display-name>
-		<servlet-name>DescargarStock</servlet-name>
-		<servlet-class>servlet.descargarArchivos.DescargarStock</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>DescargarStock</servlet-name>
-		<url-pattern>/descargar_stock</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description>
-		</description>
-		<display-name>CargarHistoricoProductos</display-name>
+		<display-name>CargarHistoricoPoductos</display-name>
 		<servlet-name>CargarHistoricoProductos</servlet-name>
-		<servlet-class>servlet.cargarHistorico.CargarHistoricoProductos</servlet-class>
+		<servlet-class>servlet.CargarHistoricoProductos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -380,7 +342,7 @@
 		</description>
 		<display-name>CargarHistoricoPrecios</display-name>
 		<servlet-name>CargarHistoricoPrecios</servlet-name>
-		<servlet-class>servlet.cargarHistorico.CargarHistoricoPrecios</servlet-class>
+		<servlet-class>servlet.CargarHistoricoPrecios</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -393,7 +355,7 @@
 		</description>
 		<display-name>CargarHistoricoStock</display-name>
 		<servlet-name>CargarHistoricoStock</servlet-name>
-		<servlet-class>servlet.cargarHistorico.CargarHistoricoStock</servlet-class>
+		<servlet-class>servlet.CargarHistoricoStock</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -438,6 +400,45 @@
 	<servlet-mapping>
 		<servlet-name>ConsultarHistoricoStock</servlet-name>
 		<url-pattern>/consultar_historico_stock</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarProduct</display-name>
+		<servlet-name>DescargarProduct</servlet-name>
+		<servlet-class>servlet.DescargarProduct</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarProduct</servlet-name>
+		<url-pattern>/descargar_product</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarPrice</display-name>
+		<servlet-name>DescargarPrice</servlet-name>
+		<servlet-class>servlet.DescargarPrice</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarPrice</servlet-name>
+		<url-pattern>/descargar_price</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarStock</display-name>
+		<servlet-name>DescargarStock</servlet-name>
+		<servlet-class>servlet.DescargarStock</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarStock</servlet-name>
+		<url-pattern>/descargar_stock</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

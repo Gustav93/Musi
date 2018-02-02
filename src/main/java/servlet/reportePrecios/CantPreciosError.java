@@ -1,6 +1,7 @@
 package servlet.reportePrecios;
 
 import DataBase.DBPrice;
+import DataBase.Historico.HistoricoPrecios;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,27 @@ public class CantPreciosError extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBPrice dbPrice = new DBPrice();
-        response.getWriter().append(String.valueOf(dbPrice.getNumberProcessedError()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+//        DBPrice dbPrice = new DBPrice();
+//        response.getWriter().append(String.valueOf(dbPrice.getNumberProcessedError()));
+
+        String codigoProducto = request.getParameter("codigo");
+        String totalPrecios;
+
+        if(codigoProducto.equals("false"))
+        {
+            DBPrice dbPrice = new DBPrice();
+            totalPrecios = String.valueOf(dbPrice.getNumberProcessedError());
+        }
+
+        else
+        {
+            HistoricoPrecios historicoPrecios = new HistoricoPrecios();
+
+            totalPrecios = String.valueOf(historicoPrecios.getNumberProcessedError(codigoProducto));
+        }
+
+        response.getWriter().append(totalPrecios);
     }
 }

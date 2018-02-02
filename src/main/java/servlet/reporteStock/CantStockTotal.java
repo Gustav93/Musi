@@ -1,6 +1,7 @@
 package servlet.reporteStock;
 
 import DataBase.DBStock;
+import DataBase.Historico.HistoricoStock;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,26 @@ public class CantStockTotal extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBStock dbStock = new DBStock();
-        response.getWriter().append(String.valueOf(dbStock.getNumberStockTotal()));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+//        DBStock dbStock = new DBStock();
+//        response.getWriter().append(String.valueOf(dbStock.getNumberStockTotal()));
+
+        String codigoProducto = request.getParameter("codigo");
+        String cantProcesados;
+
+        if(codigoProducto.equals("false"))
+        {
+            DBStock dbStock = new DBStock();
+            cantProcesados = String.valueOf(dbStock.getNumberStockTotal());
+        }
+
+        else
+        {
+            HistoricoStock historicoStock = new HistoricoStock();
+            cantProcesados = String.valueOf(historicoStock.getNumberStock(codigoProducto));
+        }
+
+        response.getWriter().append(cantProcesados);
     }
 }
