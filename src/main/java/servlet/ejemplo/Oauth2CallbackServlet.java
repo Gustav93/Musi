@@ -1,4 +1,4 @@
-package servlet;
+package servlet.ejemplo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.auth.oauth2.Credential;

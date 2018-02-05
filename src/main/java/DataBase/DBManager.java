@@ -17,8 +17,6 @@ public class DBManager {
     private DBNombreArchivosProcesados dbNombreArchivosProcesados;
     private HistoricoProductos db_historico_productos;
 
-    static int i = 0;
-
     public DBManager() {
         db_product = new DBProduct();
         db_audit = new DBAudit();
@@ -90,6 +88,7 @@ public class DBManager {
         for (Product p : productList) {
             for (AuditItem auditItem : auditItemList) {
                 if (p.getCode().equals(auditItem.getProductCode()) && p.getImportOrigin().equals(auditItem.getImportOrigin())) {
+                    p.setEmpresa(auditItem.getEmpresa());
                     if(Utilities.isError(auditItem.getErrorCode()))
                     {
                         p.setProcessed("Procesado con error");
@@ -130,6 +129,7 @@ public class DBManager {
         for (Price p : priceList) {
             for (AuditItem auditItem : auditItemList)
             {
+                p.setEmpresa(auditItem.getEmpresa());
                 if (p.getProductCode().equals(auditItem.getProductCode()) && p.getImportOrigin().equals(auditItem.getImportOrigin())) {
                     if(Utilities.isError(auditItem.getErrorCode()))
                     {
@@ -155,12 +155,11 @@ public class DBManager {
 
         for (Stock stock : stockList)
         {
-            i++;
-            System.out.println(i);
             List<AuditItem> auditItemList = db_audit.getAuditItem(stock.getProductCode(),stock.getImportOrigin());
 
             for (AuditItem auditItem : auditItemList)
             {
+                stock.setEmpresa(auditItem.getEmpresa());
                 if (stock.getProductCode().equals(auditItem.getProductCode()) && stock.getImportOrigin().equals(auditItem.getImportOrigin()))
                 {
                     if(Utilities.isError(auditItem.getErrorCode()))

@@ -12,12 +12,12 @@ import java.util.List;
 
 public class DBStock
 {
-    private final String CREATE_TABLE_STOCK = "CREATE TABLE STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200))";
+    private final String CREATE_TABLE_STOCK = "CREATE TABLE STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
     private final String DELETE_TABLE_STOCK = "DROP TABLE STOCK";
-    private final String INSERT_STOCK = "INSERT INTO STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?)";
+    private final String INSERT_STOCK = "INSERT INTO STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
     private final String GET_STOCK = "SELECT * FROM STOCK WHERE code = ?";
     private final String STOCK_LIST = "SELECT * FROM STOCK";
-    private final String EDIT = "UPDATE STOCK SET processed = ?, errorDescription = ? WHERE productCode = ? ";
+    private final String EDIT = "UPDATE STOCK SET processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? ";
     private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'Sin Procesar'";
     private final String FILTER_BY_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM STOCK WHERE processed = 'Procesado con error'";
@@ -77,6 +77,7 @@ public class DBStock
             ps.setString(5, stock.getImportOrigin());
             ps.setString(6, stock.getProcessed());
             ps.setString(7,stock.getErrorDescription());
+            ps.setString(8, stock.getEmpresa());
 
             ps.executeUpdate();
 
@@ -112,6 +113,7 @@ public class DBStock
                 stock.setImportOrigin(res.getString(5));
                 stock.setProcessed(res.getString(6));
                 stock.setErrorDescription(res.getString(7));
+                stock.setEmpresa(res.getString(8));
             }
         }
         catch (Exception e)
@@ -140,7 +142,8 @@ public class DBStock
 
             ps.setString(1, stock.getProcessed());
             ps.setString(2, stock.getErrorDescription());
-            ps.setString(3, stock.getProductCode());
+            ps.setString(3,stock.getEmpresa());
+            ps.setString(4, stock.getProductCode());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -200,6 +203,7 @@ public class DBStock
                 stock.setImportOrigin(res.getString(5));
                 stock.setProcessed(res.getString(6));
                 stock.setErrorDescription(res.getString(7));
+                stock.setEmpresa(res.getString(8));
 
                 list.add(stock);
             }

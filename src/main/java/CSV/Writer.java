@@ -25,7 +25,7 @@ public class Writer
         if(productList.size() == 0)
             throw new RuntimeException("No hay productos para exportar");
 
-
+//        le agrego al nombre del archivo "(procesado)"
         String archiveName = productList.get(0).getImportOrigin().substring(0, productList.get(0).getImportOrigin().length()-4)+ " (procesado).csv";
         try
         {
@@ -91,8 +91,9 @@ public class Writer
         if(stockList.size() == 0)
             throw new RuntimeException("No hay stock para exportar");
 
+//        le agrego al nombre del archivo "(procesado)"
+        String archiveName = stockList.get(0).getImportOrigin().substring(0, stockList.get(0).getImportOrigin().length()-4)+ " (procesado).csv";
 
-        String archiveName = stockList.get(0).getImportOrigin();
         try
         {
             file = new File(archiveName);
@@ -139,8 +140,9 @@ public class Writer
         if(priceList.size() == 0)
             throw new RuntimeException("No hay stock para exportar");
 
+//        le agrego al nombre del archivo "(procesado)"
+        String archiveName = priceList.get(0).getImportOrigin().substring(0, priceList.get(0).getImportOrigin().length()-4)+ " (procesado).csv";
 
-        String archiveName = priceList.get(0).getImportOrigin();
         try
         {
             file = new File(archiveName);

@@ -13,9 +13,9 @@ import java.util.List;
 
 public class HistoricoStock
 {
-    private final String CREATE_TABLE_STOCK = "CREATE TABLE HISTORICO_STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200))";
+    private final String CREATE_TABLE_STOCK = "CREATE TABLE HISTORICO_STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
     private final String DELETE_TABLE_STOCK = "DROP TABLE HISTORICO_STOCK";
-    private final String INSERT_STOCK = "INSERT INTO HISTORICO_STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?)";
+    private final String INSERT_STOCK = "INSERT INTO HISTORICO_STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
     private final String GET_STOCK = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ?";
     private final String STOCK_LIST = "SELECT * FROM HISTORICO_STOCK";
     private final String EDIT = "UPDATE HISTORICO_STOCK SET processed = ?, errorDescription = ? WHERE productCode = ? ";
@@ -79,6 +79,7 @@ public class HistoricoStock
             ps.setString(5, stock.getImportOrigin());
             ps.setString(6, stock.getProcessed());
             ps.setString(7,stock.getErrorDescription());
+            ps.setString(8, stock.getEmpresa());
 
             ps.executeUpdate();
 
@@ -116,6 +117,7 @@ public class HistoricoStock
                 stock.setImportOrigin(res.getString(5));
                 stock.setProcessed(res.getString(6));
                 stock.setErrorDescription(res.getString(7));
+                stock.setEmpresa(res.getString(8));
                 stockList.add(stock);
             }
         }
@@ -175,6 +177,7 @@ public class HistoricoStock
                 stock.setImportOrigin(res.getString(5));
                 stock.setProcessed(res.getString(6));
                 stock.setErrorDescription(res.getString(7));
+                stock.setEmpresa(res.getString(8));
 
                 list.add(stock);
             }

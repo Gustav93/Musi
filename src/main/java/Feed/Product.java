@@ -2,7 +2,7 @@ package Feed;
 
 public class Product
 {
-    private String code, ean, brand, name, category, description, importOrigin,onlineDateTime, offlineDateTime, approvalStatus, weight, processed, errorDescription;
+    private String code, ean, brand, name, category, description, importOrigin,onlineDateTime, offlineDateTime, approvalStatus, weight, processed, errorDescription, empresa;
 
     public Product()
     {
@@ -19,6 +19,7 @@ public class Product
         this.importOrigin = null;
         this.processed = "Sin Procesar";
         this.errorDescription = "";
+        this.empresa = null;
     }
 
     public String getCode() {
@@ -121,6 +122,14 @@ public class Product
 
     public void setErrorDescription(String errorDescription) {
         this.errorDescription = errorDescription;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     @Override

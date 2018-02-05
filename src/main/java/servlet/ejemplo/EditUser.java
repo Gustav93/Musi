@@ -1,4 +1,4 @@
-package servlet;
+package servlet.ejemplo;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,28 +16,43 @@ import entidad_usuario.Usuario;
 import utilidades.FechaUtil;
 
 /**
- * Servlet implementation class SimpleServlet
+ * Servlet implementation class EditUser
  */
-@WebServlet("/add_user")
-public class AddUser extends HttpServlet {
+@WebServlet("/edit_user")
+public class EditUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EditUser() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		// TODO Auto-generated method stub
+		int dni = Integer.parseInt(request.getParameter("dni"));
+		
+		UsuarioServicio db = new UsuarioServicio();
+		
+		Usuario user = db.consultarUsuario(dni);
+		request.setAttribute("user", user);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/edit_user.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		UsuarioServicio servicio = new UsuarioServicio();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
+		UsuarioServicio db = new UsuarioServicio();
 		int dni = Integer.parseInt(request.getParameter("dni_usuario"));
 		String nombre = request.getParameter("nombre_usuario");
 		String stringFecha = request.getParameter("fecha_nacimiento");
@@ -54,11 +69,21 @@ public class AddUser extends HttpServlet {
 	
 		Usuario user = new Usuario(dni, nombre, fecha);
 		
-		servicio.crearUsuario(user);
-
-		RequestDispatcher rq = request.getRequestDispatcher("Main.html");
-		rq.forward(request, response);
-
+		try 
+		{
+			db.modificarUsuario(user);
+		}
+		
+		catch (Exception e) 
+		{
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/edit_user.jsp");
+			rd.forward(request, response);
+		}
+		finally 
+		{
+			RequestDispatcher rd = request.getRequestDispatcher("users_list");
+			rd.forward(request, response);
+		}
 	}
 
 }

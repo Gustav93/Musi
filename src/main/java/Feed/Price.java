@@ -2,7 +2,7 @@ package Feed;
 
 public class Price
 {
-    private String productCode, currency, importOrigin, onlinePrice,storePrice, hasPriority, processed, errorDescription;
+    private String productCode, currency, importOrigin, onlinePrice,storePrice, hasPriority, processed, errorDescription, empresa;
 
     public Price()
     {
@@ -14,6 +14,7 @@ public class Price
         this.importOrigin = null;
         this.processed = "Sin Procesar";
         this.errorDescription = "";
+        this.empresa = null;
     }
 
     public String getProductCode() {
@@ -78,6 +79,14 @@ public class Price
 
     public void setErrorDescription(String errorDescription) {
         this.errorDescription = errorDescription;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     @Override

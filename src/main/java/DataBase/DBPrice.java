@@ -12,12 +12,12 @@ import java.util.List;
 
 public class DBPrice
 {
-    private final String CREATE_TABLE_PRICE = "CREATE TABLE PRICE (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200))";
+    private final String CREATE_TABLE_PRICE = "CREATE TABLE PRICE (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
     private final String DELETE_TABLE_PRICE = " DROP TABLE PRICE";
-    private final String INSERT_PRICE = "INSERT INTO PRICE (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?,?)";
+    private final String INSERT_PRICE = "INSERT INTO PRICE (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?)";
     private final String GET_PRICE = "SELECT * FROM PRICE WHERE productCode = ?";
     private final String PRICE_LIST = "SELECT * FROM PRICE";
-    private final String EDIT = "UPDATE PRICE SET processed = ?, errorDescription = ? WHERE productCode = ?";
+    private final String EDIT = "UPDATE PRICE SET processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ?";
     private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM PRICE WHERE processed = 'Sin Procesar'";
     private final String FILTER_BY_PROCESSED = "SELECT * FROM PRICE WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM PRICE WHERE processed = 'Procesado con error'";
@@ -71,6 +71,7 @@ public class DBPrice
             ps.setString(6, price.getImportOrigin());
             ps.setString(7, price.getProcessed());
             ps.setString(8, price.getErrorDescription());
+            ps.setString(9, price.getEmpresa());
 
             ps.executeUpdate();
 
@@ -108,6 +109,7 @@ public class DBPrice
                 price.setImportOrigin(res.getString(6));
                 price.setProcessed(res.getString(7));
                 price.setErrorDescription(res.getString(8));
+                price.setEmpresa(res.getString(9));
             }
         } catch (Exception e) {
             DBConectionManager.rollback(c);
@@ -137,7 +139,8 @@ public class DBPrice
 
             ps.setString(1, p.getProcessed());
             ps.setString(2, p.getErrorDescription());
-            ps.setString(3, p.getProductCode());
+            ps.setString(3, p.getEmpresa());
+            ps.setString(4, p.getProductCode());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -192,6 +195,7 @@ public class DBPrice
                 price.setImportOrigin(res.getString(6));
                 price.setProcessed(res.getString(7));
                 price.setErrorDescription(res.getString(8));
+                price.setEmpresa(res.getString(9));
 
                 list.add(price);
             }

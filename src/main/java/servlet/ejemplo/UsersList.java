@@ -1,4 +1,4 @@
-package servlet;
+package servlet.ejemplo;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import db.UsuarioServicio;
 import entidad_usuario.Usuario;
+import servlet.ejemplo.SecureServlet;
 
 /**
  * Servlet implementation class Add_user

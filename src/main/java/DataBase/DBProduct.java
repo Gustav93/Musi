@@ -13,12 +13,12 @@ import java.util.List;
 
 public class DBProduct
 {
-    private final String CREATE_TABLE_PRODUCT = "CREATE TABLE PRODUCT (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500))";
+    private final String CREATE_TABLE_PRODUCT = "CREATE TABLE PRODUCT (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500), empresa VARCHAR(10))";
     private final String DELETE_TABLE_PRODUCT = "DROP TABLE PRODUCT";
-    private final String INSERT_PRODUCT = "INSERT INTO PRODUCT (code, ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String INSERT_PRODUCT = "INSERT INTO PRODUCT (code, ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String GET_PRODUCT = "SELECT * FROM PRODUCT WHERE code = ?";
     private final String PRODUCT_LIST = "SELECT * FROM PRODUCT";
-    private final String EDIT = "UPDATE PRODUCT SET processed = ?, errorDescription = ? WHERE code = ? ";
+    private final String EDIT = "UPDATE PRODUCT SET processed = ?, errorDescription = ?, empresa = ? WHERE code = ? ";
     private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM PRODUCT WHERE processed = 'Sin Procesar'";
     private final String FILTER_BY_PROCESSED = "SELECT * FROM PRODUCT WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM PRODUCT WHERE processed = 'Procesado con error'";
@@ -81,6 +81,7 @@ public class DBProduct
             ps.setString(11, p.getImportOrigin());
             ps.setString(12, p.getProcessed());
             ps.setString(13, p.getErrorDescription());
+            ps.setString(14, p.getEmpresa());
 
             ps.executeUpdate();
 
@@ -123,6 +124,7 @@ public class DBProduct
                 p.setImportOrigin(res.getString(11));
                 p.setProcessed(res.getString(12));
                 p.setErrorDescription(res.getString(13));
+                p.setEmpresa(res.getString(14));
             }
         } catch (Exception e) {
             DBConectionManager.rollback(c);
@@ -152,8 +154,8 @@ public class DBProduct
 
             ps.setString(1, p.getProcessed());
             ps.setString(2, p.getErrorDescription());
-            ps.setString(3, p.getCode());
-
+            ps.setString(3, p.getEmpresa());
+            ps.setString(4, p.getCode());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -213,6 +215,7 @@ public class DBProduct
                 p.setImportOrigin(res.getString(11));
                 p.setProcessed(res.getString(12));
                 p.setErrorDescription(res.getString(13));
+                p.setEmpresa(res.getString(14));
 
                 list.add(p);
             }

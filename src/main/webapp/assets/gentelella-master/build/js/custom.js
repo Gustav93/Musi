@@ -2584,6 +2584,7 @@ if (typeof NProgress != 'undefined') {
                             {"data": "importOrigin" },
                             {"data": "processed" },
                             {"data": "errorDescription" },
+                            {"data": "empresa" },
                         ]
                     }
 				);
@@ -2598,7 +2599,8 @@ if (typeof NProgress != 'undefined') {
                         {"data": "status" },
                         {"data": "importOrigin" },
                         {"data": "processed" },
-                        {"data": "errorDescription" }
+                        {"data": "errorDescription" },
+                        {"data": "empresa" }
                     ]
 				});
 
@@ -2630,6 +2632,7 @@ if (typeof NProgress != 'undefined') {
                         {"data": "importOrigin" },
                         {"data": "processed" },
                         {"data": "errorDescription" },
+                        {"data": "empresa" },
                     ]
 				});
 

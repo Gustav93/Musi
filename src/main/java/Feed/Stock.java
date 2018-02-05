@@ -2,7 +2,7 @@ package Feed;
 
 public class Stock
 {
-    private String productCode, stock, warehouse, status, importOrigin, processed, errorDescription;
+    private String productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa;
 
     public Stock()
     {
@@ -13,6 +13,7 @@ public class Stock
         this.importOrigin = null;
         this.processed = "Sin Procesar";
         this.errorDescription = "";
+        this.empresa = null;
     }
 
     public String getProductCode() {
@@ -69,6 +70,14 @@ public class Stock
 
     public void setErrorDescription(String errorDescription) {
         this.errorDescription = errorDescription;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     @Override

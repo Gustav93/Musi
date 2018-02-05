@@ -1,4 +1,4 @@
-package servlet;
+package servlet.ejemplo;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.HttpTransport;

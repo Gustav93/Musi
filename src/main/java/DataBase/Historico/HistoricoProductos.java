@@ -13,9 +13,9 @@ import java.util.List;
 
 public class HistoricoProductos
 {
-    private final String CREATE_TABLE_PRODUCT = "CREATE TABLE HISTORICO_PRODUCTOS (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500))";
+    private final String CREATE_TABLE_PRODUCT = "CREATE TABLE HISTORICO_PRODUCTOS (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500), empresa VARCHAR(10))";
     private final String DELETE_TABLE_PRODUCT = "DROP TABLE HISTORICO_PRODUCTOS";
-    private final String INSERT_PRODUCT = "INSERT INTO HISTORICO_PRODUCTOS (code, " + "ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final String INSERT_PRODUCT = "INSERT INTO HISTORICO_PRODUCTOS (code, " + "ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String GET_PRODUCT = "SELECT * FROM HISTORICO_PRODUCTOS WHERE code = ?";
     private final String PRODUCT_LIST = "SELECT * FROM HISTORICO_PRODUCTOS";
     private final String EDIT = "UPDATE PRODUCT SET processed = ?, errorDescription = ? WHERE code = ? ";
@@ -82,6 +82,7 @@ public class HistoricoProductos
             ps.setString(11, p.getImportOrigin());
             ps.setString(12, p.getProcessed());
             ps.setString(13, p.getErrorDescription());
+            ps.setString(14, p.getEmpresa());
 
             ps.executeUpdate();
 
@@ -126,6 +127,7 @@ public class HistoricoProductos
                 p.setImportOrigin(res.getString(11));
                 p.setProcessed(res.getString(12));
                 p.setErrorDescription(res.getString(13));
+                p.setEmpresa(res.getString(14));
 
                 productList.add(p);
             }
@@ -190,6 +192,7 @@ public class HistoricoProductos
                 p.setImportOrigin(res.getString(11));
                 p.setProcessed(res.getString(12));
                 p.setErrorDescription(res.getString(13));
+                p.setEmpresa(res.getString(14));
 
                 list.add(p);
             }

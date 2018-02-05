@@ -13,9 +13,9 @@ import java.util.List;
 
 public class HistoricoPrecios
 {
-    private final String CREATE_TABLE_PRICE = "CREATE TABLE HISTORICO_PRECIOS (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200))";
+    private final String CREATE_TABLE_PRICE = "CREATE TABLE HISTORICO_PRECIOS (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
     private final String DELETE_TABLE_PRICE = " DROP TABLE HISTORICO_PRECIOS";
-    private final String INSERT_PRICE = "INSERT INTO HISTORICO_PRECIOS (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription) VALUES (?,?,?,?,?,?,?,?)";
+    private final String INSERT_PRICE = "INSERT INTO HISTORICO_PRECIOS (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?)";
     private final String GET_PRICE = "SELECT * FROM HISTORICO_PRECIOS WHERE productCode = ?";
     private final String PRICE_LIST = "SELECT * FROM HISTORICO_PRRECIOS";
     private final String EDIT = "UPDATE HISTORICO_PRECIOS SET processed = ?, errorDescription = ? WHERE productCode = ?";
@@ -73,6 +73,7 @@ public class HistoricoPrecios
             ps.setString(6, price.getImportOrigin());
             ps.setString(7, price.getProcessed());
             ps.setString(8, price.getErrorDescription());
+            ps.setString(9, price.getEmpresa());
 
             ps.executeUpdate();
 
@@ -113,6 +114,7 @@ public class HistoricoPrecios
                 price.setImportOrigin(res.getString(6));
                 price.setProcessed(res.getString(7));
                 price.setErrorDescription(res.getString(8));
+                price.setEmpresa(res.getString(9));
                 priceList.add(price);
             }
         } catch (Exception e) {
@@ -173,6 +175,7 @@ public class HistoricoPrecios
                 price.setImportOrigin(res.getString(6));
                 price.setProcessed(res.getString(7));
                 price.setErrorDescription(res.getString(8));
+                price.setEmpresa(res.getString(9));
 
                 list.add(price);
             }
