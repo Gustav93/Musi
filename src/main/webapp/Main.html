@@ -25,9 +25,11 @@
 
 	input[type=button]
 	{
+		width:40%;
+		margin:auto;
 		background-color: rgb(115, 135, 156);
 		color: white;
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 		border-radius: 4px;
 	}
 
@@ -75,27 +77,30 @@
 		<input class = "form-control" type="submit" value="Subir Archivo" onclick="validarExtension(this.form.archivo.value)">
 	</form>
 
-	<br><br>
+	<br>
 
-	<form name="procesar" method="get">
-		<input class = "form-control" type="button" value="Mostrar Productos" onclick=$(location).attr('href','Productos.html');>
-		<input class = "form-control" type="button" value="Mostrar Auditoria" onclick=$(location).attr('href','Auditoria.html');>
-		<input class = "form-control" type="button" value="Mostrar Stock" onclick=$(location).attr('href','Stock.html');>
-		<input class = "form-control" type="button" value="Mostrar Precios" onclick=$(location).attr('href','Precios.html');>
-		<input class = "form-control" type="button" value="Mostrar Registro Historico" onclick=$(location).attr('href','ConsultarHistorico.html');>
-		<!--<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">-->
-	</form>
+	<!--<form name="procesar" method="get">-->
+	<input class = "form-control" type="button" value="Mostrar Precios" onclick=$(location).attr('href','Precios.html');>
+	<input class = "form-control" type="button" value="Mostrar Productos" onclick=$(location).attr('href','Productos.html');>
+	<input class = "form-control" type="button" value="Mostrar Stock" onclick=$(location).attr('href','Stock.html');>
+	<input class = "form-control" type="button" value="Mostrar Auditoria" onclick=$(location).attr('href','Auditoria.html');>
+	<input class = "form-control" type="button" value="Buscar en Registro Historico" onclick=$(location).attr('href','ConsultarHistorico.html');>
+	<!--</form>-->
 
-	<br><br>
+	<br>
 
 	<form name="procesarDatos" method="post" action="procesar">
 
 		Seleccionar el Feed a Procesar: <select class = "form-control" name="Feed">
-			<option value="Productos">Productos</option>
 			<option value="Precios">Precios</option>
+			<option value="Productos">Productos</option>
 			<option value="Stock">Stock</option>
 		</select><br>
 		<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">
+	</form>
+
+	<form method="get" action="limpiar_tabla_auditoria">
+		<input class = "form-control" type="submit" value="Limpiar Tabla Auditoria">
 	</form>
 
 	<!--<a href="servlet">lista</a>-->

@@ -51,6 +51,7 @@ public class Writer
             writer.write("Import Origin");
             writer.write("Processed");
             writer.write("Error Descriprion");
+            writer.write("Empresa");
             writer.endRecord();
 
             for(Product p : productList)
@@ -68,6 +69,7 @@ public class Writer
                 writer.write(p.getImportOrigin());
                 writer.write(p.getProcessed());
                 writer.write(p.getErrorDescription());
+                writer.write(p.getEmpresa());
                 writer.endRecord();
             }
             fileWriter.close();
@@ -107,6 +109,7 @@ public class Writer
             writer.write("Import Origin");
             writer.write("Processed");
             writer.write("Error Descriprion");
+            writer.write("Empresa");
             writer.endRecord();
 
             for(Stock stock : stockList)
@@ -118,6 +121,7 @@ public class Writer
                 writer.write(stock.getImportOrigin());
                 writer.write(stock.getProcessed());
                 writer.write(stock.getErrorDescription());
+                writer.write(stock.getEmpresa());
                 writer.endRecord();
             }
 
@@ -162,6 +166,7 @@ public class Writer
             writer.write("Import Origin");
             writer.write("Processed");
             writer.write("Error Descriprion");
+            writer.write("Empresa");
             writer.endRecord();
 
             for(Price price : priceList)
@@ -174,6 +179,7 @@ public class Writer
                 writer.write(price.getImportOrigin());
                 writer.write(price.getProcessed());
                 writer.write(price.getErrorDescription());
+                writer.write(price.getEmpresa());
                 writer.endRecord();
             }
 

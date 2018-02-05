@@ -58,7 +58,8 @@ public class DBAudit
 
         catch (SQLException e)
         {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println("No se pudo eliminar la tabla AUDIT");
         }
 
         try {
