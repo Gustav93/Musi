@@ -1,7 +1,10 @@
+import DataBase.DBPrice;
+import Reporte.Reporte;
 import Utilities.Utilities;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Main
 {
@@ -90,40 +93,50 @@ public class Main
 //        }
 //        bw.close();
 
-        Calendar calendar = new GregorianCalendar();
+//        Calendar calendar = new GregorianCalendar();
+//
+//        System.out.println("año: " + calendar.get(calendar.YEAR));
+//        System.out.println("mes: " + (calendar.get(calendar.MONTH)+1));
+//        System.out.println("dia: " + calendar.get(calendar.DAY_OF_MONTH));
+//        System.out.println("hora: " + calendar.get(calendar.HOUR_OF_DAY));
+//        System.out.println("min: " + calendar.get(calendar.MINUTE));
+//
+//        String year = String.valueOf(calendar.get(calendar.YEAR));
+//        String mes = String.valueOf(calendar.get(calendar.MONTH)+1);
+//        String dia = String.valueOf((calendar.get(calendar.DAY_OF_MONTH)));
+//        String hora = String.valueOf(calendar.get(calendar.HOUR_OF_DAY));
+//        String min = String.valueOf(calendar.get(calendar.MINUTE));
+//
+//        if (mes.length() == 1)
+//            mes = 0 + mes;
+//
+//        if(dia.length() == 1)
+//            dia = 0 + dia;
+//
+//        if(hora.length() == 1)
+//            hora = 0+ hora;
+//
+//        if(min.length() == 1)
+//            min = 0 + min;
+//
+//        System.out.println("año: " + year);
+//        System.out.println("mes: " + mes);
+//        System.out.println("dia: " + dia);
+//        System.out.println("hora: " + hora);
+//        System.out.println("min: " + min);
+//
+//        System.out.println("stock-procesado-" + year + mes + dia + hora + min + ".csv");
+//        System.out.println(Utilities.nombreArchivoProcesadoStock());
 
-        System.out.println("año: " + calendar.get(calendar.YEAR));
-        System.out.println("mes: " + (calendar.get(calendar.MONTH)+1));
-        System.out.println("dia: " + calendar.get(calendar.DAY_OF_MONTH));
-        System.out.println("hora: " + calendar.get(calendar.HOUR_OF_DAY));
-        System.out.println("min: " + calendar.get(calendar.MINUTE));
+        DBPrice dbPrice = new DBPrice();
 
-        String year = String.valueOf(calendar.get(calendar.YEAR));
-        String mes = String.valueOf(calendar.get(calendar.MONTH)+1);
-        String dia = String.valueOf((calendar.get(calendar.DAY_OF_MONTH)));
-        String hora = String.valueOf(calendar.get(calendar.HOUR_OF_DAY));
-        String min = String.valueOf(calendar.get(calendar.MINUTE));
+        List<String> s = dbPrice.getImportOriginList();
 
-        if (mes.length() == 1)
-            mes = 0 + mes;
+        System.out.println(s);
 
-        if(dia.length() == 1)
-            dia = 0 + dia;
+        List<Reporte> reportes = dbPrice.getReportes();
 
-        if(hora.length() == 1)
-            hora = 0+ hora;
-
-        if(min.length() == 1)
-            min = 0 + min;
-
-        System.out.println("año: " + year);
-        System.out.println("mes: " + mes);
-        System.out.println("dia: " + dia);
-        System.out.println("hora: " + hora);
-        System.out.println("min: " + min);
-
-        System.out.println("stock-procesado-" + year + mes + dia + hora + min + ".csv");
-        System.out.println(Utilities.nombreArchivoProcesadoStock());
+        System.out.println(reportes);
 
     }
 }

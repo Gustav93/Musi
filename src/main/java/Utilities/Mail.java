@@ -1,5 +1,8 @@
 package Utilities;
 
+import DataBase.DBPrice;
+import Reporte.Reporte;
+
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Message;
@@ -8,6 +11,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 public class Mail
@@ -198,6 +202,15 @@ public class Mail
 
             message.setContent(multipart);
 
+            DBPrice dbPrice = new DBPrice();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbPrice.getReportes();
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            message.setText(sb.toString());
+
             Transport t = session.getTransport("smtp");
             t.connect(EMAILSENDER, PWD);
 
@@ -282,9 +295,9 @@ public class Mail
 
         Mail mail = new Mail();
 
-        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+//        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
         mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+//        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
 
     }
 }

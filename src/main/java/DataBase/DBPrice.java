@@ -1,6 +1,7 @@
 package DataBase;
 
 import Feed.Price;
+import Reporte.Reporte;
 import Utilities.Utilities;
 
 import java.sql.Connection;
@@ -23,6 +24,7 @@ public class DBPrice
     private final String FILTER_BY_ERROR = "SELECT * FROM PRICE WHERE processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE PRICE ADD INDEX indicePrice (productCode, importOrigin)";
     private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM PRICE WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
+    private final String GET_IMPORT_ORIGIN = "SELECT importOrigin FROM PRICE GROUP BY importOrigin";
 
 
     public void createTable() {
@@ -237,5 +239,112 @@ public class DBPrice
     public int getNumberProcessedError()
     {
         return filterByError().size();
+    }
+
+    public List<String> getImportOriginList()
+    {
+        List<String> importOriginList = new ArrayList<>();
+        Connection c = DBConectionManager.openConnection();
+
+        try
+        {
+            PreparedStatement statement = c.prepareStatement(GET_IMPORT_ORIGIN);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                importOriginList.add(res.getString(1));
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
+        return importOriginList;
+    }
+
+    private int cantProcesados(String nombreArchivo, String procesado)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int procesados = 0;
+
+        try
+        {
+            String query = "select count(*) from price where importOrigin like ? and processed like ?";
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, nombreArchivo);
+            statement.setString(2, procesado);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                procesados = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return procesados;
+    }
+
+    private int cantTotal(String nombreArchivo)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int totalProcesados = 0;
+
+        try
+        {
+            String query = "select count(*) from price where importOrigin like ?";
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, nombreArchivo);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                totalProcesados = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return totalProcesados;
+    }
+
+    public List<Reporte> getReportes()
+    {
+        List<Reporte> reportes = new ArrayList<>();
+        List<String> nombreArchivos = getImportOriginList();
+        for(String nombreArchivo : nombreArchivos)
+        {
+            Reporte reporte = new Reporte();
+
+            reporte.setNombreArchivo(nombreArchivo);
+            reporte.setTotalRegistros(cantTotal(nombreArchivo));
+            reporte.setNoProcesados(cantProcesados(nombreArchivo,"Sin Procesar"));
+            reporte.setProcesadosConError(cantProcesados(nombreArchivo, "Procesado con error"));
+            reporte.setProcesadosCorrectamente(cantProcesados(nombreArchivo, "Procesado"));
+
+            reportes.add(reporte);
+        }
+
+        return reportes;
     }
 }
