@@ -22,6 +22,7 @@ public class DBPrice
     private final String FILTER_BY_PROCESSED = "SELECT * FROM PRICE WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM PRICE WHERE processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE PRICE ADD INDEX indicePrice (productCode, importOrigin)";
+    private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM PRICE WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
 
 
     public void createTable() {
@@ -166,6 +167,11 @@ public class DBPrice
     public List<Price> filterByProcessed()
     {
         return filterBy(FILTER_BY_PROCESSED);
+    }
+
+    public List<Price> filterByNotProcessedOk()
+    {
+        return filterBy(FILTER_BY_NOT_PROCESSED_OK);
     }
 
     public List<Price> filterByError()

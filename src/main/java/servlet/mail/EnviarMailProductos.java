@@ -20,7 +20,7 @@ public class EnviarMailProductos extends HttpServlet {
     {
         Mail mail = new Mail();
 
-        mail.sendProductFeed("gustavsanchez@yahoo.com.ar");
+        mail.sendProductFeedNotProcessedOk("cbaez@musi.com.ar");
 
         RequestDispatcher rq = request.getRequestDispatcher("Productos.html");
         rq.forward(request, response);

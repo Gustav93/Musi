@@ -22,6 +22,7 @@ public class DBStock
     private final String FILTER_BY_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM STOCK WHERE processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE STOCK ADD INDEX indiceStock (productCode, importOrigin)";
+    private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM STOCK WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
 
     public void createTable()
     {
@@ -179,6 +180,8 @@ public class DBStock
     {
         return filterBy(FILTER_BY_ERROR);
     }
+
+    public List<Stock> filterByNotProcessedOk(){ return  filterBy(FILTER_BY_NOT_PROCESSED_OK);}
 
 
 

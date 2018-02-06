@@ -454,6 +454,45 @@
 		<url-pattern>/limpiar_tabla_auditoria</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarPreciosNoCorrectos</display-name>
+		<servlet-name>DescargarPreciosNoCorrectos</servlet-name>
+		<servlet-class>servlet.DescargarPreciosNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarPreciosNoCorrectos</servlet-name>
+		<url-pattern>/descargar_precios_no_correctos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarProductosNoCorrectos</display-name>
+		<servlet-name>DescargarProductosNoCorrectos</servlet-name>
+		<servlet-class>servlet.DescargarProductosNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarProductosNoCorrectos</servlet-name>
+		<url-pattern>/descargar_productos_no_correctos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarStockNoCorrectos</display-name>
+		<servlet-name>DescargarStockNoCorrectos</servlet-name>
+		<servlet-class>servlet.DescargarStockNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarStockNoCorrectos</servlet-name>
+		<url-pattern>/descargar_stock_no_correctos</url-pattern>
+	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>
 		Main.html

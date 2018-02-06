@@ -20,7 +20,7 @@ public class EnviarMailStock extends HttpServlet {
 
         Mail mail = new Mail();
 
-        mail.sendStockFeed("gustavsanchez@yahoo.com.ar");
+        mail.sendStockFeedNotProcessedOk("cbaez@musi.com.ar");
 
         RequestDispatcher rq = request.getRequestDispatcher("Stock.html");
         rq.forward(request, response);

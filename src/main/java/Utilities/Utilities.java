@@ -5,6 +5,8 @@ import DataBase.DBConectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Utilities
 {
@@ -164,5 +166,53 @@ public class Utilities
     public static boolean isError(String errorCode)
     {
         return errorCode.contains("E");
+    }
+
+    public static String nombreArchivoProcesadoStock()
+    {
+        Calendario calendario = new Calendario();
+
+        return "stock-procesado-" + calendario.getFechaYHora() + ".csv";
+
+    }
+
+    public static String nombreArchivoNoProcesadoCorrectamenteStock()
+    {
+        Calendario calendario = new Calendario();
+
+        return "stock-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+
+    }
+
+    public static String nombreArchivoProcesadoPrecio()
+    {
+        Calendario calendario = new Calendario();
+
+        return "precio-procesado-" + calendario.getFechaYHora() + ".csv";
+
+    }
+
+    public static String nombreArchivoNoProcesadoCorrectamentePrecio()
+    {
+        Calendario calendario = new Calendario();
+
+        return "precio-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+
+    }
+
+    public static String nombreArchivoProcesadoProducto()
+    {
+        Calendario calendario = new Calendario();
+
+        return "producto-procesado-" + calendario.getFechaYHora() + ".csv";
+
+    }
+
+    public static String nombreArchivoNoProcesadoCorrectamenteProducto()
+    {
+        Calendario calendario = new Calendario();
+
+        return "producto-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+
     }
 }

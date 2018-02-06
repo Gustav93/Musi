@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 @WebServlet
-public class DescargarPrice extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class DescargarPreciosNoCorrectos extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
@@ -19,8 +20,8 @@ public class DescargarPrice extends HttpServlet {
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvPriceList();
-//        File archivo = writer.getCsvPriceListNotProcessedOk();
+//        File archivo = writer.getCsvPriceList();
+        File archivo = writer.getCsvPriceListNotProcessedOk();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

@@ -20,7 +20,7 @@ public class EnviarMailPrecios extends HttpServlet {
 
         Mail mail = new Mail();
 
-        mail.sendPriceFeed("gustavsanchez@yahoo.com.ar");
+        mail.sendPriceFeedNotProcessedOk("cbaez@musi.com.ar");
 
         RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
         rq.forward(request, response);

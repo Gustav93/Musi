@@ -23,7 +23,7 @@ public class Mail
     }
 
 
-    public void sendStockFeed(String email)
+    public void sendStockFeedNotProcessedOk(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -46,7 +46,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvStock();
+        File file = writer.getCsvStockListNotProcessedOk();
         String fileName = file.getName();
 
         try {
@@ -67,7 +67,7 @@ public class Mail
             // A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject("Feed Stock Procesado");
+            message.setSubject("Stock No Procesado Correctamente");
 
             message.setContent(multipart);
 
@@ -83,7 +83,7 @@ public class Mail
         }
     }
 
-    public void sendProductFeed(String email)
+    public void sendProductFeedNotProcessedOk(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -106,7 +106,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvProduct();
+        File file = writer.getCsvProductListNotProcessedOk();
         String fileName = file.getName();
 
         Transport t = null;
@@ -128,7 +128,7 @@ public class Mail
             // A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject("Feed Producto Procesado");
+            message.setSubject("Productos No Procesados Correctamente");
 
             message.setContent(multipart);
 
@@ -150,7 +150,7 @@ public class Mail
 
     }
 
-    public void sendPriceFeed(String email)
+    public void sendPriceFeedNotProcessedOk(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -173,7 +173,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvPrice();
+        File file = writer.getCsvPriceListNotProcessedOk();
         String fileName = file.getName();
 
         try {
@@ -194,7 +194,7 @@ public class Mail
             // A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject("Feed Precio Procesado");
+            message.setSubject("Precios No Procesados Correctamente");
 
             message.setContent(multipart);
 
@@ -282,9 +282,9 @@ public class Mail
 
         Mail mail = new Mail();
 
-        mail.sendProductFeed("gustavsanchez@yahoo.com.ar");
-        mail.sendPriceFeed("gustavsanchez@yahoo.com.ar");
-        mail.sendStockFeed("gustavsanchez@yahoo.com.ar");
+        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+        mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
 
     }
 }

@@ -25,7 +25,8 @@ public class DBConectionManager {
         try {
 //            final String url = DB_BASE_URL.replace("{DIR}", obtenerUbicacionBase()) + DB_NAME;
 //            System.out.println("CONECTANDOSE A:\r\n" + url);
-            c = DriverManager.getConnection("jdbc:mysql://localhost/feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
+//            c = DriverManager.getConnection("jdbc:mysql://localhost/feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
+            c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
             c.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();

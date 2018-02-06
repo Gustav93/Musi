@@ -23,6 +23,7 @@ public class DBProduct
     private final String FILTER_BY_PROCESSED = "SELECT * FROM PRODUCT WHERE processed = 'Procesado'";
     private final String FILTER_BY_ERROR = "SELECT * FROM PRODUCT WHERE processed = 'Procesado con error'";
     private final String ADD_INDEX = "ALTER TABLE PRODUCT ADD INDEX indiceProduct (code, importOrigin)";
+    private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM PRODUCT WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
 
     public void createTable()
     {
@@ -187,6 +188,8 @@ public class DBProduct
     {
         return filterBy(FILTER_BY_ERROR);
     }
+
+    public List<Product> filterByNotProcessedOk(){ return  filterBy(FILTER_BY_NOT_PROCESSED_OK);}
 
     private List<Product> filterBy(String query)
     {
