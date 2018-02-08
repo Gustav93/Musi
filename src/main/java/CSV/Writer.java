@@ -9,27 +9,22 @@ import Feed.Stock;
 import Utilities.Utilities;
 import com.csvreader.CsvWriter;
 
-import javax.rmi.CORBA.Util;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-public class Writer
-{
+public class Writer {
     private CsvWriter writer;
     private File file;
 
-    public File getCsvProduct()
-    {
+    public File getCsvProduct() {
         DBProduct dbProduct = new DBProduct();
         List<Product> productList = dbProduct.getProductList();
 //        if(productList.size() == 0)
 //            throw new RuntimeException("No hay productos para exportar");
 
         String archiveName = Utilities.nombreArchivoProcesadoProducto();
-        try
-        {
+        try {
             file = new File(archiveName);
 //            FileWriter fr = new FileWriter(file, true);
 //            BufferedWriter bw = new BufferedWriter(fr);
@@ -55,8 +50,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Product p : productList)
-            {
+            for (Product p : productList) {
                 writer.write(p.getCode());
                 writer.write(p.getEan());
                 writer.write(p.getBrand());
@@ -74,12 +68,9 @@ public class Writer
                 writer.endRecord();
             }
             fileWriter.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             writer.close();
         }
 
@@ -87,8 +78,7 @@ public class Writer
         return file;
     }
 
-    public File getCsvStock()
-    {
+    public File getCsvStock() {
         DBStock dbStock = new DBStock();
         List<Stock> stockList = dbStock.getStockList();
 //        if(stockList.size() == 0)
@@ -96,8 +86,7 @@ public class Writer
 
         String archiveName = Utilities.nombreArchivoProcesadoStock();
 
-        try
-        {
+        try {
             file = new File(archiveName);
             FileWriter fileWriter = new FileWriter(file, true);
             writer = new CsvWriter(fileWriter, ',');
@@ -112,8 +101,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Stock stock : stockList)
-            {
+            for (Stock stock : stockList) {
                 writer.write(stock.getProductCode());
                 writer.write(stock.getStock());
                 writer.write(stock.getWarehouse());
@@ -125,20 +113,15 @@ public class Writer
                 writer.endRecord();
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             writer.close();
         }
         return file;
     }
 
-    public File getCsvPriceList()
-    {
+    public File getCsvPriceList() {
         DBPrice dbPrice = new DBPrice();
         List<Price> priceList = dbPrice.getPriceList();
 //        if(priceList.size() == 0)
@@ -146,8 +129,7 @@ public class Writer
 
         String archiveName = Utilities.nombreArchivoProcesadoPrecio();
 
-        try
-        {
+        try {
             file = new File(archiveName);
 
             FileWriter fileWriter = new FileWriter(file, true);
@@ -168,8 +150,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Price price : priceList)
-            {
+            for (Price price : priceList) {
                 writer.write(price.getProductCode());
                 writer.write(price.getOnlinePrice());
                 writer.write(price.getCurrency());
@@ -182,30 +163,24 @@ public class Writer
                 writer.endRecord();
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             writer.close();
         }
         return file;
     }
 
-    public File getCsvPriceListNotProcessedOk()
-    {
+    public File getCsvPriceListNotProcessedOk() {
         DBPrice dbPrice = new DBPrice();
         List<Price> priceList = dbPrice.filterByNotProcessedOk();
-        if(priceList.size() == 0)
+        if (priceList.size() == 0)
             throw new RuntimeException("No hay stock para exportar");
 
 //        le agrego al nombre del archivo "(procesado)"
         String archiveName = Utilities.nombreArchivoNoProcesadoCorrectamentePrecio();
 
-        try
-        {
+        try {
             file = new File(archiveName);
 
             FileWriter fileWriter = new FileWriter(file, true);
@@ -226,8 +201,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Price price : priceList)
-            {
+            for (Price price : priceList) {
                 writer.write(price.getProductCode());
                 writer.write(price.getOnlinePrice());
                 writer.write(price.getCurrency());
@@ -240,28 +214,22 @@ public class Writer
                 writer.endRecord();
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             writer.close();
         }
         return file;
     }
 
-    public File getCsvProductListNotProcessedOk()
-    {
+    public File getCsvProductListNotProcessedOk() {
         DBProduct dbProduct = new DBProduct();
         List<Product> productList = dbProduct.filterByNotProcessedOk();
 //        if(productList.size() == 0)
 //            throw new RuntimeException("No hay productos para exportar");
 
         String archiveName = Utilities.nombreArchivoNoProcesadoCorrectamenteProducto();
-        try
-        {
+        try {
             file = new File(archiveName);
 
             FileWriter fileWriter = new FileWriter(file, true);
@@ -283,8 +251,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Product p : productList)
-            {
+            for (Product p : productList) {
                 writer.write(p.getCode());
                 writer.write(p.getEan());
                 writer.write(p.getBrand());
@@ -302,20 +269,16 @@ public class Writer
                 writer.endRecord();
             }
             fileWriter.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             writer.close();
         }
 
         return file;
     }
 
-    public File getCsvStockListNotProcessedOk()
-    {
+    public File getCsvStockListNotProcessedOk() {
         DBStock dbStock = new DBStock();
         List<Stock> stockList = dbStock.filterByNotProcessedOk();
 //        if(stockList.size() == 0)
@@ -324,8 +287,7 @@ public class Writer
 ////        le agrego al nombre del archivo "(procesado)"
         String archiveName = Utilities.nombreArchivoNoProcesadoCorrectamenteStock();
 
-        try
-        {
+        try {
             file = new File(archiveName);
             FileWriter fileWriter = new FileWriter(file, true);
             writer = new CsvWriter(fileWriter, ',');
@@ -340,8 +302,7 @@ public class Writer
             writer.write("Empresa");
             writer.endRecord();
 
-            for(Stock stock : stockList)
-            {
+            for (Stock stock : stockList) {
                 writer.write(stock.getProductCode());
                 writer.write(stock.getStock());
                 writer.write(stock.getWarehouse());
@@ -353,13 +314,9 @@ public class Writer
                 writer.endRecord();
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             writer.close();
         }
         return file;

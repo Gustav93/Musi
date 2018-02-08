@@ -2,7 +2,7 @@ package Feed;
 
 public class Media
 {
-    private String productCode, codeMedia, isDefault, importOrigin;
+    private String productCode, codeMedia, isDefault, importOrigin, processed, errorDescription, empresa;
 
     public Media()
     {
@@ -10,6 +10,9 @@ public class Media
         this.codeMedia = null;
         this.isDefault = null;
         this.importOrigin = null;
+        this.processed = null;
+        this.errorDescription = null;
+        this.empresa = null;
     }
 
     public String getProductCode() {
@@ -44,6 +47,30 @@ public class Media
         this.importOrigin = importOrigin;
     }
 
+    public String getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(String processed) {
+        this.processed = processed;
+    }
+
+    public String getErrorDescription() {
+        return errorDescription;
+    }
+
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
     @Override
     public String toString() {
         return "Media{" +
@@ -54,4 +81,3 @@ public class Media
                 '}';
     }
 }
-

@@ -8,7 +8,7 @@ public class DBConectionManager {
 
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_BASE_URL = "jdbc:h2:tcp://localhost//{DIR}";
-    private static final String DB_NAME = "/feed";
+    private static final String DB_NAME = "/Feed";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "";
 
@@ -25,7 +25,7 @@ public class DBConectionManager {
         try {
 //            final String url = DB_BASE_URL.replace("{DIR}", obtenerUbicacionBase()) + DB_NAME;
 //            System.out.println("CONECTANDOSE A:\r\n" + url);
-//            c = DriverManager.getConnection("jdbc:mysql://localhost/feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
+//            c = DriverManager.getConnection("jdbc:mysql://localhost/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
             c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
             c.setAutoCommit(false);
         } catch (SQLException e) {

@@ -4,7 +4,6 @@ import DataBase.Historico.HistoricoProductos;
 import Feed.*;
 import Utilities.Utilities;
 
-import java.io.File;
 import java.util.List;
 
 public class DBManager {
@@ -67,10 +66,10 @@ public class DBManager {
     }
 
     public void addMediaList(List<Media> mediaList) {
-        db_media.createTable();
+        db_media.crearTabla();
 
         for (Media media : mediaList)
-            db_media.createMedia(media);
+            db_media.crearRegistro(media);
     }
 
     public void addStockList(List<Stock> stockList) {

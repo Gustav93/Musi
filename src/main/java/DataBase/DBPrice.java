@@ -132,7 +132,7 @@ public class DBPrice
         return filterBy(PRICE_LIST);
     }
 
-    public void edit(Price p)
+    public void edit(Price price)
     {
         Connection c = DBConectionManager.openConnection();
 
@@ -140,10 +140,10 @@ public class DBPrice
         {
             PreparedStatement ps = c.prepareStatement(EDIT);
 
-            ps.setString(1, p.getProcessed());
-            ps.setString(2, p.getErrorDescription());
-            ps.setString(3, p.getEmpresa());
-            ps.setString(4, p.getProductCode());
+            ps.setString(1, price.getProcessed());
+            ps.setString(2, price.getErrorDescription());
+            ps.setString(3, price.getEmpresa());
+            ps.setString(4, price.getProductCode());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -241,7 +241,7 @@ public class DBPrice
         return filterByError().size();
     }
 
-    public List<String> getImportOriginList()
+    private List<String> getImportOriginList()
     {
         List<String> importOriginList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();

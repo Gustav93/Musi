@@ -77,7 +77,7 @@
 
   // patterns that always start with a known character. Must have a shortcut string.
   var shortcutStylePatterns = [
-    // whitespaces: space, tab, carriage return, line feed, line tab, form-feed, non-break space
+    // whitespaces: space, tab, carriage return, line Feed, line tab, form-Feed, non-break space
     [PR.PR_PLAIN, /^[ \t\r\n\v\f\xA0]+/, null, " \t\r\n\u000b\u000c\u00a0"],
 
     // block comments

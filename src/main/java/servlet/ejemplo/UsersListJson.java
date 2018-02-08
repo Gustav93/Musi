@@ -15,13 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import DataBase.DBAudit;
 import DataBase.DBPrice;
 import DataBase.DBProduct;
-import Feed.AuditItem;
 import Feed.Price;
-import Feed.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import db.*;
-import entidad_usuario.Usuario;
 
 /**
  * Servlet implementation class UsersListJson

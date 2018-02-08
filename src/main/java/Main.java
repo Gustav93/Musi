@@ -130,9 +130,9 @@ public class Main
 
         DBPrice dbPrice = new DBPrice();
 
-        List<String> s = dbPrice.getImportOriginList();
+//        List<String> s = dbPrice.getImportOriginList();
 
-        System.out.println(s);
+//        System.out.println(s);
 
         List<Reporte> reportes = dbPrice.getReportes();
 

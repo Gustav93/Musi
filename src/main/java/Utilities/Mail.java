@@ -1,14 +1,13 @@
 package Utilities;
 
 import DataBase.DBPrice;
+import DataBase.DBProduct;
+import DataBase.DBStock;
 import Reporte.Reporte;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
 import java.util.List;
@@ -53,14 +52,34 @@ public class Mail
         File file = writer.getCsvStockListNotProcessedOk();
         String fileName = file.getName();
 
-        try {
-            MimeBodyPart attachedFile = new MimeBodyPart();
+        Transport t = null;
+        try
+        {
+//            Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
 
             attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
             attachedFile.setFileName(fileName);
             MimeMultipart multipart = new MimeMultipart();
-
             multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            DBStock dbStock = new DBStock();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbStock.getReportes();
+
+            if(reportes.size() == 0)
+            {
+                file.delete();
+                return;
+            }
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
 
 
             MimeMessage message = new MimeMessage(session);
@@ -71,18 +90,22 @@ public class Mail
             // A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject("Stock No Procesado Correctamente");
+            message.setSubject("Stock No Procesados Correctamente");
 
             message.setContent(multipart);
 
-            Transport t = session.getTransport("smtp");
+            t = session.getTransport("smtp");
             t.connect(EMAILSENDER, PWD);
 
             t.sendMessage(message,message.getAllRecipients());
 
             t.close();
             file.delete();
-        } catch (MessagingException e) {
+
+
+        }
+        catch (MessagingException e)
+        {
             e.printStackTrace();
         }
     }
@@ -114,14 +137,35 @@ public class Mail
         String fileName = file.getName();
 
         Transport t = null;
-        try {
-            MimeBodyPart attachedFile = new MimeBodyPart();
+        try
+        {
+//            Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
 
             attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
             attachedFile.setFileName(fileName);
             MimeMultipart multipart = new MimeMultipart();
-
             multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            DBProduct dbProduct = new DBProduct();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbProduct.getReportes();
+
+//            si no hay registros procesados, no se envia nada
+            if(reportes.size() == 0)
+            {
+                file.delete();
+                return;
+            }
+
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
 
 
             MimeMessage message = new MimeMessage(session);
@@ -134,6 +178,8 @@ public class Mail
 
             message.setSubject("Productos No Procesados Correctamente");
 
+
+
             message.setContent(multipart);
 
             t = session.getTransport("smtp");
@@ -145,13 +191,11 @@ public class Mail
             file.delete();
 
 
-        } catch (MessagingException e)
+        }
+        catch (MessagingException e)
         {
             e.printStackTrace();
         }
-
-
-
     }
 
     public void sendPriceFeedNotProcessedOk(String email)
@@ -180,14 +224,34 @@ public class Mail
         File file = writer.getCsvPriceListNotProcessedOk();
         String fileName = file.getName();
 
-        try {
-            MimeBodyPart attachedFile = new MimeBodyPart();
+        Transport t = null;
+        try
+        {
+//            Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
 
             attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
             attachedFile.setFileName(fileName);
             MimeMultipart multipart = new MimeMultipart();
-
             multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            DBPrice dbPrice = new DBPrice();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbPrice.getReportes();
+
+            if(reportes.size() == 0)
+            {
+                file.delete();
+                return;
+            }
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
 
 
             MimeMessage message = new MimeMessage(session);
@@ -200,25 +264,22 @@ public class Mail
 
             message.setSubject("Precios No Procesados Correctamente");
 
+
+
             message.setContent(multipart);
 
-            DBPrice dbPrice = new DBPrice();
-            StringBuilder sb = new StringBuilder();
-            List<Reporte> reportes = dbPrice.getReportes();
-
-            for(Reporte reporte : reportes)
-                sb.append(reporte.toString() + "\n\n");
-
-            message.setText(sb.toString());
-
-            Transport t = session.getTransport("smtp");
+            t = session.getTransport("smtp");
             t.connect(EMAILSENDER, PWD);
 
             t.sendMessage(message,message.getAllRecipients());
 
             t.close();
             file.delete();
-        } catch (MessagingException e) {
+
+
+        }
+        catch (MessagingException e)
+        {
             e.printStackTrace();
         }
     }
@@ -296,8 +357,8 @@ public class Mail
         Mail mail = new Mail();
 
 //        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-        mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-//        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+//        mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
 
     }
 }

@@ -1,10 +1,7 @@
 package servlet;
 
-import DataBase.DBProduct;
 import DataBase.DBStock;
-import DataBase.Historico.HistoricoPrecios;
 import DataBase.Historico.HistoricoStock;
-import Feed.Product;
 import Feed.Stock;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

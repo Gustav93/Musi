@@ -1,12 +1,16 @@
 package Utilities;
 
 import DataBase.DBConectionManager;
+import DataBase.Feed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Utilities
 {
@@ -215,4 +219,78 @@ public class Utilities
         return "producto-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
 
     }
+
+    public static void crearIndice(Feed feed)
+    {
+        String query = null;
+        Connection c = DBConectionManager.openConnection();
+
+        if(feed.equals(Feed.PRECIO))
+            query = "alter table price add index indicePrice (productCode, importOrigin)";
+
+        else if(feed.equals(Feed.PRODUCTO))
+            query = "alter table product add index indiceProduct (code, importOrigin)";
+
+        else if(feed.equals(Feed.STOCK))
+            query = "alter table stock add index indiceStock (productCode, importOrigin)";
+
+        else if(feed.equals(Feed.MEDIA))
+            query = "alter table media add index indiceMedia (productCode, importOrigin)";
+
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+
+        catch (SQLException e)
+        {
+            e.getStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
+
+    public static List<String> getImportOriginList(Feed feed)
+    {
+        List<String> importOriginList = new ArrayList<>();
+        Connection c = DBConectionManager.openConnection();
+        String query = null;
+
+        if(feed.equals(Feed.PRECIO))
+            query = "select importOrigin from price group by importOrigin";
+
+        else if (feed.equals(Feed.PRODUCTO))
+            query = "select importOrigin from product group by importOrigin";
+
+        else if (feed.equals(Feed.STOCK))
+            query = "select importOrigin from stock group by importOrigin";
+
+        else if (feed.equals(Feed.MEDIA))
+            query = "select importOrigin from media group by importOrigin";
+
+        try
+        {
+            PreparedStatement statement = c.prepareStatement(query);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                importOriginList.add(res.getString(1));
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
+        return importOriginList;
+    }
+
 }

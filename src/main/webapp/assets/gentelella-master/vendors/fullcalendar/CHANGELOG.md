@@ -589,7 +589,7 @@ v1.5 (2011-03-19)
 		- backgroundColor
 		- borderColor
 		- textColor
-- can now specify an event source as an *object* with a `url` property (json feed) or
+- can now specify an event source as an *object* with a `url` property (json Feed) or
   an `events` property (function or array) with additional properties that will
   be applied to the entire event source:
 	- color (changes both background and border)
@@ -600,15 +600,15 @@ v1.5 (2011-03-19)
 	- editable
 	- allDayDefault
 	- ignoreTimezone
-	- startParam (for a feed)
-	- endParam   (for a feed)
+	- startParam (for a Feed)
+	- endParam   (for a Feed)
 	- ANY OF THE JQUERY $.ajax OPTIONS
 	  allows for easily changing from GET to POST and sending additional parameters ([386])
 	  allows for easily attaching ajax handlers such as `error` ([754])
 	  allows for turning caching on ([355])
 - Google Calendar feeds are now specified differently:
-	- specify a simple string of your feed's URL
-	- specify an *object* with a `url` property of your feed's URL.
+	- specify a simple string of your Feed's URL
+	- specify an *object* with a `url` property of your Feed's URL.
 	  you can include any of the new Event-Source options in this object.
 	- the old `$.fullCalendar.gcalFeed` method still works
 - no more IE7 SSL popup ([504])
@@ -781,7 +781,7 @@ v1.4.1 (2009-10-31)
 -------------------
 
 - can exclude weekends with new 'weekends' option
-- gcal feed 'currentTimezone' option
+- gcal Feed 'currentTimezone' option
 - bugfixes
 	- year/month/date option sometimes wouldn't set correctly (depending on current date)
 	- daylight savings issue caused agenda views to start at 1am (for BST users)

@@ -1,13 +1,5 @@
 package servlet.consultarHistorico;
 
-import DataBase.Historico.HistoricoPrecios;
-import DataBase.Historico.HistoricoProductos;
-import DataBase.Historico.HistoricoStock;
-import Feed.Price;
-import Feed.Product;
-import Feed.Stock;
-import com.sun.org.apache.regexp.internal.RE;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet
 public class ConsultarHistorico extends HttpServlet {
@@ -26,7 +17,7 @@ public class ConsultarHistorico extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String codigo = request.getParameter("codigo");
-        String feed = request.getParameter("feed");
+        String feed = request.getParameter("Feed");
 
         if(feed.equals("Productos"))
         {

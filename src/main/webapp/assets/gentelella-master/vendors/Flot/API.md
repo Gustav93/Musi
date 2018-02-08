@@ -334,7 +334,7 @@ or 'smaller' are not allowed.
 The options "min"/"max" are the precise minimum/maximum value on the
 scale. If you don't specify either of them, a value will automatically
 be chosen based on the minimum/maximum data values. Note that Flot
-always examines all the data values you feed to it, even if a
+always examines all the data values you Feed to it, even if a
 restriction on another axis may make some of them invisible (this
 makes interactive use more stable).
 
