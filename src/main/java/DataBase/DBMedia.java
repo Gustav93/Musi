@@ -1,7 +1,7 @@
 package DataBase;
 
 import Feed.Media;
-import Procesado.EstadoProcesado;
+import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -168,7 +168,6 @@ public class DBMedia
         else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
             query = "select * from media where processed = 'Procesado con Error' or processed = 'Sin Procesar'";
-
         try
         {
             PreparedStatement statement = c.prepareStatement(query);
@@ -234,37 +233,49 @@ public class DBMedia
 
     public int getCantidadRegistrosProcesados()
     {
-        return getCantRegistros(EstadoProcesado.PROCESADO);
+        return getCantRegistros(Contador.PROCESADO);
     }
 
     public int getCantidadRegistrosNoProcesados()
     {
-        return getCantRegistros(EstadoProcesado.SIN_PROCESAR);
+        return getCantRegistros(Contador.SIN_PROCESAR);
     }
 
     public int getCantidadRegistrosProcesadosConError()
     {
-        return getCantRegistros(EstadoProcesado.PROCESADO_CON_ERROR);
+        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
     }
+
+    public int getCantidadRegistrosCARSA()
+    {
+        return getCantRegistros(Contador.CARSA);
+    }
+
+    public int getCantidadRegistrosEMSA()
+    {
+        return getCantRegistros(Contador.EMSA);
+    }
+
 
     //devuelve la cantidad de registros filtrados (procesado, sin procesar y procesado con error) del nombre del archivo
     //pasado como parametro (importOrigin)
-    private int getCantRegistros(EstadoProcesado estadoProcesado, String nombreArchivo)
+    private int getCantRegistros(Contador contador, String nombreArchivo)
     {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
         String query = null;
 
-        if(estadoProcesado.equals(EstadoProcesado.PROCESADO))
+        if(contador.equals(Contador.PROCESADO))
             query = "select count(*) from media where importOrigin like ? and processed like 'Procesado'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
             //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Error'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.SIN_PROCESAR))
+        else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Sin Procesar'";
+
 
         try
         {
@@ -289,25 +300,34 @@ public class DBMedia
         return procesados;
     }
 
-    //devuelve la cantidad de registros totales filtrados por: procesado, sin procesar y procesado con error
-    private int getCantRegistros(EstadoProcesado estadoProcesado)
+    //devuelve la cantidad de registros totales filtrados por: procesado, sin procesar, procesado con error, carsa
+    // y emsa
+    private int getCantRegistros(Contador contador)
     {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
 
         String query = null;
 
-        if(estadoProcesado.equals(EstadoProcesado.PROCESADO))
+        if(contador.equals(Contador.PROCESADO))
             //language=SQL
             query = "select count(*) from media where processed like 'Procesado'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
             //language=SQL
             query = "select count(*) from media where processed like 'Procesado con Error'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.SIN_PROCESAR))
+        else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from media where processed like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.CARSA))
+            //language=SQL
+            query = "select count(*) from media where empresa like 'C'";
+
+        else if(contador.equals(Contador.EMSA))
+            //language=SQL
+            query = "select count(*) from media where empresa like 'E'";
 
         try
         {
@@ -342,9 +362,9 @@ public class DBMedia
 
             reporte.setNombreArchivo(nombreArchivo);
             reporte.setTotalRegistros(getCantidadTotalRegistros(nombreArchivo));
-            reporte.setNoProcesados(getCantRegistros(EstadoProcesado.SIN_PROCESAR, nombreArchivo));
-            reporte.setProcesadosConError(getCantRegistros(EstadoProcesado.PROCESADO_CON_ERROR, nombreArchivo));
-            reporte.setProcesadosCorrectamente(getCantRegistros(EstadoProcesado.PROCESADO, nombreArchivo));
+            reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
+            reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
+            reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
 
             reportes.add(reporte);
         }

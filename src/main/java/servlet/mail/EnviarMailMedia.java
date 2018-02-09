@@ -1,5 +1,6 @@
 package servlet.mail;
 
+import DataBase.DBMedia;
 import Utilities.Mail;
 
 import javax.servlet.RequestDispatcher;
@@ -21,8 +22,20 @@ public class EnviarMailMedia extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         Mail mail = new Mail();
+        DBMedia dbMedia = new DBMedia();
+        int cantCARSA = dbMedia.getCantidadRegistrosCARSA();
+        int cantEMSA = dbMedia.getCantidadRegistrosEMSA();
 
-        mail.enviarRegistrosMediaSinProcesarCorrectamente("cbaez@musi.com.ar");
+        if(cantCARSA > 0 && cantEMSA <= 0)
+            mail.enviarRegistrosMediaSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+
+        else if(cantCARSA <= 0 && cantEMSA > 0)
+            mail.enviarRegistrosMediaSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosMediaSinProcesarCorrectamente("vizaral2@gmail.com");
+        else
+            mail.enviarRegistrosMediaSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosMediaSinProcesarCorrectamente("gsanchez@musi.com.ar");
 
         RequestDispatcher rq = request.getRequestDispatcher("Media.html");
         rq.forward(request, response);

@@ -14,7 +14,7 @@ public class Price
         this.importOrigin = null;
         this.processed = "Sin Procesar";
         this.errorDescription = "";
-        this.empresa = null;
+        this.empresa = "";
     }
 
     public String getProductCode() {

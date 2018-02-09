@@ -2,8 +2,7 @@ package DataBase.Historico;
 
 import DataBase.DBConectionManager;
 import DataBase.Feed;
-import DataBase.Filtro;
-import Procesado.EstadoProcesado;
+import Procesado.Contador;
 import Utilities.Utilities;
 import Feed.Media;
 
@@ -147,17 +146,17 @@ public class HistoricoMedia
 
     public int getCantidadRegistrosProcesados(String codigoProducto)
     {
-        return getCantidadRegistros(codigoProducto, EstadoProcesado.PROCESADO);
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO);
     }
 
     public int getCantidadRegistrosNoProcesados(String codigoProducto)
     {
-        return getCantidadRegistros(codigoProducto, EstadoProcesado.SIN_PROCESAR);
+        return getCantidadRegistros(codigoProducto, Contador.SIN_PROCESAR);
     }
 
     public int getCantidadRegistrosProcesadosConError(String codigoProducto)
     {
-        return getCantidadRegistros(codigoProducto, EstadoProcesado.PROCESADO_CON_ERROR);
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO_CON_ERROR);
     }
 
     //devuelve la cantidad de registros con el codigo de producto pasado como parametro
@@ -192,22 +191,22 @@ public class HistoricoMedia
         return total;
     }
 
-    private int getCantidadRegistros(String codigoProducto, EstadoProcesado estadoProcesado)
+    private int getCantidadRegistros(String codigoProducto, Contador estadoProcesado)
     {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
 
         String query = null;
 
-        if(estadoProcesado.equals(EstadoProcesado.PROCESADO))
+        if(estadoProcesado.equals(Contador.PROCESADO))
             //language=SQL
             query = "select count(*) from historico_media where productCode like ? and processed like 'Procesado'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.PROCESADO_CON_ERROR))
+        else if(estadoProcesado.equals(Contador.PROCESADO_CON_ERROR))
             //language=SQL
             query = "select count(*) from historico_media where productCode like ? and processed like 'Procesado con Error'";
 
-        else if(estadoProcesado.equals(EstadoProcesado.SIN_PROCESAR))
+        else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from historico_media where productCode like ? and processed like 'Sin Procesar'";
 
