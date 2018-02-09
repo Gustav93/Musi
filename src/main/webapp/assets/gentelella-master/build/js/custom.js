@@ -2540,15 +2540,15 @@ if (typeof NProgress != 'undefined') {
 				//   }
                 //
 				// };
-
-				TableManageButtons = function() {
-				  "use strict";
-				  return {
-					init: function() {
-					  handleDataTableButtons();
-					}
-				  };
-				}();
+                //
+				// TableManageButtons = function() {
+				//   "use strict";
+				//   return {
+				// 	init: function() {
+				// 	  handleDataTableButtons();
+				// 	}
+				//   };
+				// }();
 
                 function getQueryVariable(variable) {
                     // Estoy asumiendo que query es window.location.search.substring(1);
@@ -2636,6 +2636,20 @@ if (typeof NProgress != 'undefined') {
                     ]
 				});
 
+                $('#datatable_media').DataTable({
+                    ajax:{url:'/mostrar_media?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                    columns: [
+
+                        {"data": "productCode" },
+                        {"data": "codeMedia" },
+                        {"data": "isDefault" },
+                        {"data": "importOrigin" },
+                        {"data": "processed" },
+                        {"data": "errorDescription" },
+                        {"data": "empresa" },
+                    ]
+                });
+
 
 				$('#datatable-keytable').DataTable({
 				  keys: true
@@ -2669,7 +2683,7 @@ if (typeof NProgress != 'undefined') {
 				  });
 				});
 
-				TableManageButtons.init();
+				// TableManageButtons.init();
 				
 			};
 	   

@@ -2,6 +2,8 @@ package DataBase.Historico;
 
 import DataBase.DBConectionManager;
 import DataBase.Feed;
+import DataBase.Filtro;
+import Procesado.EstadoProcesado;
 import Utilities.Utilities;
 import Feed.Media;
 
@@ -121,5 +123,114 @@ public class HistoricoMedia
         }
 
         return mediaList;
+    }
+
+    public void importarMedia()
+    {
+        //language=SQL
+        String query = "insert into historico_media select * from media";
+        Connection c = DBConectionManager.openConnection();
+
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
+
+    public int getCantidadRegistrosProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, EstadoProcesado.PROCESADO);
+    }
+
+    public int getCantidadRegistrosNoProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, EstadoProcesado.SIN_PROCESAR);
+    }
+
+    public int getCantidadRegistrosProcesadosConError(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, EstadoProcesado.PROCESADO_CON_ERROR);
+    }
+
+    //devuelve la cantidad de registros con el codigo de producto pasado como parametro
+    public int getCantidadRegistros(String codigoProducto)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int total = 0;
+
+        try
+        {
+            //language=SQL
+            String query = "select count(*) from historico_media where productCode like ?";
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                total = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
+        return total;
+    }
+
+    private int getCantidadRegistros(String codigoProducto, EstadoProcesado estadoProcesado)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int procesados = 0;
+
+        String query = null;
+
+        if(estadoProcesado.equals(EstadoProcesado.PROCESADO))
+            //language=SQL
+            query = "select count(*) from historico_media where productCode like ? and processed like 'Procesado'";
+
+        else if(estadoProcesado.equals(EstadoProcesado.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from historico_media where productCode like ? and processed like 'Procesado con Error'";
+
+        else if(estadoProcesado.equals(EstadoProcesado.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from historico_media where productCode like ? and processed like 'Sin Procesar'";
+
+        try
+        {
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                procesados = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return procesados;
     }
 }

@@ -90,6 +90,20 @@
 	</servlet-mapping>
 
 	<servlet>
+		<description>
+		</description>
+		<display-name>MostrarMedia</display-name>
+		<servlet-name>MostrarMedia</servlet-name>
+		<servlet-class>servlet.MostrarMedia</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarMedia</servlet-name>
+		<url-pattern>/mostrar_media</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
 	<description>
 	</description>
 	<display-name>Procesar</display-name>
@@ -139,6 +153,19 @@
 	<servlet-mapping>
 		<servlet-name>EnviarMailStock</servlet-name>
 		<url-pattern>/enviar_mail_stock</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailMedia</display-name>
+		<servlet-name>EnviarMailMedia</servlet-name>
+		<servlet-class>servlet.mail.EnviarMailMedia</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailMedia</servlet-name>
+		<url-pattern>/enviar_mail_media</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -311,6 +338,58 @@
 	</servlet-mapping>
 
 	<servlet>
+		<description>
+		</description>
+		<display-name>CantMediaTotal</display-name>
+		<servlet-name>CantMediaTotal</servlet-name>
+		<servlet-class>servlet.reporte_media.CantMediaTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMediaTotal</servlet-name>
+		<url-pattern>/cant_media_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantMediaProcesados</display-name>
+		<servlet-name>CantMediaProcesados</servlet-name>
+		<servlet-class>servlet.reporte_media.CantMediaProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMediaProcesados</servlet-name>
+		<url-pattern>/cant_media_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantMediaNoProcesados</display-name>
+		<servlet-name>CantMediaNoProcesados</servlet-name>
+		<servlet-class>servlet.reporte_media.CantMediaNoProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMediaNoProcesados</servlet-name>
+		<url-pattern>/cant_media_no_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantMediaError</display-name>
+		<servlet-name>CantMediaError</servlet-name>
+		<servlet-class>servlet.reporte_media.CantMediaError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMediaError</servlet-name>
+		<url-pattern>/cant_media_error</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 	<description>
 	</description>
 	<display-name>ListaNombreArchivos</display-name>
@@ -361,6 +440,19 @@
 	<servlet-mapping>
 		<servlet-name>CargarHistoricoStock</servlet-name>
 		<url-pattern>/cargar_historico_stock</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CargarHistoricoMedia</display-name>
+		<servlet-name>CargarHistoricoMedia</servlet-name>
+		<servlet-class>servlet.CargarHistoricoMedia</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CargarHistoricoMedia</servlet-name>
+		<url-pattern>/cargar_historico_media</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -444,6 +536,19 @@
 	<servlet>
 		<description>
 		</description>
+		<display-name>DescargarMedia</display-name>
+		<servlet-name>DescargarMedia</servlet-name>
+		<servlet-class>servlet.DescargarMedia</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarMedia</servlet-name>
+		<url-pattern>/descargar_media</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
 		<display-name>LimpiarTablaAuditoria</display-name>
 		<servlet-name>LimpiarTablaAuditoria</servlet-name>
 		<servlet-class>servlet.LimpiarTablaAuditoria</servlet-class>
@@ -491,6 +596,19 @@
 	<servlet-mapping>
 		<servlet-name>DescargarStockNoCorrectos</servlet-name>
 		<url-pattern>/descargar_stock_no_correctos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarMediaNoCorrectos</display-name>
+		<servlet-name>DescargarMediaNoCorrectos</servlet-name>
+		<servlet-class>servlet.DescargarMediaNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarMediaNoCorrectos</servlet-name>
+		<url-pattern>/descargar_media_no_correctos</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

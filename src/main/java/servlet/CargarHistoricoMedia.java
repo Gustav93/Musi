@@ -1,6 +1,7 @@
-package servlet.mail;
+package servlet;
 
-import Utilities.Mail;
+import DataBase.DBMedia;
+import DataBase.Historico.HistoricoMedia;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class EnviarMailPrecios extends HttpServlet
+public class CargarHistoricoMedia extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -20,11 +21,15 @@ public class EnviarMailPrecios extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        Mail mail = new Mail();
+        DBMedia dbMedia = new DBMedia();
+        HistoricoMedia historicoMedia = new HistoricoMedia();
 
-        mail.sendPriceFeedNotProcessedOk("cbaez@musi.com.ar");
+        historicoMedia.crearTabla();
+        historicoMedia.importarMedia();
 
-        RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
+        dbMedia.eliminarTabla();
+
+        RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request, response);
     }
 }

@@ -10,8 +10,8 @@ public class Media
         this.codeMedia = null;
         this.isDefault = null;
         this.importOrigin = null;
-        this.processed = null;
-        this.errorDescription = null;
+        this.processed = "Sin Procesar";
+        this.errorDescription = "";
         this.empresa = null;
     }
 

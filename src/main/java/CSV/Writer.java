@@ -1,16 +1,16 @@
 package CSV;
 
-import DataBase.DBPrice;
-import DataBase.DBProduct;
-import DataBase.DBStock;
+import DataBase.*;
 import Feed.Price;
 import Feed.Product;
 import Feed.Stock;
+import Feed.Media;
 import Utilities.Utilities;
 import com.csvreader.CsvWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Writer {
@@ -222,7 +222,8 @@ public class Writer {
         return file;
     }
 
-    public File getCsvProductListNotProcessedOk() {
+    public File getCsvProductListNotProcessedOk()
+    {
         DBProduct dbProduct = new DBProduct();
         List<Product> productList = dbProduct.filterByNotProcessedOk();
 //        if(productList.size() == 0)
@@ -278,16 +279,14 @@ public class Writer {
         return file;
     }
 
-    public File getCsvStockListNotProcessedOk() {
+    public File getCsvStockListNotProcessedOk()
+    {
         DBStock dbStock = new DBStock();
         List<Stock> stockList = dbStock.filterByNotProcessedOk();
-//        if(stockList.size() == 0)
-//            throw new RuntimeException("No hay stock para exportar");
-//
-////        le agrego al nombre del archivo "(procesado)"
         String archiveName = Utilities.nombreArchivoNoProcesadoCorrectamenteStock();
 
-        try {
+        try
+        {
             file = new File(archiveName);
             FileWriter fileWriter = new FileWriter(file, true);
             writer = new CsvWriter(fileWriter, ',');
@@ -302,7 +301,8 @@ public class Writer {
             writer.write("Empresa");
             writer.endRecord();
 
-            for (Stock stock : stockList) {
+            for (Stock stock : stockList)
+            {
                 writer.write(stock.getProductCode());
                 writer.write(stock.getStock());
                 writer.write(stock.getWarehouse());
@@ -313,12 +313,88 @@ public class Writer {
                 writer.write(stock.getEmpresa());
                 writer.endRecord();
             }
-
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             writer.close();
         }
+        return file;
+    }
+
+    public File getCsvMediaListNotProcessedOk()
+    {
+        return getCsvMedia(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+    }
+
+    public  File getCsvMediaList()
+    {
+        return getCsvMedia(Filtro.SIN_FILTRAR);
+    }
+
+    //Devuelve un archivo csv que contriene los registros obtenidos de la db temporal, estos registros pueden ser
+    //filtrados por no procesados correctamente (con errores y sin procesar) y sin filtrar
+    //(la lista de registros entera).
+    private File getCsvMedia(Filtro filtro)
+    {
+        List<Media> mediaList = new ArrayList<>();
+        DBMedia dbMedia = new DBMedia();
+        String archiveName;
+
+        if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
+        {
+            mediaList = dbMedia.filtarPor(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+            archiveName = Utilities.nombreArchivoNoProcesadoCorrectamenteMedia();
+        }
+
+        else if(filtro.equals(Filtro.SIN_FILTRAR))
+        {
+            mediaList = dbMedia.filtarPor(Filtro.SIN_FILTRAR);
+            archiveName = Utilities.nombreArchivoProcesadoMedia();
+        }
+
+        else
+            throw new IllegalArgumentException("Filtro incorrecto");
+
+        try
+        {
+            file = new File(archiveName);
+            FileWriter fileWriter = new FileWriter(file, true);
+            writer = new CsvWriter(fileWriter, ',');
+
+            writer.write("Product Code");
+            writer.write("Code Media");
+            writer.write("Is Default");
+            writer.write("Import Origin");
+            writer.write("Processed");
+            writer.write("Error Descriprion");
+            writer.write("Empresa");
+            writer.endRecord();
+
+            for (Media media : mediaList)
+            {
+                writer.write(media.getProductCode());
+                writer.write(media.getCodeMedia());
+                writer.write(media.getIsDefault());
+                writer.write(media.getImportOrigin());
+                writer.write(media.getProcessed());
+                writer.write(media.getErrorDescription());
+                writer.write(media.getEmpresa());
+                writer.endRecord();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            writer.close();
+        }
+
         return file;
     }
 }

@@ -1,5 +1,6 @@
 package Utilities;
 
+import DataBase.DBMedia;
 import DataBase.DBPrice;
 import DataBase.DBProduct;
 import DataBase.DBStock;
@@ -284,6 +285,91 @@ public class Mail
         }
     }
 
+    public void enviarRegistrosMediaSinProcesarCorrectamente(String email)
+    {
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // Nombre del host de correo, es smtp.gmail.com
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // TLS si está disponible
+        props.setProperty("mail.smtp.starttls.enable", "true");
+
+        // Puerto de gmail para envio de correos
+        props.setProperty("mail.smtp.port","587");
+
+        // Nombre del usuario
+        props.setProperty("mail.smtp.user", "gsanchez@musi.com.ar");
+
+        // Si requiere o no usuario y password para conectarse.
+        props.setProperty("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        session.setDebug(true);
+
+        File file = writer.getCsvMediaListNotProcessedOk();
+        String fileName = file.getName();
+
+        Transport t = null;
+        try
+        {
+//            Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
+
+            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+            attachedFile.setFileName(fileName);
+            MimeMultipart multipart = new MimeMultipart();
+            multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            DBMedia dbMedia = new DBMedia();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbMedia.getReportes();
+
+//            si no hay registros procesados, no se envia nada
+            if(reportes.size() == 0)
+            {
+                file.delete();
+                return;
+            }
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
+
+
+            MimeMessage message = new MimeMessage(session);
+
+            // Quien envia el correo
+            message.setFrom(new InternetAddress(EMAILSENDER));
+
+            // A quien va dirigido
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+
+            message.setSubject("Media No Procesados Correctamente");
+
+            message.setContent(multipart);
+
+            t = session.getTransport("smtp");
+            t.connect(EMAILSENDER, PWD);
+
+            t.sendMessage(message,message.getAllRecipients());
+
+            t.close();
+            file.delete();
+
+
+        }
+        catch (MessagingException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws MessagingException {
 
 //        CSV.Writer writer = new CSV.Writer();
@@ -358,7 +444,8 @@ public class Mail
 
 //        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
 //        mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+//        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+        mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 
     }
 }

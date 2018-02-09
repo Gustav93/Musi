@@ -178,48 +178,36 @@ public class DBManager {
         }
     }
 
-    public List<Price> filterPriceByError()
+    public void verfyMedia()
     {
-        return db_price.filterByError();
+//        List<AuditItem> auditItemList = db_audit.getStockList();
+//        List<Stock> stockList = db_stock.getStockList();
+        List<Media> mediaList = db_media.filtarPor(Filtro.SIN_FILTRAR);
+
+        for (Media media : mediaList)
+        {
+            List<AuditItem> auditItemList = db_audit.getAuditItem(media.getProductCode(),media.getImportOrigin());
+
+            for (AuditItem auditItem : auditItemList)
+            {
+                media.setEmpresa(auditItem.getEmpresa());
+                if (media.getProductCode().equals(auditItem.getProductCode()) && media.getImportOrigin().equals(auditItem.getImportOrigin()))
+                {
+                    if(Utilities.isError(auditItem.getErrorCode()))
+                    {
+                        media.setProcessed("Procesado con error");
+                        media.setErrorDescription(auditItem.getErrorCode() + ": "+ auditItem.getDescription());
+                        db_media.editar(media);
+                    }
+
+                    else
+                    {
+                        media.setProcessed("Procesado");
+                        db_media.editar(media);
+                    }
+                }
+            }
+        }
     }
 
-    public List<Price> filterPriceByNotProcessed()
-    {
-        return db_price.filterByNotProcessed();
-    }
-
-    public List<Price> filterPriceByProcessed()
-    {
-        return db_price.filterByProcessed();
-    }
-
-    public List<Product> filterProductByError()
-    {
-        return db_product.filterByError();
-    }
-
-    public List<Product> filterProductByNotProcessed()
-    {
-        return db_product.filterByNotProcessed();
-    }
-
-    public List<Product> filterProductByProcessed()
-    {
-        return db_product.filterByProcessed();
-    }
-
-    public List<Stock> filterStockByError()
-    {
-        return db_stock.filterByError();
-    }
-
-    public List<Stock> filterStockByNotProcessed()
-    {
-        return db_stock.filterByNotProcessed();
-    }
-
-    public List<Stock> filterStockByProcessed()
-    {
-        return db_stock.filterByProcessed();
-    }
 }

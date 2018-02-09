@@ -1925,6 +1925,7 @@ h4.graph_title {
     padding: 0
 }
 .tile-stats h3 {
+    text-align: center;
     color: #BAB8B8;
     padding-left: 12px;
     padding-right: 12px;

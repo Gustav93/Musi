@@ -15,12 +15,15 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet
-public class MostrarPrecios extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class MostrarPrecios extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         DBPrice dbPrice = new DBPrice();
         HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 

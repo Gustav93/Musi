@@ -40,6 +40,13 @@ public class Procesar extends HttpServlet {
             rq.forward(request, response);
         }
 
+        else if(feed.equals("Media"))
+        {
+            dbManager.verfyMedia();
+            RequestDispatcher rq = request.getRequestDispatcher("Media.html");
+            rq.forward(request, response);
+        }
+
 //
 
 

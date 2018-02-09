@@ -201,7 +201,20 @@ public class Utilities
         Calendario calendario = new Calendario();
 
         return "precio-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+    }
 
+    public static String nombreArchivoNoProcesadoCorrectamenteMedia()
+    {
+        Calendario calendario = new Calendario();
+
+        return "media-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+    }
+
+    public static String nombreArchivoProcesadoMedia()
+    {
+        Calendario calendario = new Calendario();
+
+        return "media-procesado-" + calendario.getFechaYHora() + ".csv";
     }
 
     public static String nombreArchivoProcesadoProducto()
@@ -293,4 +306,35 @@ public class Utilities
         return importOriginList;
     }
 
+    public static void importar(Feed feed)
+    {
+
+        //language=SQL
+        String query = "insert into historico_media select * from media";
+        Connection c = DBConectionManager.openConnection();
+
+        if(feed.equals(Feed.PRECIO))
+            query = "insert into historico_precio select * from price";
+
+        else if(feed.equals(Feed.PRODUCTO))
+            query = "insert into historico_producto select * from product";
+
+        else if(feed.equals(Feed.STOCK))
+            query = "insert into historico_stock select * from stock";
+
+        else if(feed.equals(Feed.MEDIA))
+            query = "insert into historico_media select * from media";
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
 }

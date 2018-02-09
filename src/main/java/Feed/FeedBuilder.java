@@ -65,12 +65,12 @@ public class FeedBuilder
 
         for(List<String> row : rows)
         {
-            System.out.println(row);
+//            System.out.println(row);
             AuditItem item = new AuditItem();
             String feedType = row.get(8);
-            System.out.println(feedType);
+//            System.out.println(feedType);
             String errorCode = row.get(3);
-            System.out.println(errorCode);
+//            System.out.println(errorCode);
 
 
             if(Utilities.checkFeedType(feedType) || errorCode.equals("E37"))
@@ -104,27 +104,25 @@ public class FeedBuilder
             }
         }
 
-
-
         return list;
     }
 
-    private void fixImportOrigin(AuditItem item)
-    {
-
-        if(importOriginCarsa != null && item.getEmpresa().equals("C"))
-        {
-            item.setImportOrigin(importOriginCarsa);
-            System.out.println("asdfv");
-        }
-
-        else if (importOriginEmsa != null && item.getEmpresa().equals("E"))
-        {
-            item.setImportOrigin(importOriginEmsa);
-            System.out.println("assss");
-        }
-
-    }
+//    private void fixImportOrigin(AuditItem item)
+//    {
+//
+//        if(importOriginCarsa != null && item.getEmpresa().equals("C"))
+//        {
+//            item.setImportOrigin(importOriginCarsa);
+//            System.out.println("asdfv");
+//        }
+//
+//        else if (importOriginEmsa != null && item.getEmpresa().equals("E"))
+//        {
+//            item.setImportOrigin(importOriginEmsa);
+//            System.out.println("assss");
+//        }
+//
+//    }
 
     public List<Merchandise> createMerchandiseList(List<List<String>> rows)
     {
@@ -317,31 +315,31 @@ public class FeedBuilder
         return list;
     }
 
-    public static void buscarImportOrigin(List<List<String>> filas)
-    {
-        importOriginEmsa = null;
-        importOriginCarsa = null;
-
-        for (List<String> fila : filas)
-        {
-            String errorCode = fila.get(3);
-            String feedType = fila.get(8);
-            String empresa = fila.get(5);
-            String importOrigin = fila.get(7).toLowerCase();
-
-            if(importOriginCarsa != null && importOriginEmsa != null)
-                break;
-
-            if(feedType.equals("STOCK"))
-            {
-                if(importOriginCarsa == null && errorCode.contains("E") && empresa.equals("C"))
-                    importOriginCarsa = importOrigin;
-
-                else if(importOriginEmsa == null && errorCode.contains("E") && empresa.equals("E"))
-                    importOriginEmsa = importOrigin;
-            }
-        }
-        System.out.println("carsa: " + importOriginCarsa);
-        System.out.println("emsa: " + importOriginEmsa);
-    }
+//    public static void buscarImportOrigin(List<List<String>> filas)
+//    {
+//        importOriginEmsa = null;
+//        importOriginCarsa = null;
+//
+//        for (List<String> fila : filas)
+//        {
+//            String errorCode = fila.get(3);
+//            String feedType = fila.get(8);
+//            String empresa = fila.get(5);
+//            String importOrigin = fila.get(7).toLowerCase();
+//
+//            if(importOriginCarsa != null && importOriginEmsa != null)
+//                break;
+//
+//            if(feedType.equals("STOCK"))
+//            {
+//                if(importOriginCarsa == null && errorCode.contains("E") && empresa.equals("C"))
+//                    importOriginCarsa = importOrigin;
+//
+//                else if(importOriginEmsa == null && errorCode.contains("E") && empresa.equals("E"))
+//                    importOriginEmsa = importOrigin;
+//            }
+//        }
+//        System.out.println("carsa: " + importOriginCarsa);
+//        System.out.println("emsa: " + importOriginEmsa);
+//    }
 }

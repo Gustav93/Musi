@@ -1,7 +1,14 @@
+import CSV.Writer;
+import DataBase.DBManager;
+import DataBase.DBMedia;
 import DataBase.DBPrice;
+import DataBase.DBStock;
+import Feed.Media;
+import FileLoader.FileLoader;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -128,15 +135,35 @@ public class Main
 //        System.out.println("stock-procesado-" + year + mes + dia + hora + min + ".csv");
 //        System.out.println(Utilities.nombreArchivoProcesadoStock());
 
-        DBPrice dbPrice = new DBPrice();
+//        DBPrice dbPrice = new DBPrice();
+//
+////        List<String> s = dbPrice.getImportOriginList();
+//
+////        System.out.println(s);
+//
+//        List<Reporte> reportes = dbPrice.getReportes();
+//
+//        System.out.println(reportes);
 
-//        List<String> s = dbPrice.getImportOriginList();
+//        DBMedia dbMedia = new DBMedia();
+//
+//        dbMedia.crearTabla();
+//        Feed.Media m = new Media();
+//        m.setProductCode("asdasda");
+//
+//        dbMedia.crearRegistro(m);
 
-//        System.out.println(s);
+//        FileLoader loader = new FileLoader();
+////        loader.loadFile("D:\\Media EMSA - 16012018 al 31012018_aud.csv");
+//        loader.loadFile("D:\\media-20180122025.csv");
+////
+//        DBManager dbManager = new DBManager();
+////
+//        dbManager.verfyMedia();
 
-        List<Reporte> reportes = dbPrice.getReportes();
+        Writer writer = new Writer();
 
-        System.out.println(reportes);
+        File f = writer.getCsvMediaListNotProcessedOk();
 
     }
 }

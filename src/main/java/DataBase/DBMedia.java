@@ -17,7 +17,7 @@ public class DBMedia
     public void crearTabla()
     {
         //language=SQL
-        String query = "create table media (productCode VARCHAR(50), codeMedia VARCHAR(100), isDefault VARCHAR(10), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
+        String query = "create table media (productCode VARCHAR(50), codeMedia VARCHAR(100), isDefault VARCHAR(10), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(600), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -55,7 +55,8 @@ public class DBMedia
 
     public void crearRegistro(Media media)
     {
-        String query = "insert into media (productCode, codeMedia, isDefault, importOrigin) value (?,?,?,?,?,?,?)";
+        //language=SQL
+        String query = "insert into media (productCode, codeMedia, isDefault, importOrigin, processed, errorDescription, empresa) value (?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -160,7 +161,7 @@ public class DBMedia
         else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
             query = "select * from media where processed = 'Procesado con Error'";
 
-        else if(filtro.equals(Filtro.PROCESADOS_CORRECTAMENTE))
+        else if(filtro.equals(Filtro.SIN_PROCESAR))
             //language=SQL
             query = "select * from media where processed = 'Sin Procesar'";
 
@@ -180,10 +181,10 @@ public class DBMedia
                 media.setProductCode(res.getString(1));
                 media.setCodeMedia(res.getString(2));
                 media.setIsDefault(res.getString(3));
-                media.setImportOrigin(res.getString(6));
-                media.setProcessed(res.getString(7));
-                media.setErrorDescription(res.getString(8));
-                media.setEmpresa(res.getString(9));
+                media.setImportOrigin(res.getString(4));
+                media.setProcessed(res.getString(5));
+                media.setErrorDescription(res.getString(6));
+                media.setEmpresa(res.getString(7));
 
                 list.add(media);
             }

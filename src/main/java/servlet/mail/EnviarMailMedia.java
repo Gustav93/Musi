@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class EnviarMailPrecios extends HttpServlet
+public class EnviarMailMedia extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -22,9 +22,9 @@ public class EnviarMailPrecios extends HttpServlet
     {
         Mail mail = new Mail();
 
-        mail.sendPriceFeedNotProcessedOk("cbaez@musi.com.ar");
+        mail.enviarRegistrosMediaSinProcesarCorrectamente("cbaez@musi.com.ar");
 
-        RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
+        RequestDispatcher rq = request.getRequestDispatcher("Media.html");
         rq.forward(request, response);
     }
 }
