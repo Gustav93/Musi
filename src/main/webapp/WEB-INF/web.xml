@@ -23,14 +23,6 @@
 		<url-pattern>/mostrar_productos</url-pattern>
 	</servlet-mapping>
 
-    <servlet>
-    	<description>
-    	</description>
-    	<display-name>Ajax</display-name>
-    	<servlet-name>Ajax</servlet-name>
-    	<servlet-class>Ajax</servlet-class>
-    </servlet>
-
 	<servlet>
 		<description>
 		</description>
@@ -43,12 +35,6 @@
 		<servlet-name>SubirArchivo</servlet-name>
 		<url-pattern>/subir_archivo</url-pattern>
 	</servlet-mapping>
-
-
-    <servlet-mapping>
-    	<servlet-name>Ajax</servlet-name>
-    	<url-pattern>/Ajax</url-pattern>
-    </servlet-mapping>
 
 	<servlet>
 		<description>
@@ -466,32 +452,6 @@
 	<servlet-mapping>
 		<servlet-name>ConsultarHistorico</servlet-name>
 		<url-pattern>/consultar_historico</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description>
-		</description>
-		<display-name>ConsultarHistoricoPrecios</display-name>
-		<servlet-name>ConsultarHistoricoPrecios</servlet-name>
-		<servlet-class>servlet.consultarHistorico.ConsultarHistoricoPrecios</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ConsultarHistoricoPrecios</servlet-name>
-		<url-pattern>/consultar_historico_precios</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description>
-		</description>
-		<display-name>ConsultarHistoricoStock</display-name>
-		<servlet-name>ConsultarHistoricoStock</servlet-name>
-		<servlet-class>servlet.consultarHistorico.ConsultarHistoricoStock</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ConsultarHistoricoStock</servlet-name>
-		<url-pattern>/consultar_historico_stock</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
