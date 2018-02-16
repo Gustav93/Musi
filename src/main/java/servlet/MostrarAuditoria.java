@@ -22,7 +22,7 @@ public class MostrarAuditoria extends HttpServlet {
     {
         DBAudit dbAudit = new DBAudit();
 
-        List<AuditItem> itemList = dbAudit.getAuditItemList();
+        List<AuditItem> itemList = dbAudit.getListaAuditoria();
 
         ObjectMapper mapper = new ObjectMapper();
 

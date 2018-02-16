@@ -21,7 +21,7 @@ public class DescargarProductosNoCorrectos extends HttpServlet
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvProductListNotProcessedOk();
+        File archivo = writer.getCsvProductosNoProcesadosCorrectamente();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

@@ -1,7 +1,9 @@
 package DataBase.Historico;
 
 import DataBase.DBConectionManager;
+import DataBase.Feed;
 import Feed.Stock;
+import DataBase.Contador;
 import Utilities.Utilities;
 
 import java.sql.Connection;
@@ -13,97 +15,87 @@ import java.util.List;
 
 public class HistoricoStock
 {
-    private final String CREATE_TABLE_STOCK = "CREATE TABLE HISTORICO_STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
-    private final String DELETE_TABLE_STOCK = "DROP TABLE HISTORICO_STOCK";
-    private final String INSERT_STOCK = "INSERT INTO HISTORICO_STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
-    private final String GET_STOCK = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ?";
-    private final String STOCK_LIST = "SELECT * FROM HISTORICO_STOCK";
-    private final String EDIT = "UPDATE HISTORICO_STOCK SET processed = ?, errorDescription = ? WHERE productCode = ? ";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_STOCK WHERE productCode = ? AND processed = 'Procesado con error'";
-    private final String ADD_INDEX = "ALTER TABLE HISTORICO_STOCK ADD INDEX indiceHistoricoStock (productCode)";
-    private final String IMPORTAR_STOCK = "INSERT INTO HISTORICO_STOCK SELECT * FROM STOCK";
-
-    public void createTable()
+    public void crearTabla()
     {
+        //language=SQL
+        String query = "create table historico_stock (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_STOCK);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
-            DBConectionManager.commit(c);
         }
-
         catch (SQLException e)
         {
             System.out.println("La tabla HISTORICO_STOCK ya existe");
-//            e.printStackTrace();
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.createIndex(ADD_INDEX);
+        Utilities.crearIndiceHistorico(Feed.STOCK);
     }
 
-    public void deleteTable()
+//    public void eliminarTabla()
+//    {
+//        //language=SQL
+//        String query = "drop table historico_stock";
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try
+//        {
+//            PreparedStatement ps = c.prepareStatement(query);
+//            ps.execute();
+//            DBConectionManager.commit(c);
+//        }
+//        catch (SQLException e)
+//        {
+//            System.out.println("Hubo un problema al eliminar la tabla HISTORICO_STOCK");
+//        }
+//    }
+//
+//    public void crearRegistro(Stock stock)
+//    {
+//        //language=SQL
+//        String query = "insert into historico_stock (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try
+//        {
+//            PreparedStatement ps = c.prepareStatement(query);
+//            ps.setString(1, stock.getProductCode());
+//            ps.setString(2, stock.getRegistros());
+//            ps.setString(3, stock.getWarehouse());
+//            ps.setString(4, stock.getStatus());
+//            ps.setString(5, stock.getImportOrigin());
+//            ps.setString(6, stock.getProcessed());
+//            ps.setString(7,stock.getErrorDescription());
+//            ps.setString(8, stock.getEmpresa());
+//
+//            ps.executeUpdate();
+//
+//            DBConectionManager.commit(c);
+//        }
+//
+//        catch (Exception e)
+//        {
+//            DBConectionManager.rollback(c);
+//        }
+//        finally
+//        {
+//            DBConectionManager.closeConnection(c);
+//        }
+//    }
+
+    public List<Stock> getRegistros(String productCode)
     {
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_STOCK);
-            ps.execute();
-            DBConectionManager.commit(c);
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Hubo un problema al eliminar la tabla");
-            e.printStackTrace();
-        }
-
-        DBConectionManager.closeConnection(c);
-    }
-
-    public void createStock(Stock stock)
-    {
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(INSERT_STOCK);
-            ps.setString(1, stock.getProductCode());
-            ps.setString(2, stock.getStock());
-            ps.setString(3, stock.getWarehouse());
-            ps.setString(4, stock.getStatus());
-            ps.setString(5, stock.getImportOrigin());
-            ps.setString(6, stock.getProcessed());
-            ps.setString(7,stock.getErrorDescription());
-            ps.setString(8, stock.getEmpresa());
-
-            ps.executeUpdate();
-
-            DBConectionManager.commit(c);
-        }
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-
-    }
-
-    public List<Stock> getStock(String productCode) {
-
+        //language=SQL
+        String query = "select * from historico_stock where productCode = ?";
         List<Stock> stockList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(GET_STOCK);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, productCode);
             ResultSet res = ps.executeQuery();
 
@@ -132,54 +124,58 @@ public class HistoricoStock
         return stockList;
     }
 
-//    public List<Stock> getStockList(String codigoProducto)
-//    {
-//        return filterBy(STOCK_LIST, codigoProducto);
-//    }
-
-
-    public List<Stock> filterByNotProcessed(String codigoProducto)
+    public void importarStock()
     {
-        return filterBy(FILTER_BY_NOT_PROCESSED, codigoProducto);
-    }
-
-    public List<Stock> filterByProcessed(String codigoProducto)
-    {
-        return filterBy(FILTER_BY_PROCESSED, codigoProducto);
-    }
-
-    public List<Stock> filterByError(String codigoProducto)
-    {
-        return filterBy(FILTER_BY_ERROR, codigoProducto);
-    }
-
-
-
-    private List<Stock> filterBy(String query, String codigoProducto)
-    {
-        List<Stock> list = new ArrayList<>();
+        //language=SQL
+        String query = "insert into historico_stock select * from stock";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
+
+    public int getCantidadRegistrosProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO);
+    }
+
+    public int getCantidadRegistrosNoProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.SIN_PROCESAR);
+    }
+
+    public int getCantidadRegistrosProcesadosConError(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO_CON_ERROR);
+    }
+
+    //devuelve la cantidad de registros con el codigo de producto pasado como parametro
+    public int getCantidadRegistros(String codigoProducto)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int total = 0;
+
+        try
+        {
+            //language=SQL
+            String query = "select count(*) from historico_stock where productCode like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
             {
-                Stock stock = new Stock();
-
-                stock.setProductCode(res.getString(1));
-                stock.setStock(res.getString(2));
-                stock.setWarehouse(res.getString(3));
-                stock.setStatus(res.getString(4));
-                stock.setImportOrigin(res.getString(5));
-                stock.setProcessed(res.getString(6));
-                stock.setErrorDescription(res.getString(7));
-                stock.setEmpresa(res.getString(8));
-
-                list.add(stock);
+                total = res.getInt(1);
             }
         }
 
@@ -192,42 +188,48 @@ public class HistoricoStock
             DBConectionManager.closeConnection(c);
         }
 
-        return list;
+        return total;
     }
 
-    public int getNumberStock(String codigoProducto)
-    {
-        return getStock(codigoProducto).size();
-    }
-
-    public int getNumberProcessed(String codigoProducto)
-    {
-        return filterByProcessed(codigoProducto).size();
-    }
-
-    public int getNumberNotProcessed(String codigoProducto)
-    {
-        return filterByNotProcessed(codigoProducto).size();
-    }
-
-    public int getNumberProcessedError(String codigoProducto)
-    {
-        return filterByError(codigoProducto).size();
-    }
-
-    public void importarStock()
+    private int getCantidadRegistros(String codigoProducto, Contador estadoProcesado)
     {
         Connection c = DBConectionManager.openConnection();
+        int procesados = 0;
 
-        try {
-            PreparedStatement ps = c.prepareStatement(IMPORTAR_STOCK);
-            ps.execute();
-            DBConectionManager.commit(c);
-        } catch (SQLException e)
+        String query = null;
+
+        if(estadoProcesado.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from historico_stock where productCode like ? and processed like 'Procesado'";
+
+        else if(estadoProcesado.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from historico_stock where productCode like ? and processed like 'Procesado con Error'";
+
+        else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from historico_stock where productCode like ? and processed like 'Sin Procesar'";
+
+        try
         {
-            e.printStackTrace();
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                procesados = res.getInt(1);
+            }
         }
 
-        DBConectionManager.closeConnection(c);
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return procesados;
     }
 }

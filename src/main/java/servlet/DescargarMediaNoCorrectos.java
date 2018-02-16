@@ -21,7 +21,7 @@ public class DescargarMediaNoCorrectos extends HttpServlet
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvMediaListNotProcessedOk();
+        File archivo = writer.getCsvMediaNoProcesadoCorrectamente();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

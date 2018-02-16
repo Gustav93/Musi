@@ -14,47 +14,34 @@ public class FileLoader
     private DBManager db;
     private FeedBuilder builder;
 
-
     public FileLoader() throws FileNotFoundException
     {
         db = new DBManager();
         builder = new FeedBuilder();
     }
 
+    //recibe la ubicacion del archivo csv como parametro para luego cargar su contenido a la db correspondiente
     public void loadFile(String path) throws IOException
     {
         reader = new Reader(path);
 
         if (Utilities.isAudit(path))
-            db.addAuditList(builder.createAuditList(reader.process()));
+            db.agregarRegistrosAuditoria(builder.createAuditList(reader.procesar()));
 
         else if(Utilities.isPriceFeed(path))
-        {
-            db.addPriceList(builder.createPriceList(reader.process()));
-//            db.verfyPrice();
-        }
-//            db.addPriceList(builder.createPriceList(reader.process()));
+            db.agregarListaPrecios(builder.createPriceList(reader.procesar()));
 
-        if (Utilities.isProductFeed(path))
-        {
-            db.addProductList(builder.createProductList(reader.process()));
-//            db.verfyProducts();
-//            db.addProductList(builder.createProductList(reader.process()));
-        }
-
+        else if (Utilities.isProductFeed(path))
+            db.agregarListaProductos(builder.createProductList(reader.procesar()));
 
         else if(Utilities.isMerchandiseFeed(path))
-            db.addMerchandiseList(builder.createMerchandiseList(reader.process()));
+            db.agregarListaMerchandise(builder.createMerchandiseList(reader.procesar()));
 
         else if(Utilities.isMediaFeed(path))
-            db.addMediaList(builder.createMediaList(reader.process()));
+            db.agregarListaMedia(builder.createMediaList(reader.procesar()));
 
         else if(Utilities.isStockFeed(path))
-        {
-            db.addStockList(builder.createStockList(reader.process()));
-//            db.verfyStock();
-        }
-//            db.addStockList(builder.createStockList(reader.process()));
+            db.agregarListaStock(builder.createStockList(reader.procesar()));
 
         System.out.println("ok");
     }

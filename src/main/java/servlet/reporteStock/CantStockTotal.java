@@ -33,7 +33,7 @@ public class CantStockTotal extends HttpServlet {
         else
         {
             HistoricoStock historicoStock = new HistoricoStock();
-            cantProcesados = String.valueOf(historicoStock.getNumberStock(codigoProducto));
+            cantProcesados = String.valueOf(historicoStock.getCantidadRegistros(codigoProducto));
         }
 
         response.getWriter().append(cantProcesados);

@@ -2,16 +2,12 @@ package Utilities;
 
 import DataBase.DBConectionManager;
 import DataBase.Feed;
-import Procesado.Contador;
-import Reporte.Reporte;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Utilities
@@ -27,23 +23,6 @@ public class Utilities
         int finalIndex = 0;
         char beginningLetter = 'a';
 
-//        if(feedType.equals("PRODUCT"))
-//            archiveNameLength = path.length() - 23;
-//
-//        else if(feedType.equals("MEDIA"))
-//        {
-//            archiveNameLength =  path.length() - 20;
-//        }
-//
-//        else if(feedType.equals("MERCHANDISE"))
-//            archiveNameLength =  path.length() - 26;
-//
-//        else if(feedType.equals("PRICE"))
-//            archiveNameLength =  path.length() - 21;
-//
-//        while (index > archiveNameLength)
-//            index--;
-
         if(feedType.equals("PRODUCT") || feedType.equals("PRICE"))
             beginningLetter = 'p';
 
@@ -54,18 +33,7 @@ public class Utilities
             beginningLetter = 's';
 
         else if(path.contains("_aud"))
-        {
             beginningLetter = 's';
-
-//            int i = 0;
-//
-//            while(path.charAt(i) != '_')
-//                i++;
-//
-//            archiveName = path.substring(0,i) + ".csv";
-//
-//            return archiveName;
-        }
 
         while(index>0)
         {
@@ -115,25 +83,6 @@ public class Utilities
         return res;
     }
 
-    public static void createIndex(String statement)
-    {
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(statement);
-            ps.execute();
-            DBConectionManager.commit(c);
-        }
-
-        catch (SQLException e)
-        {
-            e.getStackTrace();
-        }
-
-        DBConectionManager.closeConnection(c);
-    }
-
     public static boolean isProductFeed(String path)
     {
         return getFeedType(path).equals("PRODUCT") && !path.contains("_aud");
@@ -179,7 +128,6 @@ public class Utilities
         Calendario calendario = new Calendario();
 
         return "stock-procesado-" + calendario.getFechaYHora() + ".csv";
-
     }
 
     public static String nombreArchivoNoProcesadoCorrectamenteStock()
@@ -187,7 +135,6 @@ public class Utilities
         Calendario calendario = new Calendario();
 
         return "stock-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
-
     }
 
     public static String nombreArchivoProcesadoPrecio()
@@ -195,7 +142,6 @@ public class Utilities
         Calendario calendario = new Calendario();
 
         return "precio-procesado-" + calendario.getFechaYHora() + ".csv";
-
     }
 
     public static String nombreArchivoNoProcesadoCorrectamentePrecio()
@@ -252,6 +198,41 @@ public class Utilities
         else if(feed.equals(Feed.MEDIA))
             query = "alter table media add index indiceMedia (productCode, importOrigin)";
 
+        else if(feed.equals(Feed.AUDITORIA))
+            query = "alter table audit add index indiceAudit (productCode, importOrigin)";
+
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+
+        catch (SQLException e)
+        {
+            e.getStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
+
+    public static void crearIndiceHistorico(Feed feed)
+    {
+        String query = null;
+        Connection c = DBConectionManager.openConnection();
+
+        if(feed.equals(Feed.PRECIO))
+            query = "alter table historico_precios add index indiceHistoricoPrecio (productCode)";
+
+        else if(feed.equals(Feed.PRODUCTO))
+            query = "alter table historico_productos add index indiceHistoricoProducto (code)";
+
+        else if(feed.equals(Feed.STOCK))
+            query = "alter table historico_stock add index indiceHistoricoStock (productCode)";
+
+        else if(feed.equals(Feed.MEDIA))
+            query = "alter table historico_media add index indiceHistoricoMedia (productCode)";
+
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
@@ -306,37 +287,5 @@ public class Utilities
         }
 
         return importOriginList;
-    }
-
-    public static void importar(Feed feed)
-    {
-
-        //language=SQL
-        String query = "insert into historico_media select * from media";
-        Connection c = DBConectionManager.openConnection();
-
-        if(feed.equals(Feed.PRECIO))
-            query = "insert into historico_precio select * from price";
-
-        else if(feed.equals(Feed.PRODUCTO))
-            query = "insert into historico_producto select * from product";
-
-        else if(feed.equals(Feed.STOCK))
-            query = "insert into historico_stock select * from stock";
-
-        else if(feed.equals(Feed.MEDIA))
-            query = "insert into historico_media select * from media";
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.execute();
-            DBConectionManager.commit(c);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        DBConectionManager.closeConnection(c);
     }
 }

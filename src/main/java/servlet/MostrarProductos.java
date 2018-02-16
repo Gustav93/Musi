@@ -34,7 +34,7 @@ public class MostrarProductos extends HttpServlet {
             productList = dbProduct.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
-            productList = historicoProductos.getProducts(codigo);
+            productList = historicoProductos.getRegistros(codigo);
 
         ObjectMapper mapper = new ObjectMapper();
 

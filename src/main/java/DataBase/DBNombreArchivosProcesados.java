@@ -1,27 +1,18 @@
 package DataBase;
 
-import Utilities.Utilities;
-
 import java.sql.*;
-
 
 public class DBNombreArchivosProcesados
 {
-
-    private final String CREATE_TABLE_ARCHIVOS = "CREATE TABLE NOMBRE_ARCHIVOS (nombre VARCHAR(100), PRIMARY KEY (nombre))";
-    private final String DELETE_TABLE_ARCHIVOS = "DROP TABLE ARCHIVOS";
-    private final String INSERT_ARCHIVO = "INSERT INTO NOMBRE_ARCHIVOS (nombre) VALUES (?)";
-    private final String GET_NOMBRE = "SELECT * FROM NOMBRE_ARCHIVOS WHERE nombre = ?";
-    private final String LISTA_ARCHIVOS = "SELECT * FROM ARCHIVOS";
-    private final String ADD_INDEX = "ALTER TABLE ARCHIVOS ADD INDEX indiceArchivos (nombre)";
-
     public void crearTabla()
     {
         Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "create table nombre_archivos (nombre varchar(100), primary key (nombre))";
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_ARCHIVOS);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
         }
@@ -29,43 +20,44 @@ public class DBNombreArchivosProcesados
         catch (SQLException e)
         {
 
-            System.out.println("La tabla ARCHIVOS ya existe");
+            System.out.println("La tabla NOMBRE_ARCHIVOS ya existe");
         }
 
         DBConectionManager.closeConnection(c);
 
-        Utilities.createIndex(ADD_INDEX);
+        crearIndice();
     }
 
-    public void elimiarTabla()
-    {
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_ARCHIVOS);
-            ps.execute();
-            DBConectionManager.commit(c);
-        }
-
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-
-        DBConectionManager.closeConnection(c);
-
-
-    }
+//    public void elimiarTabla()
+//    {
+//        Connection c = DBConectionManager.openConnection();
+//        //language=SQL
+//        String query = "drop table nombre_archivos";
+//
+//        try
+//        {
+//            PreparedStatement ps = c.prepareStatement(query);
+//            ps.execute();
+//            DBConectionManager.commit(c);
+//        }
+//
+//        catch (SQLException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//        DBConectionManager.closeConnection(c);
+//    }
 
     public void setNombreArchivo(String nombreArchivo)
     {
         Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "insert into nombre_archivos (nombre) values (?)";
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(INSERT_ARCHIVO);
+            PreparedStatement ps = c.prepareStatement(query);
 
             ps.setString(1, nombreArchivo);
             ps.executeUpdate();
@@ -89,10 +81,12 @@ public class DBNombreArchivosProcesados
     {
         boolean res = false;
         Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "select * from nombre_archivos where nombre = ?";
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(GET_NOMBRE);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, nombreArchivo);
             ResultSet rs = ps.executeQuery();
 
@@ -104,9 +98,29 @@ public class DBNombreArchivosProcesados
             e.printStackTrace();
         }
 
-
         DBConectionManager.closeConnection(c);
 
         return res;
+    }
+
+    private void crearIndice()
+    {
+        Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query ="alter table nombre_archivos add index indiceArchivos (nombre)";
+
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        }
+
+        catch (SQLException e)
+        {
+            e.getStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
     }
 }

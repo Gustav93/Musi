@@ -34,7 +34,7 @@ public class CantPreciosError extends HttpServlet {
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 
-            totalPrecios = String.valueOf(historicoPrecios.getNumberProcessedError(codigoProducto));
+            totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistrosProcesadosConError(codigoProducto));
         }
 
         response.getWriter().append(totalPrecios);

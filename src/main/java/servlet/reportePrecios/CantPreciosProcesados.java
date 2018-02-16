@@ -33,7 +33,7 @@ public class CantPreciosProcesados extends HttpServlet {
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 
-            cantProcesados = String.valueOf(historicoPrecios.getNumberProcessed(codigoProducto));
+            cantProcesados = String.valueOf(historicoPrecios.getCantidadRegistrosProcesados(codigoProducto));
         }
 
         response.getWriter().append(cantProcesados);

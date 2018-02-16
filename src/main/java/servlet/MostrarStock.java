@@ -35,7 +35,7 @@ public class MostrarStock extends HttpServlet
             stockList = dbStock.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
-            stockList = historicoStock.getStock(codigo);
+            stockList = historicoStock.getRegistros(codigo);
 
         ObjectMapper mapper = new ObjectMapper();
 

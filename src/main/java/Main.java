@@ -1,24 +1,13 @@
 import CSV.Writer;
-import DataBase.DBManager;
-import DataBase.DBMedia;
-import DataBase.DBPrice;
-import DataBase.DBStock;
-import Feed.Media;
-import FileLoader.FileLoader;
-import Reporte.Reporte;
-import Utilities.Utilities;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 public class Main
 {
     public static void main(String[] args) throws Exception
     {
 //        Reader reader = new Reader("D:\\Nueva Carpeta\\stock-1801140001.csv");
-//        List<List<String>> list = reader.process();
+//        List<List<String>> list = reader.procesar();
 //        System.out.println(list.get(1));
 //
 //        List<AuditItem> f = FeedBuilder.createAuditList(list);
@@ -27,7 +16,7 @@ public class Main
 //
 //        DBConecionManager dbm = new DBConecionManager();
 //
-//        dbm.addAuditList(f);
+//        dbm.agregarRegistrosAuditoria(f);
 
 //        FileLoader fileLoader = new FileLoader();
 //        fileLoader.loadFile("D:\\media-1712070001.csv");
@@ -54,16 +43,16 @@ public class Main
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801170001.csv");
 
 
-//        dbConecionManager.verfyProducts();
-//        dbConecionManager.verfyPrice();
-//        dbConecionManager.verfyStock();
+//        dbConecionManager.verificarProductos();
+//        dbConecionManager.verificarPrecios();
+//        dbConecionManager.verificarStock();
 
 //        DBAudit dbAudit = new DBAudit();
-//        System.out.println(dbAudit.getAuditItem("171820", "stock-1801170001.csv").size());
+//        System.out.println(dbAudit.getRegistro("171820", "stock-1801170001.csv").size());
 
 //        Reader r = new Reader("D:\\Auditoria stock.csv");
 //
-//        FeedBuilder.buscarImportOrigin(r.process());
+//        FeedBuilder.buscarImportOrigin(r.procesar());
 
 
 //        DBProduct dbProduct = new DBProduct();
@@ -159,11 +148,11 @@ public class Main
 ////
 //        DBManager dbManager = new DBManager();
 ////
-//        dbManager.verfyMedia();
+//        dbManager.verificarMedia();
 
         Writer writer = new Writer();
 
-        File f = writer.getCsvMediaListNotProcessedOk();
+        File f = writer.getCsvMediaNoProcesadoCorrectamente();
 
     }
 }

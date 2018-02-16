@@ -1,7 +1,9 @@
 package DataBase.Historico;
 
 import DataBase.DBConectionManager;
+import DataBase.Feed;
 import Feed.Price;
+import DataBase.Contador;
 import Utilities.Utilities;
 
 import java.sql.Connection;
@@ -13,98 +15,86 @@ import java.util.List;
 
 public class HistoricoPrecios
 {
-    private final String CREATE_TABLE_PRICE = "CREATE TABLE HISTORICO_PRECIOS (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
-    private final String DELETE_TABLE_PRICE = " DROP TABLE HISTORICO_PRECIOS";
-    private final String INSERT_PRICE = "INSERT INTO HISTORICO_PRECIOS (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?)";
-    private final String GET_PRICE = "SELECT * FROM HISTORICO_PRECIOS WHERE productCode = ?";
-    private final String PRICE_LIST = "SELECT * FROM HISTORICO_PRRECIOS";
-    private final String EDIT = "UPDATE HISTORICO_PRECIOS SET processed = ?, errorDescription = ? WHERE productCode = ?";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM HISTORICO_PRECIOS WHERE ProductCode = ? AND processed = 'Procesado con error'";
-    private final String ADD_INDEX = "ALTER TABLE HISTORICO_PRECIOS ADD INDEX indiceHistoricoPrecios (productCode)";
-    private final String IMPORTAR_PRECIOS = "INSERT INTO HISTORICO_PRECIOS SELECT * FROM PRICE";
-
-
-    public void createTable() {
+    public void crearTabla()
+    {
+        //language=SQL
+        String query = "create table historico_precios (productCode VARCHAR(50), onlinePrice VARCHAR(50), currency VARCHAR(50), storePrice VARCHAR(50), hasPriority VARCHAR(50), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_PRICE);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
-            DBConectionManager.commit(c);
         } catch (SQLException e) {
             System.out.println("La tabla HISTORICO_PRECIOS ya existe");
-//            e.printStackTrace();
         }
 
         DBConectionManager.closeConnection(c);
-
-        Utilities.createIndex(ADD_INDEX);
-
+        Utilities.crearIndiceHistorico(Feed.PRECIO);
     }
 
-    public void deleteTable() {
-        Connection c = DBConectionManager.openConnection();
+//    public void eliminarTabla()
+//    {
+//        //language=SQL
+//        String query = "drop table historico_precios";
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try {
+//            PreparedStatement ps = c.prepareStatement(query);
+//            ps.execute();
+//            DBConectionManager.commit(c);
+//        }
+//        catch (SQLException e)
+//        {
+//            System.out.println("Hubo un problema al eliminar la tabla HISTORICO_PRECIOS");
+//        }
+//
+//        DBConectionManager.closeConnection(c);
+//    }
 
-        try {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_PRICE);
-            ps.execute();
-            DBConectionManager.commit(c);
-        }
-        catch (SQLException e)
-        {
-            System.out.println("La tabla no se puede borrar, no existe");
-        }
+//    public void crearRegistro(Price price)
+//    {
+//        String query = "insert into historico_precios (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?,?,?)";
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try {
+//            PreparedStatement ps = c.prepareStatement(query);
+//            ps.setString(1, price.getProductCode());
+//            ps.setString(2, price.getOnlinePrice());
+//            ps.setString(3, price.getCurrency());
+//            ps.setString(4, price.getStorePrice());
+//            ps.setString(5, price.getHasPriority());
+//            ps.setString(6, price.getImportOrigin());
+//            ps.setString(7, price.getProcessed());
+//            ps.setString(8, price.getErrorDescription());
+//            ps.setString(9, price.getEmpresa());
+//
+//            ps.executeUpdate();
+//
+//            DBConectionManager.commit(c);
+//        }
+//        catch (Exception e)
+//        {
+//            DBConectionManager.rollback(c);
+//        }
+//        finally
+//        {
+//            DBConectionManager.closeConnection(c);
+//        }
+//
+//    }
 
-        DBConectionManager.closeConnection(c);
-    }
-
-    public void createPrice(Price price) {
-        Connection c = DBConectionManager.openConnection();
-
-        try {
-            PreparedStatement ps = c.prepareStatement(INSERT_PRICE);
-            ps.setString(1, price.getProductCode());
-            ps.setString(2, price.getOnlinePrice());
-            ps.setString(3, price.getCurrency());
-            ps.setString(4, price.getStorePrice());
-            ps.setString(5, price.getHasPriority());
-            ps.setString(6, price.getImportOrigin());
-            ps.setString(7, price.getProcessed());
-            ps.setString(8, price.getErrorDescription());
-            ps.setString(9, price.getEmpresa());
-
-            ps.executeUpdate();
-
-            DBConectionManager.commit(c);
-        } catch (Exception e) {
-            DBConectionManager.rollback(c);
-        } finally {
-
-            try {
-                DBConectionManager.closeConnection(c);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    public List<Price> getPrice(String productCode) {
-
+    public List<Price> getRegistros(String productCode) {
         List<Price> priceList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "select * from historico_precios where productCode = ?";
 
         try {
-
-            PreparedStatement ps = c.prepareStatement(GET_PRICE);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, productCode);
             ResultSet res = ps.executeQuery();
 
-            while (res.next())
-            {
+            while (res.next()) {
                 Price price = new Price();
                 price.setProductCode(productCode);
                 price.setOnlinePrice(res.getString(2));
@@ -120,64 +110,60 @@ public class HistoricoPrecios
         } catch (Exception e) {
             DBConectionManager.rollback(c);
         } finally {
-            try {
-                DBConectionManager.closeConnection(c);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            DBConectionManager.closeConnection(c);
+
         }
         return priceList;
     }
 
-//    public List<Price> getPriceList()
-//    {
-//        return filterBy(PRICE_LIST);
-//    }
-
-
-
-    public List<Price> filterByNotProcessed(String codigoProducto)
-    {
-        return filterBy(FILTER_BY_NOT_PROCESSED, codigoProducto);
-    }
-
-    public List<Price> filterByProcessed(String codigoProducto)
-    {
-        return filterBy(FILTER_BY_PROCESSED, codigoProducto);
-    }
-
-    public List<Price> filterByError(String codigoProducto)
-    {
-        return filterBy(FILTER_BY_ERROR, codigoProducto);
-    }
-
-    private List<Price> filterBy(String query, String codigoProducto)
-    {
-        List<Price> list = new ArrayList<>();
+    public void importarPrecios() {
+        //language=SQL
+        String query = "insert into historico_precios select * from price";
         Connection c = DBConectionManager.openConnection();
+
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.execute();
+            DBConectionManager.commit(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        DBConectionManager.closeConnection(c);
+    }
+
+    public int getCantidadRegistrosProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO);
+    }
+
+    public int getCantidadRegistrosNoProcesados(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.SIN_PROCESAR);
+    }
+
+    public int getCantidadRegistrosProcesadosConError(String codigoProducto)
+    {
+        return getCantidadRegistros(codigoProducto, Contador.PROCESADO_CON_ERROR);
+    }
+
+    //devuelve la cantidad de registros con el codigo de producto pasado como parametro
+    public int getCantidadRegistros(String codigoProducto)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int total = 0;
 
         try
         {
+            //language=SQL
+            String query = "select count(*) from historico_precios where productCode like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
             {
-                Price price = new Price();
-
-                price.setProductCode(res.getString(1));
-                price.setOnlinePrice(res.getString(2));
-                price.setCurrency(res.getString(3));
-                price.setStorePrice(res.getString(4));
-                price.setHasPriority(res.getString(5));
-                price.setImportOrigin(res.getString(6));
-                price.setProcessed(res.getString(7));
-                price.setErrorDescription(res.getString(8));
-                price.setEmpresa(res.getString(9));
-
-                list.add(price);
+                total = res.getInt(1);
             }
         }
 
@@ -190,41 +176,48 @@ public class HistoricoPrecios
             DBConectionManager.closeConnection(c);
         }
 
-        return list;
-    }
-    public int getNumberPrecios(String codigoProducto){
-        return getPrice(codigoProducto).size();
+        return total;
     }
 
-
-    public int getNumberProcessed(String codigoProducto)
-    {
-        return filterByProcessed(codigoProducto).size();
-    }
-
-    public int getNumberNotProcessed(String codigoProducto)
-    {
-        return filterByNotProcessed(codigoProducto).size();
-    }
-
-    public int getNumberProcessedError(String codigoProducto)
-    {
-        return filterByError(codigoProducto).size();
-    }
-
-    public void importarPrecios()
+    private int getCantidadRegistros(String codigoProducto, Contador estadoProcesado)
     {
         Connection c = DBConectionManager.openConnection();
+        int procesados = 0;
 
-        try {
-            PreparedStatement ps = c.prepareStatement(IMPORTAR_PRECIOS);
-            ps.execute();
-            DBConectionManager.commit(c);
-        } catch (SQLException e)
+        String query = null;
+
+        if(estadoProcesado.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado'";
+
+        else if(estadoProcesado.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado con Error'";
+
+        else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Sin Procesar'";
+
+        try
         {
-            e.printStackTrace();
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, codigoProducto);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                procesados = res.getInt(1);
+            }
         }
 
-        DBConectionManager.closeConnection(c);
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return procesados;
     }
 }

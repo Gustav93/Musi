@@ -24,7 +24,7 @@ public class CargarHistoricoPrecios extends HttpServlet
         DBPrice dbPrice = new DBPrice();
         HistoricoPrecios historicoPrecios= new HistoricoPrecios();
 
-        historicoPrecios.createTable();
+        historicoPrecios.crearTabla();
         historicoPrecios.importarPrecios();
 
         dbPrice.eliminarTable();

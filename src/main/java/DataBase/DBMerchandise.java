@@ -43,14 +43,12 @@ public class DBMerchandise
             ps.execute();
             DBConectionManager.commit(c);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         try {
             DBConectionManager.closeConnection(c);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -79,7 +77,6 @@ public class DBMerchandise
             try {
                 DBConectionManager.closeConnection(c);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -111,7 +108,6 @@ public class DBMerchandise
             try {
                 DBConectionManager.closeConnection(c);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

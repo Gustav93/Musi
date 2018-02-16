@@ -30,7 +30,7 @@ public class CantProductosNoProcesados extends HttpServlet
         {
             HistoricoProductos historicoProductos = new HistoricoProductos();
 
-            noProcesados = String.valueOf(historicoProductos.getNumberNotProcessed(codigoProducto));
+            noProcesados = String.valueOf(historicoProductos.getCantidadRegistrosNoProcesados(codigoProducto));
         }
 
         response.getWriter().append(noProcesados);

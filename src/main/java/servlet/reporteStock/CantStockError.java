@@ -36,7 +36,7 @@ public class CantStockError extends HttpServlet
         {
             HistoricoStock historicoStock = new HistoricoStock();
 
-            cantProcesadosConError = String.valueOf(historicoStock.getNumberProcessedError(codigoProducto));
+            cantProcesadosConError = String.valueOf(historicoStock.getCantidadRegistrosProcesadosConError(codigoProducto));
         }
 
         response.getWriter().append(cantProcesadosConError);

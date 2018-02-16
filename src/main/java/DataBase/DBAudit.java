@@ -12,70 +12,58 @@ import java.util.List;
 
 public class DBAudit
 {
-    private final String EDIT = "UPDATE AUDIT SET importOrigin = ? WHERE productCode = ? ";
-    private final String CREATE_TABLE_AUDIT = "CREATE TABLE AUDIT (auditLevel VARCHAR(50), auditType VARCHAR(50), auditDate VARCHAR(50), errorCode VARCHAR(50), description VARCHAR(500), empresa VARCHAR(50), productCode VARCHAR(50), importOrigin VARCHAR(100), feedType VARCHAR(50))";
-    private final String DELETE_TABLE_AUDIT = "DROP TABLE AUDIT";
-    private final String INSERT_AUDIT_ITEM = "INSERT INTO AUDIT (auditLevel, auditType, auditDate, errorCode, description, empresa, productCode, importOrigin, feedType) VALUES (?,?,?,?,?,?,?,?,?)";
-    private final String GET_AUDIT_ITEM = "SELECT * FROM AUDIT WHERE productCode = ? AND importOrigin = ?";
-    private final String AUDIT_LIST = "SELECT * FROM AUDIT";
-    private final String PRODUCT_LIST = "SELECT * FROM AUDIT WHERE feedType = 'PRODUCT'";
-    private final String PRICE_LIST = "SELECT * FROM AUDIT WHERE feedType = 'PRICE'";
-    private final String STOCK_LIST = "SELECT * FROM AUDIT WHERE feedType = 'STOCK'";
-    private final String ADD_INDEX = "ALTER TABLE AUDIT ADD INDEX indiceAudit (productCode, importOrigin)";
-
-    public void createTable()
+    public void crearTabla()
     {
+        //language=SQL
+        String query = "create table audit (auditLevel VARCHAR(50), auditType VARCHAR(50), auditDate VARCHAR(50), errorCode VARCHAR(50), description VARCHAR(500), empresa VARCHAR(50), productCode VARCHAR(50), importOrigin VARCHAR(100), feedType VARCHAR(50))";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_AUDIT);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
         }
 
         catch (SQLException e)
         {
-
             System.out.println("La tabla AUDIT ya existe");
         }
 
         DBConectionManager.closeConnection(c);
 
-        Utilities.createIndex(ADD_INDEX);
+        Utilities.crearIndice(Feed.AUDITORIA);
     }
 
-    public void deleteTable()
+    public void eliminarTabla()
     {
+        //language=SQL
+        String query = "drop table audit";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_AUDIT);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
         }
 
         catch (SQLException e)
         {
-//            e.printStackTrace();
             System.out.println("No se pudo eliminar la tabla AUDIT");
         }
 
-        try {
-            DBConectionManager.closeConnection(c);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        DBConectionManager.closeConnection(c);
     }
 
-    public void createAuditItem(AuditItem item) {
+    public void crearRegistro(AuditItem item)
+    {
+        String query = "insert into audit (auditLevel, auditType, auditDate, errorCode, description, empresa, productCode, importOrigin, feedType) values (?,?,?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(INSERT_AUDIT_ITEM);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, item.getAuditLevel());
             ps.setString(2, item.getAuditType());
             ps.setString(3, item.getAuditDate());
@@ -101,13 +89,16 @@ public class DBAudit
         }
     }
 
-    public List<AuditItem> getAuditItem(String productCode, String importOrigin) {
-
+    public List<AuditItem> getRegistro(String productCode, String importOrigin)
+    {
+        //language=SQL
+        String query = "select * from audit where productCode = ? and importOrigin = ?";
         List<AuditItem> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
 
-        try {
-            PreparedStatement ps = c.prepareStatement(GET_AUDIT_ITEM);
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, productCode);
             ps.setString(2, importOrigin);
             ResultSet res = ps.executeQuery();
@@ -141,171 +132,12 @@ public class DBAudit
         return list;
     }
 
-    public List<AuditItem> getAuditItemList()
-    {
-
-        ArrayList<AuditItem> auditItemList = new ArrayList<>();
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement statement = c.prepareStatement(AUDIT_LIST);
-            ResultSet res = statement.executeQuery();
-
-            while(res.next())
-            {
-                AuditItem item = new AuditItem();
-
-                item.setAuditLevel(res.getString(1));
-                item.setAuditType(res.getString(2));
-                item.setAuditDate(res.getString(3));
-                item.setErrorCode(res.getString(4));
-                item.setDescription(res.getString(5));
-                item.setEmpresa(res.getString(6));
-                item.setProductCode(res.getString(7));
-                item.setImportOrigin(res.getString(8));
-                item.setFeedType(res.getString(9));
-
-                auditItemList.add(item);
-            }
-        }
-
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-
-        return auditItemList;
-    }
-
-    public List<AuditItem> getProductList()
+    public List<AuditItem> getListaAuditoria()
     {
         ArrayList<AuditItem> auditItemList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement statement = c.prepareStatement(PRODUCT_LIST);
-            ResultSet res = statement.executeQuery();
-
-            while(res.next())
-            {
-                AuditItem item = new AuditItem();
-
-                item.setAuditLevel(res.getString(1));
-                item.setAuditType(res.getString(2));
-                item.setAuditDate(res.getString(3));
-                item.setErrorCode(res.getString(4));
-                item.setDescription(res.getString(5));
-                item.setEmpresa(res.getString(6));
-                item.setProductCode(res.getString(7));
-                item.setImportOrigin(res.getString(8));
-                item.setFeedType(res.getString(9));
-
-                auditItemList.add(item);
-            }
-        }
-
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-
-        return auditItemList;
-    }
-
-    public List<AuditItem> getPriceList()
-    {
-        ArrayList<AuditItem> auditItemList = new ArrayList<>();
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement statement = c.prepareStatement(PRICE_LIST);
-            ResultSet res = statement.executeQuery();
-
-            while(res.next())
-            {
-                AuditItem item = new AuditItem();
-
-                item.setAuditLevel(res.getString(1));
-                item.setAuditType(res.getString(2));
-                item.setAuditDate(res.getString(3));
-                item.setErrorCode(res.getString(4));
-                item.setDescription(res.getString(5));
-                item.setEmpresa(res.getString(6));
-                item.setProductCode(res.getString(7));
-                item.setImportOrigin(res.getString(8));
-                item.setFeedType(res.getString(9));
-
-                auditItemList.add(item);
-            }
-        }
-
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-
-        return auditItemList;
-    }
-
-    public List<AuditItem> getStockList()
-    {
-        ArrayList<AuditItem> auditItemList = new ArrayList<>();
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement statement = c.prepareStatement(STOCK_LIST);
-            ResultSet res = statement.executeQuery();
-
-            while(res.next())
-            {
-                AuditItem item = new AuditItem();
-
-                item.setAuditLevel(res.getString(1));
-                item.setAuditType(res.getString(2));
-                item.setAuditDate(res.getString(3));
-                item.setErrorCode(res.getString(4));
-                item.setDescription(res.getString(5));
-                item.setEmpresa(res.getString(6));
-                item.setProductCode(res.getString(7));
-                item.setImportOrigin(res.getString(8));
-                item.setFeedType(res.getString(9));
-
-                auditItemList.add(item);
-            }
-        }
-
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-
-        return auditItemList;
-    }
-
-    private List<AuditItem> filterBy(String query)
-    {
-        List<AuditItem> list = new ArrayList<>();
-        Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "select * from audit";
 
         try
         {
@@ -326,7 +158,7 @@ public class DBAudit
                 item.setImportOrigin(res.getString(8));
                 item.setFeedType(res.getString(9));
 
-                list.add(item);
+                auditItemList.add(item);
             }
         }
 
@@ -339,16 +171,17 @@ public class DBAudit
             DBConectionManager.closeConnection(c);
         }
 
-        return list;
+        return auditItemList;
     }
 
-
-    public void edit(AuditItem item)
+    public void editar(AuditItem item)
     {
         Connection c = DBConectionManager.openConnection();
+        //language=SQL
+        String query = "update audit set importOrigin = ? where productCode = ? ";
         try
         {
-            PreparedStatement ps = c.prepareStatement(EDIT);
+            PreparedStatement ps = c.prepareStatement(query);
 
             ps.setString(1, item.getImportOrigin());
             ps.setString(2, item.getProductCode());

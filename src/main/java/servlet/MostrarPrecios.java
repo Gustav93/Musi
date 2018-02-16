@@ -35,7 +35,7 @@ public class MostrarPrecios extends HttpServlet
             priceList = dbPrice.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
-            priceList = historicoPrecios.getPrice(codigo);
+            priceList = historicoPrecios.getRegistros(codigo);
 
         ObjectMapper mapper = new ObjectMapper();
 

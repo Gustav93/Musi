@@ -33,7 +33,7 @@ public class CantPreciosTotal extends HttpServlet {
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 
-            totalPrecios = String.valueOf(historicoPrecios.getNumberPrecios(codigoProducto));
+            totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistros(codigoProducto));
         }
 
         response.getWriter().append(totalPrecios);

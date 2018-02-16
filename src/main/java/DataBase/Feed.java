@@ -2,6 +2,5 @@ package DataBase;
 
 public enum Feed
 {
-    PRECIO, PRODUCTO, STOCK, MEDIA;
-
+    PRECIO, PRODUCTO, STOCK, MEDIA, AUDITORIA
 }

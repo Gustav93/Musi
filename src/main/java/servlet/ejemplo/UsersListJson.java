@@ -50,7 +50,7 @@ public class UsersListJson extends HttpServlet {
 		DBPrice dbPrice = new DBPrice();
 		DBProduct dbProduct = new DBProduct();
 
-//		List<AuditItem> auditItemList = dbAudit.getAuditItemList();
+//		List<AuditItem> auditItemList = dbAudit.getListaAuditoria();
 		List<Price> priceList = dbPrice.filtrarPor(Filtro.SIN_FILTRAR);
 //		List<Product> productList = dbProduct.getProductList();
 

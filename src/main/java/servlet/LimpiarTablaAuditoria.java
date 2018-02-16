@@ -22,7 +22,7 @@ public class LimpiarTablaAuditoria extends HttpServlet
     {
         DBAudit dbAudit = new DBAudit();
 
-        dbAudit.deleteTable();
+        dbAudit.eliminarTabla();
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request,response);

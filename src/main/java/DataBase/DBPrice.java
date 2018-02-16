@@ -1,7 +1,6 @@
 package DataBase;
 
 import Feed.Price;
-import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -89,7 +88,7 @@ public class DBPrice
 
     }
 
-//    public Price getPrice(String productCode) {
+//    public Price getRegistros(String productCode) {
 //
 //        Price price = new Price();
 //        Connection c = DBConectionManager.openConnection();

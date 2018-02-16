@@ -21,7 +21,7 @@ public class DescargarMedia extends HttpServlet
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvMediaList();
+        File archivo = writer.getCsvMediaProcesadoCorrectamente();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

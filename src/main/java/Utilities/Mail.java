@@ -48,7 +48,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvStockListNotProcessedOk();
+        File file = writer.getCsvStockNoProcesadoCorrectamente();
         String fileName = file.getName();
 
         Transport t;
@@ -132,7 +132,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvProductListNotProcessedOk();
+        File file = writer.getCsvProductosNoProcesadosCorrectamente();
         String fileName = file.getName();
 
         Transport t;
@@ -216,7 +216,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvPriceListNotProcessedOk();
+        File file = writer.getCsvPreciosNoProcesadosCorrectamente();
         String fileName = file.getName();
 
         Transport t;
@@ -300,7 +300,7 @@ public class Mail
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
 
-        File file = writer.getCsvMediaListNotProcessedOk();
+        File file = writer.getCsvMediaNoProcesadoCorrectamente();
         String fileName = file.getName();
 
         Transport t;
@@ -364,7 +364,7 @@ public class Mail
     public static void main(String[] args) throws MessagingException {
 
 //        CSV.Writer writer = new CSV.Writer();
-//        File products = writer.getCsvProductList();
+//        File products = writer.getCsvProductosProcesadosCorrectamente();
 //
 //        System.out.println(products.getName());
 //

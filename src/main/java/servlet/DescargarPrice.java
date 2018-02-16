@@ -19,8 +19,8 @@ public class DescargarPrice extends HttpServlet {
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvPriceList();
-//        File archivo = writer.getCsvPriceListNotProcessedOk();
+        File archivo = writer.getCsvPreciosProcesadosCorrectamente();
+//        File archivo = writer.getCsvPreciosNoProcesadosCorrectamente();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

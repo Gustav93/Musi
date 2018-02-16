@@ -5,86 +5,86 @@ import Utilities.Utilities;
 
 import java.util.List;
 
-public class DBManager {
+public class DBManager
+{
     private DBAudit db_audit;
     private DBMedia db_media;
     private DBMerchandise db_merchandise;
     private DBPrice db_price;
     private DBProduct db_product;
     private DBStock db_stock;
-//    private DBNombreArchivosProcesados dbNombreArchivosProcesados;
-//    private HistoricoProductos db_historico_productos;
 
-    public DBManager() {
+    public DBManager()
+    {
         db_product = new DBProduct();
         db_audit = new DBAudit();
         db_media = new DBMedia();
         db_merchandise = new DBMerchandise();
         db_price = new DBPrice();
         db_stock = new DBStock();
-//        db_archivos = new DBArchivos();
-//        dbNombreArchivosProcesados = new DBNombreArchivosProcesados();
-//        db_historico_productos = new HistoricoProductos();
     }
 
-    public void addProductList(List<Product> productList) {
+    public void agregarListaProductos(List<Product> productList)
+    {
         db_product.crearTabla();
 
-//        String nombreArchivo = productList.get(0).getImportOrigin();
-
-//        if(dbNombreArchivosProcesados.existeArchivo(nombreArchivo))
-
         for (Product p : productList)
-        {
             db_product.crearRegistro(p);
-        }
+
     }
 
-    public void addAuditList(List<AuditItem> items) {
-        db_audit.createTable();
+    public void agregarRegistrosAuditoria(List<AuditItem> items)
+    {
+        db_audit.crearTabla();
 
         for (AuditItem item : items)
-            db_audit.createAuditItem(item);
+            db_audit.crearRegistro(item);
     }
 
-    public void addPriceList(List<Price> priceList) {
+    public void agregarListaPrecios(List<Price> priceList)
+    {
         db_price.crearTabla();
 
-        for (Price price : priceList) {
-
+        for (Price price : priceList)
             db_price.crearRegistro(price);
-        }
     }
 
-    public void addMerchandiseList(List<Merchandise> merchandiseList) {
+    public void agregarListaMerchandise(List<Merchandise> merchandiseList)
+    {
         db_merchandise.createTable();
 
         for (Merchandise merch : merchandiseList)
             db_merchandise.createMerchandise(merch);
     }
 
-    public void addMediaList(List<Media> mediaList) {
+    public void agregarListaMedia(List<Media> mediaList)
+    {
         db_media.crearTabla();
 
         for (Media media : mediaList)
             db_media.crearRegistro(media);
     }
 
-    public void addStockList(List<Stock> stockList) {
+    public void agregarListaStock(List<Stock> stockList)
+    {
         db_stock.crearTabla();
 
         for (Stock stock : stockList)
             db_stock.crearRegistro(stock);
     }
 
-    public void verfyProducts()
+    public void verificarProductos()
     {
-        List<AuditItem> auditItemList = db_audit.getProductList();
         List<Product> productList = db_product.filtrarPor(Filtro.SIN_FILTRAR);
 
-        for (Product p : productList) {
-            for (AuditItem auditItem : auditItemList) {
-                if (p.getCode().equals(auditItem.getProductCode()) && p.getImportOrigin().equals(auditItem.getImportOrigin())) {
+        for (Product p : productList)
+        {
+            List<AuditItem> auditItemList = db_audit.getRegistro(p.getCode(), p.getImportOrigin());
+
+            for (AuditItem auditItem : auditItemList)
+            {
+                if (p.getCode().equals(auditItem.getProductCode()) && p.getImportOrigin().equals(auditItem.getImportOrigin()))
+                {
                     p.setEmpresa(auditItem.getEmpresa());
                     if(Utilities.isError(auditItem.getErrorCode()))
                     {
@@ -101,29 +101,16 @@ public class DBManager {
                 }
             }
         }
-
-//        DBArchivos dbArchivos = new DBArchivos();
-//        dbArchivos.crearTabla();
-//        CSV.Writer writer = new CSV.Writer();
-//        File archivo = writer.getCsvProductList();
-//        dbArchivos.setArchivo(archivo);
-////        archivo.delete();
-//
-////        CSV.Writer writer = new CSV.Writer();
-////        File archivo = writer.getCsvProductList();
-////
-////        db_archivos.setArchivo(archivo);
-//        db_historico_productos.importarProductos();
-//        db_product.eliminarTable();
     }
 
-    public void verfyPrice()
+    public void verificarPrecios()
     {
-
-        List<AuditItem> auditItemList = db_audit.getPriceList();
         List<Price> priceList = db_price.filtrarPor(Filtro.SIN_FILTRAR);
 
-        for (Price p : priceList) {
+        for (Price p : priceList)
+        {
+            List<AuditItem> auditItemList = db_audit.getRegistro(p.getProductCode(),p.getImportOrigin());
+
             for (AuditItem auditItem : auditItemList)
             {
                 p.setEmpresa(auditItem.getEmpresa());
@@ -145,14 +132,13 @@ public class DBManager {
         }
     }
 
-    public void verfyStock()
+    public void verificarStock()
     {
-//        List<AuditItem> auditItemList = db_audit.getStockList();
         List<Stock> stockList = db_stock.filtrarPor(Filtro.SIN_FILTRAR);
 
         for (Stock stock : stockList)
         {
-            List<AuditItem> auditItemList = db_audit.getAuditItem(stock.getProductCode(),stock.getImportOrigin());
+            List<AuditItem> auditItemList = db_audit.getRegistro(stock.getProductCode(),stock.getImportOrigin());
 
             for (AuditItem auditItem : auditItemList)
             {
@@ -176,15 +162,13 @@ public class DBManager {
         }
     }
 
-    public void verfyMedia()
+    public void verificarMedia()
     {
-//        List<AuditItem> auditItemList = db_audit.getStockList();
-//        List<Stock> stockList = db_stock.getStockList();
         List<Media> mediaList = db_media.filtrarPor(Filtro.SIN_FILTRAR);
 
         for (Media media : mediaList)
         {
-            List<AuditItem> auditItemList = db_audit.getAuditItem(media.getProductCode(),media.getImportOrigin());
+            List<AuditItem> auditItemList = db_audit.getRegistro(media.getProductCode(),media.getImportOrigin());
 
             for (AuditItem auditItem : auditItemList)
             {
@@ -207,5 +191,4 @@ public class DBManager {
             }
         }
     }
-
 }

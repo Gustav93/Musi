@@ -34,7 +34,7 @@ public class CantPreciosNoProcesados extends HttpServlet {
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
 
-            totalPrecios = String.valueOf(historicoPrecios.getNumberNotProcessed(codigoProducto));
+            totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistrosNoProcesados(codigoProducto));
         }
 
         response.getWriter().append(totalPrecios);

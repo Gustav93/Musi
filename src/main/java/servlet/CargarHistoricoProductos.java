@@ -23,7 +23,7 @@ public class CargarHistoricoProductos extends HttpServlet
         DBProduct dbProduct = new DBProduct();
         HistoricoProductos db_historico_productos = new HistoricoProductos();
 
-        db_historico_productos.createTable();
+        db_historico_productos.crearTabla();
         db_historico_productos.importarProductos();
 
         dbProduct.eliminarTabla();

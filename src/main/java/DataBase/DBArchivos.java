@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DBArchivos
 {
     private final String EDIT = "UPDATE AUDIT SET importOrigin = ? WHERE productCode = ? ";
@@ -40,7 +39,7 @@ public class DBArchivos
 
         DBConectionManager.closeConnection(c);
 
-        Utilities.createIndex(ADD_INDEX);
+//        Utilities.createIndex(ADD_INDEX);
     }
 
     public void elimiarTabla()
@@ -152,14 +151,12 @@ public class DBArchivos
             {
                 listaNombres.add(rs.getString(1));
             }
-
         }
 
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-
 
         DBConectionManager.closeConnection(c);
 

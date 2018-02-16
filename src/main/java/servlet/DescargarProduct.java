@@ -19,7 +19,7 @@ public class DescargarProduct extends HttpServlet {
 //        File archivo = dbArchivos.getArchivo(nombreArchivo);
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new CSV.Writer();
-        File archivo = writer.getCsvProductList();
+        File archivo = writer.getCsvProductosProcesadosCorrectamente();
         String nombreArchivo = archivo.getName();
 
 

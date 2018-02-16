@@ -19,7 +19,7 @@ public class Procesar extends HttpServlet {
 
         if(feed.equals("Productos"))
         {
-            dbManager.verfyProducts();
+            dbManager.verificarProductos();
             RequestDispatcher rq = request.getRequestDispatcher("Productos.html");
             rq.forward(request, response);
         }
@@ -27,7 +27,7 @@ public class Procesar extends HttpServlet {
 
         else if(feed.equals("Precios"))
         {
-            dbManager.verfyPrice();
+            dbManager.verificarPrecios();
             RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
             rq.forward(request, response);
         }
@@ -35,14 +35,14 @@ public class Procesar extends HttpServlet {
 
         else if (feed.equals("Stock"))
         {
-            dbManager.verfyStock();
+            dbManager.verificarStock();
             RequestDispatcher rq = request.getRequestDispatcher("Stock.html");
             rq.forward(request, response);
         }
 
         else if(feed.equals("Media"))
         {
-            dbManager.verfyMedia();
+            dbManager.verificarMedia();
             RequestDispatcher rq = request.getRequestDispatcher("Media.html");
             rq.forward(request, response);
         }

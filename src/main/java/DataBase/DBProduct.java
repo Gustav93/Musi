@@ -1,7 +1,6 @@
 package DataBase;
 
 import Feed.Product;
-import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 

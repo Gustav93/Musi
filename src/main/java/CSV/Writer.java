@@ -17,42 +17,42 @@ public class Writer
     private CsvWriter writer;
     private File file;
 
-    public File getCsvProductList()
-    {
-        return getCsvProducto(Filtro.SIN_FILTRAR);
-    }
-
-    public File getCsvStockList()
-    {
-        return getCsvStock(Filtro.SIN_FILTRAR);
-    }
-
-    public File getCsvPriceList()
+    public File getCsvPreciosProcesadosCorrectamente()
     {
         return getCsvPrecio(Filtro.SIN_FILTRAR);
     }
 
-    public  File getCsvMediaList()
+    public File getCsvProductosProcesadosCorrectamente()
+    {
+        return getCsvProducto(Filtro.SIN_FILTRAR);
+    }
+
+    public File getCsvStockProcesadoCorrectamente()
+    {
+        return getCsvStock(Filtro.SIN_FILTRAR);
+    }
+
+    public  File getCsvMediaProcesadoCorrectamente()
     {
         return getCsvMedia(Filtro.SIN_FILTRAR);
     }
 
-    public File getCsvPriceListNotProcessedOk()
+    public File getCsvPreciosNoProcesadosCorrectamente()
     {
         return getCsvPrecio(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
-    public File getCsvProductListNotProcessedOk()
+    public File getCsvProductosNoProcesadosCorrectamente()
     {
         return getCsvProducto(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
-    public File getCsvStockListNotProcessedOk()
+    public File getCsvStockNoProcesadoCorrectamente()
     {
         return getCsvStock(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
-    public File getCsvMediaListNotProcessedOk()
+    public File getCsvMediaNoProcesadoCorrectamente()
     {
         return getCsvMedia(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }

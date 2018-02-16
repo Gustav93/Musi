@@ -32,7 +32,7 @@ public class CantProductosError extends HttpServlet {
         {
             HistoricoProductos historicoProductos = new HistoricoProductos();
 
-            cantProductosError = String.valueOf(historicoProductos.getNumberProcessedError(codigoProducto));
+            cantProductosError = String.valueOf(historicoProductos.getCantidadRegistrosProcesadosConError(codigoProducto));
         }
 
         response.getWriter().append(cantProductosError);

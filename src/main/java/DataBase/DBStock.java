@@ -1,7 +1,6 @@
 package DataBase;
 
 import Feed.Stock;
-import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -85,7 +84,7 @@ public class DBStock
         }
     }
 
-//    public Stock getStock(String productCode) {
+//    public Stock getRegistros(String productCode) {
 //
 //        Stock stock = new Stock();
 //        Connection c = DBConectionManager.openConnection();

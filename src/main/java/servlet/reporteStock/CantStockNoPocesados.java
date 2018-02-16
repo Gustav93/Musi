@@ -34,7 +34,7 @@ public class CantStockNoPocesados extends HttpServlet {
         {
             HistoricoStock historicoStock = new HistoricoStock();
 
-            cantNoProcesados = String.valueOf(historicoStock.getNumberNotProcessed(codigoProducto));
+            cantNoProcesados = String.valueOf(historicoStock.getCantidadRegistrosNoProcesados(codigoProducto));
         }
 
         response.getWriter().append(cantNoProcesados);

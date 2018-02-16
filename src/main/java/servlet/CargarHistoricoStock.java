@@ -24,7 +24,7 @@ public class CargarHistoricoStock extends HttpServlet
         DBStock dbStock = new DBStock();
         HistoricoStock historicoStock = new HistoricoStock();
 
-        historicoStock.createTable();
+        historicoStock.crearTabla();
         historicoStock.importarStock();
         dbStock.eliminarTabla();
 
