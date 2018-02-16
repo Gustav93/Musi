@@ -19,7 +19,7 @@ public class CantPreciosNoProcesados extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 //        DBPrice dbPrice = new DBPrice();
-//        response.getWriter().append(String.valueOf(dbPrice.getNumberNotProcessed()));
+//        response.getWriter().append(String.valueOf(dbPrice.getCantidadRegistrosNoProcesados()));
 
         String codigoProducto = request.getParameter("codigo");
         String totalPrecios;
@@ -27,7 +27,7 @@ public class CantPreciosNoProcesados extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBPrice dbPrice = new DBPrice();
-            totalPrecios = String.valueOf(dbPrice.getNumberNotProcessed());
+            totalPrecios = String.valueOf(dbPrice.getCantidadRegistrosNoProcesados());
         }
 
         else

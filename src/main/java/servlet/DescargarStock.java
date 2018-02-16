@@ -19,7 +19,7 @@ public class DescargarStock extends HttpServlet {
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-        File archivo = writer.getCsvStock();
+        File archivo = writer.getCsvStockList();
         String nombreArchivo = archivo.getName();
 
         response.setContentType("fileType");

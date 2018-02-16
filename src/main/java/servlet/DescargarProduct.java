@@ -1,6 +1,5 @@
 package servlet;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class DescargarProduct extends HttpServlet {
 //        File archivo = dbArchivos.getArchivo(nombreArchivo);
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new CSV.Writer();
-        File archivo = writer.getCsvProduct();
+        File archivo = writer.getCsvProductList();
         String nombreArchivo = archivo.getName();
 
 

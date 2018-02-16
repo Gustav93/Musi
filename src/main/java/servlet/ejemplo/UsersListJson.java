@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import DataBase.DBAudit;
 import DataBase.DBPrice;
 import DataBase.DBProduct;
+import DataBase.Filtro;
 import Feed.Price;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,7 +51,7 @@ public class UsersListJson extends HttpServlet {
 		DBProduct dbProduct = new DBProduct();
 
 //		List<AuditItem> auditItemList = dbAudit.getAuditItemList();
-		List<Price> priceList = dbPrice.getPriceList();
+		List<Price> priceList = dbPrice.filtrarPor(Filtro.SIN_FILTRAR);
 //		List<Product> productList = dbProduct.getProductList();
 
 //		List<Usuario> users = db.listarUsuarios();

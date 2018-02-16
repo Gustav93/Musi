@@ -80,7 +80,7 @@ public class Main
 
 //        HistoricoProductos productos = new HistoricoProductos();
 //
-////        productos.createTable();
+////        productos.crearTabla();
 //        productos.importarProductos();
 
 //        String s = "producto-1801270001 (procesado).csv";

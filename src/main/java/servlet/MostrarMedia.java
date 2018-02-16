@@ -35,7 +35,7 @@ public class MostrarMedia extends HttpServlet
         List<Media> mediaList;
 
         if(codigo.equals("false"))
-            mediaList = dbMedia.filtarPor(Filtro.SIN_FILTRAR);
+            mediaList = dbMedia.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
             mediaList = historicoMedia.getRegistros(codigo);

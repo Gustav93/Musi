@@ -2,6 +2,8 @@ package Utilities;
 
 import DataBase.DBConectionManager;
 import DataBase.Feed;
+import Procesado.Contador;
+import Reporte.Reporte;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

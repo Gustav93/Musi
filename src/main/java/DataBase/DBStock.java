@@ -1,6 +1,7 @@
 package DataBase;
 
 import Feed.Stock;
+import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -13,66 +14,55 @@ import java.util.List;
 
 public class DBStock
 {
-    private final String CREATE_TABLE_STOCK = "CREATE TABLE STOCK (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
-    private final String DELETE_TABLE_STOCK = "DROP TABLE STOCK";
-    private final String INSERT_STOCK = "INSERT INTO STOCK (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
-    private final String GET_STOCK = "SELECT * FROM STOCK WHERE code = ?";
-    private final String STOCK_LIST = "SELECT * FROM STOCK";
-    private final String EDIT = "UPDATE STOCK SET processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? ";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM STOCK WHERE processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM STOCK WHERE processed = 'Procesado con error'";
-    private final String ADD_INDEX = "ALTER TABLE STOCK ADD INDEX indiceStock (productCode, importOrigin)";
-    private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM STOCK WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
-    private final String GET_IMPORT_ORIGIN = "SELECT importOrigin FROM STOCK GROUP BY importOrigin";
-
-    public void createTable()
+    public void crearTabla()
     {
+        //language=SQL
+        String query = "create table stock (productCode VARCHAR(50), stock VARCHAR(100), warehouse VARCHAR(100), status VARCHAR(100), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(200), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_STOCK);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
-            DBConectionManager.commit(c);
         }
-
         catch (SQLException e)
         {
             System.out.println("La tabla STOCK ya existe");
-//            e.printStackTrace();
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.createIndex(ADD_INDEX);
+        Utilities.crearIndice(Feed.STOCK);
     }
 
-    public void deleteTable()
+    public void eliminarTabla()
     {
+        //language=SQL
+        String query = "drop table stock";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_STOCK);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
         }
         catch (SQLException e)
         {
-            System.out.println("Hubo un problema al eliminar la tabla");
-            e.printStackTrace();
+            System.out.println("Hubo un problema al eliminar la tabla STOCK");
         }
 
         DBConectionManager.closeConnection(c);
     }
 
-    public void createStock(Stock stock)
+    public void crearRegistro(Stock stock)
     {
+        //language=SQL
+        String query = "insert into stock (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(INSERT_STOCK);
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, stock.getProductCode());
             ps.setString(2, stock.getStock());
             ps.setString(3, stock.getWarehouse());
@@ -83,7 +73,6 @@ public class DBStock
             ps.setString(8, stock.getEmpresa());
 
             ps.executeUpdate();
-
             DBConectionManager.commit(c);
         }
         catch (Exception e)
@@ -94,54 +83,79 @@ public class DBStock
         {
             DBConectionManager.closeConnection(c);
         }
-
     }
 
-    public Stock getStock(String productCode) {
+//    public Stock getStock(String productCode) {
+//
+//        Stock stock = new Stock();
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try
+//        {
+//            PreparedStatement ps = c.prepareStatement(GET_STOCK);
+//            ps.setString(1, productCode);
+//            ResultSet res = ps.executeQuery();
+//
+//            while (res.next()) {
+//                stock.setProductCode(productCode);
+//                stock.setStock(res.getString(2));
+//                stock.setWarehouse(res.getString(3));
+//                stock.setStatus(res.getString(4));
+//                stock.setImportOrigin(res.getString(5));
+//                stock.setProcessed(res.getString(6));
+//                stock.setErrorDescription(res.getString(7));
+//                stock.setEmpresa(res.getString(8));
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            DBConectionManager.rollback(c);
+//        }
+//        finally
+//        {
+//            DBConectionManager.closeConnection(c);
+//        }
+//        return stock;
+//    }
 
-        Stock stock = new Stock();
+//    public List<Stock> getStockList()
+//    {
+//        return filtrarPor(STOCK_LIST);
+//    }
+
+    public void editar(Stock stock)
+    {
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try
+//        {
+//            PreparedStatement ps = c.prepareStatement(EDIT);
+//
+//            ps.setString(1, stock.getProcessed());
+//            ps.setString(2, stock.getErrorDescription());
+//            ps.setString(3,stock.getEmpresa());
+//            ps.setString(4, stock.getProductCode());
+//
+//            ps.executeUpdate();
+//            DBConectionManager.commit(c);
+//        }
+//        catch (Exception e)
+//        {
+//            DBConectionManager.rollback(c);
+//        }
+//
+//        finally
+//        {
+//            DBConectionManager.closeConnection(c);
+//        }
+
+        //language=SQL
+        String query = "update stock set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(GET_STOCK);
-            ps.setString(1, productCode);
-            ResultSet res = ps.executeQuery();
-
-            while (res.next()) {
-                stock.setProductCode(productCode);
-                stock.setStock(res.getString(2));
-                stock.setWarehouse(res.getString(3));
-                stock.setStatus(res.getString(4));
-                stock.setImportOrigin(res.getString(5));
-                stock.setProcessed(res.getString(6));
-                stock.setErrorDescription(res.getString(7));
-                stock.setEmpresa(res.getString(8));
-            }
-        }
-        catch (Exception e)
-        {
-            DBConectionManager.rollback(c);
-        }
-        finally
-        {
-            DBConectionManager.closeConnection(c);
-        }
-        return stock;
-    }
-
-    public List<Stock> getStockList()
-    {
-        return filterBy(STOCK_LIST);
-    }
-
-    public void edit(Stock stock)
-    {
-        Connection c = DBConectionManager.openConnection();
-
-        try
-        {
-            PreparedStatement ps = c.prepareStatement(EDIT);
+            PreparedStatement ps = c.prepareStatement(query);
 
             ps.setString(1, stock.getProcessed());
             ps.setString(2, stock.getErrorDescription());
@@ -163,29 +177,31 @@ public class DBStock
 
     }
 
-    public List<Stock> filterByNotProcessed()
-    {
-        return filterBy(FILTER_BY_NOT_PROCESSED);
-    }
-
-    public List<Stock> filterByProcessed()
-    {
-        return filterBy(FILTER_BY_PROCESSED);
-    }
-
-    public List<Stock> filterByError()
-    {
-        return filterBy(FILTER_BY_ERROR);
-    }
-
-    public List<Stock> filterByNotProcessedOk(){ return  filterBy(FILTER_BY_NOT_PROCESSED_OK);}
-
-
-
-    private List<Stock> filterBy(String query)
+    public List<Stock> filtrarPor(Filtro filtro)
     {
         List<Stock> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
+        String query = null;
+
+        if(filtro.equals(Filtro.SIN_FILTRAR))
+            //language=SQL
+            query = "select * from stock";
+
+        else if(filtro.equals(Filtro.PROCESADOS_CORRECTAMENTE))
+            //language=SQL
+            query = "select * from stock where processed = 'Procesado'";
+
+        else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
+            //language=SQL
+            query = "select * from stock where processed = 'Procesado con Error'";
+
+        else if(filtro.equals(Filtro.SIN_PROCESAR))
+            //language=SQL
+            query = "select * from stock where processed = 'Sin Procesar'";
+
+        else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
+            //language=SQL
+            query = "select * from stock where processed = 'Procesado con Error' or processed = 'Sin Procesar'";
 
         try
         {
@@ -221,39 +237,21 @@ public class DBStock
         return list;
     }
 
-    public int getNumberStockTotal()
+    public int getCantidadTotalRegistros()
     {
-        return getStockList().size();
-    }
-
-    public int getNumberProcessed()
-    {
-        return filterByProcessed().size();
-    }
-
-    public int getNumberNotProcessed()
-    {
-        return filterByNotProcessed().size();
-    }
-
-    public int getNumberProcessedError()
-    {
-        return filterByError().size();
-    }
-
-    private List<String> getImportOriginList()
-    {
-        List<String> importOriginList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
+        int total = 0;
 
         try
         {
-            PreparedStatement statement = c.prepareStatement(GET_IMPORT_ORIGIN);
+            //language=SQL
+            String query = "select count(*) from stock";
+            PreparedStatement statement = c.prepareStatement(query);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
             {
-                importOriginList.add(res.getString(1));
+                total = res.getInt(1);
             }
         }
 
@@ -266,20 +264,106 @@ public class DBStock
             DBConectionManager.closeConnection(c);
         }
 
-        return importOriginList;
+        return total;
     }
 
-    private int cantProcesados(String nombreArchivo, String procesado)
+    public int getCantidadRegistrosProcesados()
+    {
+        return getCantRegistros(Contador.PROCESADO);
+    }
+
+    public int getCantidadRegistrosNoProcesados()
+    {
+        return getCantRegistros(Contador.SIN_PROCESAR);
+    }
+
+    public int getCantidadRegistrosProcesadosConError()
+    {
+        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
+    }
+
+    public int getCantidadRegistrosCARSA()
+    {
+        return getCantRegistros(Contador.CARSA);
+    }
+
+    public int getCantidadRegistrosEMSA()
+    {
+        return getCantRegistros(Contador.EMSA);
+    }
+
+    private int getCantRegistros(Contador contador, String nombreArchivo)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int procesados = 0;
+        String query = null;
+
+        if(contador.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from stock where importOrigin like ? and processed like 'Procesado'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from stock where importOrigin like ? and processed like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from stock where importOrigin like ? and processed like 'Sin Procesar'";
+
+        try
+        {
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, nombreArchivo);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                procesados = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
+        return procesados;
+    }
+
+    private int getCantRegistros(Contador contador)
     {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
 
+        String query = null;
+
+        if(contador.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from stock where processed like 'Procesado'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from stock where processed like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from stock where processed like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.CARSA))
+            //language=SQL
+            query = "select count(*) from stock where empresa like 'C'";
+
+        else if(contador.equals(Contador.EMSA))
+            //language=SQL
+            query = "select count(*) from stock where empresa like 'E'";
+
         try
         {
-            String query = "select count(*) from stock where importOrigin like ? and processed like ?";
             PreparedStatement statement = c.prepareStatement(query);
-            statement.setString(1, nombreArchivo);
-            statement.setString(2, procesado);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
@@ -299,13 +383,35 @@ public class DBStock
         return procesados;
     }
 
-    private int cantTotal(String nombreArchivo)
+    public List<Reporte> getReportes()
+    {
+        List<Reporte> reportes = new ArrayList<>();
+        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.STOCK);
+        for(String nombreArchivo : nombreArchivos)
+        {
+            Reporte reporte = new Reporte();
+
+            reporte.setNombreArchivo(nombreArchivo);
+            reporte.setTotalRegistros(getCantidadTotalRegistros(nombreArchivo));
+            reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
+            reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
+            reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
+
+            reportes.add(reporte);
+        }
+
+        return reportes;
+    }
+
+    //Devuelve la cantidad de registros que tienen el nombre de archivo (pasado como parametro) en importOrigin
+    private int getCantidadTotalRegistros(String nombreArchivo)
     {
         Connection c = DBConectionManager.openConnection();
-        int totalProcesados = 0;
+        int total = 0;
 
         try
         {
+            //language=SQL
             String query = "select count(*) from stock where importOrigin like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);
@@ -313,7 +419,7 @@ public class DBStock
 
             while(res.next())
             {
-                totalProcesados = res.getInt(1);
+                total = res.getInt(1);
             }
         }
 
@@ -325,28 +431,7 @@ public class DBStock
         {
             DBConectionManager.closeConnection(c);
         }
-        return totalProcesados;
+
+        return total;
     }
-
-    public List<Reporte> getReportes()
-    {
-        List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = getImportOriginList();
-        for(String nombreArchivo : nombreArchivos)
-        {
-            Reporte reporte = new Reporte();
-
-            reporte.setNombreArchivo(nombreArchivo);
-            reporte.setTotalRegistros(cantTotal(nombreArchivo));
-            reporte.setNoProcesados(cantProcesados(nombreArchivo,"Sin Procesar"));
-            reporte.setProcesadosConError(cantProcesados(nombreArchivo, "Procesado con error"));
-            reporte.setProcesadosCorrectamente(cantProcesados(nombreArchivo, "Procesado"));
-
-            reportes.add(reporte);
-        }
-
-        return reportes;
-    }
-
-
 }

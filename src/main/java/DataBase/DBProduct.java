@@ -1,6 +1,7 @@
 package DataBase;
 
 import Feed.Product;
+import Procesado.Contador;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -11,66 +12,57 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DBProduct
 {
-    private final String CREATE_TABLE_PRODUCT = "CREATE TABLE PRODUCT (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500), empresa VARCHAR(10))";
-    private final String DELETE_TABLE_PRODUCT = "DROP TABLE PRODUCT";
-    private final String INSERT_PRODUCT = "INSERT INTO PRODUCT (code, ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final String GET_PRODUCT = "SELECT * FROM PRODUCT WHERE code = ?";
-    private final String PRODUCT_LIST = "SELECT * FROM PRODUCT";
-    private final String EDIT = "UPDATE PRODUCT SET processed = ?, errorDescription = ?, empresa = ? WHERE code = ? ";
-    private final String FILTER_BY_NOT_PROCESSED = "SELECT * FROM PRODUCT WHERE processed = 'Sin Procesar'";
-    private final String FILTER_BY_PROCESSED = "SELECT * FROM PRODUCT WHERE processed = 'Procesado'";
-    private final String FILTER_BY_ERROR = "SELECT * FROM PRODUCT WHERE processed = 'Procesado con error'";
-    private final String ADD_INDEX = "ALTER TABLE PRODUCT ADD INDEX indiceProduct (code, importOrigin)";
-    private final String FILTER_BY_NOT_PROCESSED_OK = "SELECT * FROM PRODUCT WHERE processed = 'Procesado con error' OR processed = 'Sin Procesar'";
-    private final String GET_IMPORT_ORIGIN = "SELECT importOrigin FROM PRODUCT GROUP BY importOrigin";
-
-    public void createTable()
+    public void crearTabla()
     {
+        //language=SQL
+        String query = "create table product (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
-        try {
-            PreparedStatement ps = c.prepareStatement(CREATE_TABLE_PRODUCT);
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
-            DBConectionManager.commit(c);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
+        }
+        catch (SQLException e)
+        {
             System.out.println("La tabla PRODUCT ya existe");
-//            e.printStackTrace();
         }
 
         DBConectionManager.closeConnection(c);
-
-        Utilities.createIndex(ADD_INDEX);
+        Utilities.crearIndice(Feed.PRODUCTO);
     }
 
-    public void deleteTable() {
+    public void eliminarTabla()
+    {
+        //language=SQL
+        String query = "drop table product";
         Connection c = DBConectionManager.openConnection();
 
-        try {
-            PreparedStatement ps = c.prepareStatement(DELETE_TABLE_PRODUCT);
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Hubo un problema al eliminar la tabla PRODUCT");
         }
 
-        try {
-            DBConectionManager.closeConnection(c);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        DBConectionManager.closeConnection(c);
     }
 
-    public void createProduct(Product p) {
+    public void crearRegistro(Product p)
+    {
+        //language=SQL
+        String query = "insert into product (code, ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
-        try {
-            PreparedStatement ps = c.prepareStatement(INSERT_PRODUCT);
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, p.getCode());
             ps.setString(2, p.getEan());
             ps.setString(3, p.getBrand());
@@ -85,75 +77,72 @@ public class DBProduct
             ps.setString(12, p.getProcessed());
             ps.setString(13, p.getErrorDescription());
             ps.setString(14, p.getEmpresa());
-
             ps.executeUpdate();
-
             DBConectionManager.commit(c);
-        } catch (Exception e) {
-            DBConectionManager.rollback(c);
-        } finally {
-
-            try {
-                DBConectionManager.closeConnection(c);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
-
-    }
-
-    public Product getProduct(String code) {
-
-        Product p = new Product();
-        Connection c = DBConectionManager.openConnection();
-
-        try {
-            PreparedStatement ps = c.prepareStatement(GET_PRODUCT);
-            ps.setString(1, code);
-            ResultSet res = ps.executeQuery();
-
-            while (res.next()) {
-                p.setCode(code);
-                p.setEan(res.getString(2));
-                p.setBrand(res.getString(3));
-                p.setName(res.getString(4));
-                p.setCategory(res.getString(5));
-                p.setWeight(res.getString(6));
-                p.setOnlineDateTime(res.getString(7));
-                p.setOfflineDateTime(res.getString(8));
-                p.setApprovalStatus(res.getString(9));
-                p.setDescription(res.getString(10));
-                p.setImportOrigin(res.getString(11));
-                p.setProcessed(res.getString(12));
-                p.setErrorDescription(res.getString(13));
-                p.setEmpresa(res.getString(14));
-            }
-        } catch (Exception e) {
+        catch (Exception e)
+        {
             DBConectionManager.rollback(c);
-        } finally {
-            try {
-                DBConectionManager.closeConnection(c);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
-        return p;
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
-    public List<Product> getProductList()
-    {
-        return filterBy(PRODUCT_LIST);
-    }
+//    public Product getProduct(String code) {
+//
+//        Product p = new Product();
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try {
+//            PreparedStatement ps = c.prepareStatement(GET_PRODUCT);
+//            ps.setString(1, code);
+//            ResultSet res = ps.executeQuery();
+//
+//            while (res.next()) {
+//                p.setCode(code);
+//                p.setEan(res.getString(2));
+//                p.setBrand(res.getString(3));
+//                p.setName(res.getString(4));
+//                p.setCategory(res.getString(5));
+//                p.setWeight(res.getString(6));
+//                p.setOnlineDateTime(res.getString(7));
+//                p.setOfflineDateTime(res.getString(8));
+//                p.setApprovalStatus(res.getString(9));
+//                p.setDescription(res.getString(10));
+//                p.setImportOrigin(res.getString(11));
+//                p.setProcessed(res.getString(12));
+//                p.setErrorDescription(res.getString(13));
+//                p.setEmpresa(res.getString(14));
+//            }
+//        } catch (Exception e) {
+//            DBConectionManager.rollback(c);
+//        } finally {
+//            try {
+//                DBConectionManager.closeConnection(c);
+//            } catch (Exception e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+//        return p;
+//    }
 
-    public void edit(Product p)
+//    public List<Product> getProductList()
+//    {
+//        return filtrarPor(PRODUCT_LIST);
+//    }
+
+    public void editar(Product p)
     {
+        //language=SQL
+        String query = "update product set processed = ?, errorDescription = ?, empresa = ? WHERE code = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
         {
-            PreparedStatement ps = c.prepareStatement(EDIT);
+            PreparedStatement ps = c.prepareStatement(query);
 
             ps.setString(1, p.getProcessed());
             ps.setString(2, p.getErrorDescription());
@@ -162,12 +151,10 @@ public class DBProduct
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
-
         }
         catch (Exception e)
         {
             DBConectionManager.rollback(c);
-            e.printStackTrace();
         }
 
         finally
@@ -176,27 +163,31 @@ public class DBProduct
         }
     }
 
-    public List<Product> filterByNotProcessed()
-    {
-        return filterBy(FILTER_BY_NOT_PROCESSED);
-    }
-
-    public List<Product> filterByProcessed()
-    {
-        return filterBy(FILTER_BY_PROCESSED);
-    }
-
-    public List<Product> filterByError()
-    {
-        return filterBy(FILTER_BY_ERROR);
-    }
-
-    public List<Product> filterByNotProcessedOk(){ return  filterBy(FILTER_BY_NOT_PROCESSED_OK);}
-
-    private List<Product> filterBy(String query)
+    public List<Product> filtrarPor(Filtro filtro)
     {
         List<Product> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
+        String query = null;
+
+        if(filtro.equals(Filtro.SIN_FILTRAR))
+            //language=SQL
+            query = "select * from product";
+
+        else if(filtro.equals(Filtro.PROCESADOS_CORRECTAMENTE))
+            //language=SQL
+            query = "select * from product where processed = 'Procesado'";
+
+        else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
+            //language=SQL
+            query = "select * from product where processed = 'Procesado con Error'";
+
+        else if(filtro.equals(Filtro.SIN_PROCESAR))
+            //language=SQL
+            query = "select * from product where processed = 'Sin Procesar'";
+
+        else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
+            //language=SQL
+            query = "select * from product where processed = 'Procesado con Error' or processed = 'Sin Procesar'";
 
         try
         {
@@ -238,39 +229,21 @@ public class DBProduct
         return list;
     }
 
-    public int getNumberTotal()
+    public int getCantidadTotalRegistros()
     {
-        return getProductList().size();
-    }
-
-    public int getNumberProcessed()
-    {
-        return filterByProcessed().size();
-    }
-
-    public int getNumberNotProcessed()
-    {
-        return filterByNotProcessed().size();
-    }
-
-    public int getNumberProcessedError()
-    {
-        return filterByError().size();
-    }
-
-    private List<String> getImportOriginList()
-    {
-        List<String> importOriginList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
+        int total = 0;
 
         try
         {
-            PreparedStatement statement = c.prepareStatement(GET_IMPORT_ORIGIN);
+            //language=SQL
+            String query = "select count(*) from product";
+            PreparedStatement statement = c.prepareStatement(query);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
             {
-                importOriginList.add(res.getString(1));
+                total = res.getInt(1);
             }
         }
 
@@ -283,20 +256,84 @@ public class DBProduct
             DBConectionManager.closeConnection(c);
         }
 
-        return importOriginList;
+        return total;
     }
 
-    private int cantProcesados(String nombreArchivo, String procesado)
+    public int getCantidadRegistrosProcesados()
+    {
+        return getCantRegistros(Contador.PROCESADO);
+    }
+
+    public int getCantidadRegistrosNoProcesados()
+    {
+        return getCantRegistros(Contador.SIN_PROCESAR);
+    }
+
+    public int getCantidadRegistrosProcesadosConError()
+    {
+        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
+    }
+
+    public int getCantidadRegistrosCARSA()
+    {
+        return getCantRegistros(Contador.CARSA);
+    }
+
+    public int getCantidadRegistrosEMSA()
+    {
+        return getCantRegistros(Contador.EMSA);
+    }
+
+//    private List<String> getImportOriginList()
+//    {
+//        List<String> importOriginList = new ArrayList<>();
+//        Connection c = DBConectionManager.openConnection();
+//
+//        try
+//        {
+//            PreparedStatement statement = c.prepareStatement(GET_IMPORT_ORIGIN);
+//            ResultSet res = statement.executeQuery();
+//
+//            while(res.next())
+//            {
+//                importOriginList.add(res.getString(1));
+//            }
+//        }
+//
+//        catch (Exception e)
+//        {
+//            DBConectionManager.rollback(c);
+//        }
+//        finally
+//        {
+//            DBConectionManager.closeConnection(c);
+//        }
+//
+//        return importOriginList;
+//    }
+
+    private int getCantRegistros(Contador contador, String nombreArchivo)
     {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
+        String query = null;
+
+        if(contador.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from product where importOrigin like ? and processed like 'Procesado'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from product where importOrigin like ? and processed like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from product where importOrigin like ? and processed like 'Sin Procesar'";
 
         try
         {
-            String query = "select count(*) from product where importOrigin like ? and processed like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);
-            statement.setString(2, procesado);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
@@ -316,21 +353,41 @@ public class DBProduct
         return procesados;
     }
 
-    private int cantTotal(String nombreArchivo)
+    private int getCantRegistros(Contador contador)
     {
         Connection c = DBConectionManager.openConnection();
-        int totalProcesados = 0;
+        int procesados = 0;
+
+        String query = null;
+
+        if(contador.equals(Contador.PROCESADO))
+            //language=SQL
+            query = "select count(*) from product where processed like 'Procesado'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from product where processed like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.SIN_PROCESAR))
+            //language=SQL
+            query = "select count(*) from product where processed like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.CARSA))
+            //language=SQL
+            query = "select count(*) from product where empresa like 'C'";
+
+        else if(contador.equals(Contador.EMSA))
+            //language=SQL
+            query = "select count(*) from product where empresa like 'E'";
 
         try
         {
-            String query = "select count(*) from product where importOrigin like ?";
             PreparedStatement statement = c.prepareStatement(query);
-            statement.setString(1, nombreArchivo);
             ResultSet res = statement.executeQuery();
 
             while(res.next())
             {
-                totalProcesados = res.getInt(1);
+                procesados = res.getInt(1);
             }
         }
 
@@ -342,26 +399,57 @@ public class DBProduct
         {
             DBConectionManager.closeConnection(c);
         }
-        return totalProcesados;
+        return procesados;
     }
 
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = getImportOriginList();
+        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.PRODUCTO);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();
 
             reporte.setNombreArchivo(nombreArchivo);
-            reporte.setTotalRegistros(cantTotal(nombreArchivo));
-            reporte.setNoProcesados(cantProcesados(nombreArchivo,"Sin Procesar"));
-            reporte.setProcesadosConError(cantProcesados(nombreArchivo, "Procesado con error"));
-            reporte.setProcesadosCorrectamente(cantProcesados(nombreArchivo, "Procesado"));
+            reporte.setTotalRegistros(getCantidadTotalRegistros(nombreArchivo));
+            reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
+            reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
+            reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
 
             reportes.add(reporte);
         }
 
         return reportes;
+    }
+
+    private int getCantidadTotalRegistros(String nombreArchivo)
+    {
+        Connection c = DBConectionManager.openConnection();
+        int total = 0;
+
+        try
+        {
+            //language=SQL
+            String query = "select count(*) from media where importOrigin like ?";
+            PreparedStatement statement = c.prepareStatement(query);
+            statement.setString(1, nombreArchivo);
+            ResultSet res = statement.executeQuery();
+
+            while(res.next())
+            {
+                total = res.getInt(1);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
+        return total;
     }
 }

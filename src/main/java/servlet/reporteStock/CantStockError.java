@@ -21,7 +21,7 @@ public class CantStockError extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 //        DBStock dbStock = new DBStock();
-//        response.getWriter().append(String.valueOf(dbStock.getNumberProcessedError()));
+//        response.getWriter().append(String.valueOf(dbStock.getCantidadRegistrosProcesadosConError()));
 
         String codigoProducto = request.getParameter("codigo");
         String cantProcesadosConError;
@@ -29,7 +29,7 @@ public class CantStockError extends HttpServlet
         if(codigoProducto.equals("false"))
         {
             DBStock dbStock = new DBStock();
-            cantProcesadosConError = String.valueOf(dbStock.getNumberProcessedError());
+            cantProcesadosConError = String.valueOf(dbStock.getCantidadRegistrosProcesadosConError());
         }
 
         else

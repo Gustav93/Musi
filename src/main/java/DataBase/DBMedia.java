@@ -36,27 +36,28 @@ public class DBMedia
 
     public void eliminarTabla()
     {
+        //language=SQL
         String query = "drop table media";
         Connection c = DBConectionManager.openConnection();
 
-        try {
+        try
+        {
             PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
         }
         catch (SQLException e)
         {
-            System.out.println("Hubo un problema al eliminar la tabla");
+            System.out.println("Hubo un problema al eliminar la tabla MEDIA");
         }
 
         DBConectionManager.closeConnection(c);
-
     }
 
     public void crearRegistro(Media media)
     {
         //language=SQL
-        String query = "insert into media (productCode, codeMedia, isDefault, importOrigin, processed, errorDescription, empresa) value (?,?,?,?,?,?,?)";
+        String query = "insert into media (productCode, codeMedia, isDefault, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -81,7 +82,6 @@ public class DBMedia
         {
             DBConectionManager.closeConnection(c);
         }
-
     }
 
 //    public Media getMedia(String productCode) {
@@ -142,9 +142,9 @@ public class DBMedia
         }
     }
 
-    //devuelve una lista de productos filtrados por: sin filtrar, procesados correctamente, procesados con errores,
+    //devuelve una lista de registros filtrados por: sin filtrar, procesados correctamente, procesados con errores,
     //sin procesar y no procesados correctamente.
-    public List<Media> filtarPor(Filtro filtro)
+    public List<Media> filtrarPor(Filtro filtro)
     {
         List<Media> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
@@ -159,6 +159,7 @@ public class DBMedia
             query = "select * from media where processed = 'Procesado'";
 
         else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
+            //language=SQL
             query = "select * from media where processed = 'Procesado con Error'";
 
         else if(filtro.equals(Filtro.SIN_PROCESAR))
@@ -168,6 +169,7 @@ public class DBMedia
         else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
             query = "select * from media where processed = 'Procesado con Error' or processed = 'Sin Procesar'";
+
         try
         {
             PreparedStatement statement = c.prepareStatement(query);
@@ -256,7 +258,6 @@ public class DBMedia
         return getCantRegistros(Contador.EMSA);
     }
 
-
     //devuelve la cantidad de registros filtrados (procesado, sin procesar y procesado con error) del nombre del archivo
     //pasado como parametro (importOrigin)
     private int getCantRegistros(Contador contador, String nombreArchivo)
@@ -266,6 +267,7 @@ public class DBMedia
         String query = null;
 
         if(contador.equals(Contador.PROCESADO))
+            //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Procesado'";
 
         else if(contador.equals(Contador.PROCESADO_CON_ERROR))
@@ -275,7 +277,6 @@ public class DBMedia
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Sin Procesar'";
-
 
         try
         {
@@ -404,4 +405,3 @@ public class DBMedia
         return total;
     }
 }
-

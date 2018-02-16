@@ -24,7 +24,7 @@ public class CantProductosProcesados extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBProduct dbProduct = new DBProduct();
-            cantProcesados = String.valueOf(dbProduct.getNumberProcessed());
+            cantProcesados = String.valueOf(dbProduct.getCantidadRegistrosProcesados());
         }
 
         else

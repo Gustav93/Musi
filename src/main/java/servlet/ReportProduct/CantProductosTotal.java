@@ -24,7 +24,7 @@ public class CantProductosTotal extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBProduct dbProduct = new DBProduct();
-            totalProductos = String.valueOf(dbProduct.getNumberTotal());
+            totalProductos = String.valueOf(dbProduct.getCantidadTotalRegistros());
         }
 
         else

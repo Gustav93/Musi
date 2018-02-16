@@ -210,7 +210,7 @@ public class HistoricoProductos
         return list;
     }
 
-//    public int getNumberTotal()
+//    public int getCandidadTotalRegistros()
 //    {
 //        return getProductList().size();
 //    }

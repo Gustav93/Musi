@@ -16,7 +16,6 @@ import java.util.Properties;
 
 public class Mail
 {
-
     private CSV.Writer writer;
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     public static final String PWD = "fff0303456fff";
@@ -26,8 +25,7 @@ public class Mail
         writer = new CSV.Writer();
     }
 
-
-    public void sendStockFeedNotProcessedOk(String email)
+    public void enviarRegistrosStockSinProcesarCorrectamente(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -53,35 +51,37 @@ public class Mail
         File file = writer.getCsvStockListNotProcessedOk();
         String fileName = file.getName();
 
-        Transport t = null;
+        Transport t;
         try
         {
-//            Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
-
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            MimeMultipart multipart = new MimeMultipart();
-            multipart.addBodyPart(attachedFile);
-
-//            Agrego el cuerpo del mail
-            BodyPart texto = new MimeBodyPart();
             DBStock dbStock = new DBStock();
-            StringBuilder sb = new StringBuilder();
-            List<Reporte> reportes = dbStock.getReportes();
+            int cantProcsadosConError = dbStock.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbStock.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
 
-            if(reportes.size() == 0)
+            //Si todos los registros fueron procesados correctamente, el mail no se envia.
+            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
             {
                 file.delete();
                 return;
             }
+            //Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
+
+            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+            attachedFile.setFileName(fileName);
+            multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbStock.getReportes();
 
             for(Reporte reporte : reportes)
                 sb.append(reporte.toString() + "\n\n");
 
             texto.setText(sb.toString());
             multipart.addBodyPart(texto);
-
 
             MimeMessage message = new MimeMessage(session);
 
@@ -91,7 +91,7 @@ public class Mail
             // A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject("Stock No Procesados Correctamente");
+            message.setSubject("Stock No Procesado Correctamente");
 
             message.setContent(multipart);
 
@@ -102,8 +102,6 @@ public class Mail
 
             t.close();
             file.delete();
-
-
         }
         catch (MessagingException e)
         {
@@ -111,7 +109,7 @@ public class Mail
         }
     }
 
-    public void sendProductFeedNotProcessedOk(String email)
+    public void enviarRegistrosProductosSinProcesarCorrectamente(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -137,37 +135,37 @@ public class Mail
         File file = writer.getCsvProductListNotProcessedOk();
         String fileName = file.getName();
 
-        Transport t = null;
+        Transport t;
         try
         {
-//            Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
-
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            MimeMultipart multipart = new MimeMultipart();
-            multipart.addBodyPart(attachedFile);
-
-//            Agrego el cuerpo del mail
-            BodyPart texto = new MimeBodyPart();
             DBProduct dbProduct = new DBProduct();
-            StringBuilder sb = new StringBuilder();
-            List<Reporte> reportes = dbProduct.getReportes();
+            int cantProcsadosConError = dbProduct.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbProduct.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
 
-//            si no hay registros procesados, no se envia nada
-            if(reportes.size() == 0)
+            //Si todos los registros fueron procesados correctamente, el mail no se envia.
+            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
             {
                 file.delete();
                 return;
             }
+            //Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
 
+            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+            attachedFile.setFileName(fileName);
+            multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbProduct.getReportes();
 
             for(Reporte reporte : reportes)
                 sb.append(reporte.toString() + "\n\n");
 
             texto.setText(sb.toString());
             multipart.addBodyPart(texto);
-
 
             MimeMessage message = new MimeMessage(session);
 
@@ -179,8 +177,6 @@ public class Mail
 
             message.setSubject("Productos No Procesados Correctamente");
 
-
-
             message.setContent(multipart);
 
             t = session.getTransport("smtp");
@@ -190,8 +186,6 @@ public class Mail
 
             t.close();
             file.delete();
-
-
         }
         catch (MessagingException e)
         {
@@ -199,7 +193,7 @@ public class Mail
         }
     }
 
-    public void sendPriceFeedNotProcessedOk(String email)
+    public void enviarRegistrosPreciosSinProcesarCorrectamente(String email)
     {
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -225,35 +219,37 @@ public class Mail
         File file = writer.getCsvPriceListNotProcessedOk();
         String fileName = file.getName();
 
-        Transport t = null;
+        Transport t;
         try
         {
-//            Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
-
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            MimeMultipart multipart = new MimeMultipart();
-            multipart.addBodyPart(attachedFile);
-
-//            Agrego el cuerpo del mail
-            BodyPart texto = new MimeBodyPart();
             DBPrice dbPrice = new DBPrice();
-            StringBuilder sb = new StringBuilder();
-            List<Reporte> reportes = dbPrice.getReportes();
+            int cantProcsadosConError = dbPrice.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbPrice.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
 
-            if(reportes.size() == 0)
+            //Si todos los registros fueron procesados correctamente, el mail no se envia.
+            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
             {
                 file.delete();
                 return;
             }
+            //Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
+
+            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+            attachedFile.setFileName(fileName);
+            multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbPrice.getReportes();
 
             for(Reporte reporte : reportes)
                 sb.append(reporte.toString() + "\n\n");
 
             texto.setText(sb.toString());
             multipart.addBodyPart(texto);
-
 
             MimeMessage message = new MimeMessage(session);
 
@@ -265,8 +261,6 @@ public class Mail
 
             message.setSubject("Precios No Procesados Correctamente");
 
-
-
             message.setContent(multipart);
 
             t = session.getTransport("smtp");
@@ -276,8 +270,6 @@ public class Mail
 
             t.close();
             file.delete();
-
-
         }
         catch (MessagingException e)
         {
@@ -311,36 +303,37 @@ public class Mail
         File file = writer.getCsvMediaListNotProcessedOk();
         String fileName = file.getName();
 
-        Transport t = null;
+        Transport t;
         try
         {
-//            Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
-
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            MimeMultipart multipart = new MimeMultipart();
-            multipart.addBodyPart(attachedFile);
-
-//            Agrego el cuerpo del mail
-            BodyPart texto = new MimeBodyPart();
             DBMedia dbMedia = new DBMedia();
-            StringBuilder sb = new StringBuilder();
-            List<Reporte> reportes = dbMedia.getReportes();
+            int cantProcsadosConError = dbMedia.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbMedia.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
 
-//            si no hay registros procesados, no se envia nada
-            if(reportes.size() == 0)
+            //Si todos los registros fueron procesados correctamente, el mail no se envia.
+            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
             {
                 file.delete();
                 return;
             }
+            //Agrego el archivo adjunto
+            BodyPart attachedFile = new MimeBodyPart();
+
+            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+            attachedFile.setFileName(fileName);
+            multipart.addBodyPart(attachedFile);
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbMedia.getReportes();
 
             for(Reporte reporte : reportes)
                 sb.append(reporte.toString() + "\n\n");
 
             texto.setText(sb.toString());
             multipart.addBodyPart(texto);
-
 
             MimeMessage message = new MimeMessage(session);
 
@@ -361,8 +354,6 @@ public class Mail
 
             t.close();
             file.delete();
-
-
         }
         catch (MessagingException e)
         {
@@ -373,7 +364,7 @@ public class Mail
     public static void main(String[] args) throws MessagingException {
 
 //        CSV.Writer writer = new CSV.Writer();
-//        File products = writer.getCsvProduct();
+//        File products = writer.getCsvProductList();
 //
 //        System.out.println(products.getName());
 //
@@ -442,9 +433,9 @@ public class Mail
 
         Mail mail = new Mail();
 
-//        mail.sendProductFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-//        mail.sendPriceFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
-//        mail.sendStockFeedNotProcessedOk("gustavsanchez@yahoo.com.ar");
+//        mail.enviarRegistrosProductosSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+//        mail.enviarRegistrosPreciosSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+//        mail.enviarRegistrosStockSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
         mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 
     }

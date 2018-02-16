@@ -27,7 +27,7 @@ public class CargarHistoricoPrecios extends HttpServlet
         historicoPrecios.createTable();
         historicoPrecios.importarPrecios();
 
-        dbPrice.deleteTable();
+        dbPrice.eliminarTable();
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request, response);

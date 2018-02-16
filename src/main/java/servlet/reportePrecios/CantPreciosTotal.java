@@ -18,7 +18,7 @@ public class CantPreciosTotal extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        DBPrice dbPrice = new DBPrice();
-//        response.getWriter().append(String.valueOf(dbPrice.getNumberTotal()));
+//        response.getWriter().append(String.valueOf(dbPrice.getCandidadTotalRegistros()));
 
         String codigoProducto = request.getParameter("codigo");
         String totalPrecios;
@@ -26,7 +26,7 @@ public class CantPreciosTotal extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBPrice dbPrice = new DBPrice();
-            totalPrecios = String.valueOf(dbPrice.getNumberTotal());
+            totalPrecios = String.valueOf(dbPrice.getCandidadTotalRegistros());
         }
 
         else

@@ -1,6 +1,5 @@
 package servlet;
 
-import DataBase.DBArchivos;
 import DataBase.DBProduct;
 import DataBase.Historico.HistoricoProductos;
 
@@ -10,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 
 @WebServlet
@@ -28,7 +26,7 @@ public class CargarHistoricoProductos extends HttpServlet
         db_historico_productos.createTable();
         db_historico_productos.importarProductos();
 
-        dbProduct.deleteTable();
+        dbProduct.eliminarTabla();
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request, response);

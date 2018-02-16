@@ -1,6 +1,7 @@
 package servlet;
 
 import DataBase.DBStock;
+import DataBase.Filtro;
 import DataBase.Historico.HistoricoStock;
 import Feed.Stock;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,12 +16,15 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet
-public class MostrarStock extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class MostrarStock extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         DBStock dbStock = new DBStock();
         HistoricoStock historicoStock = new HistoricoStock();
 
@@ -28,7 +32,7 @@ public class MostrarStock extends HttpServlet {
         List<Stock> stockList;
 
         if(codigo.equals("false"))
-            stockList = dbStock.getStockList();
+            stockList = dbStock.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
             stockList = historicoStock.getStock(codigo);
@@ -42,7 +46,6 @@ public class MostrarStock extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         out.print(jsonString);
-
         out.flush();
     }
 }

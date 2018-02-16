@@ -1,6 +1,7 @@
 package servlet;
 
 import DataBase.DBProduct;
+import DataBase.Filtro;
 import DataBase.Historico.HistoricoProductos;
 import Feed.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,7 @@ public class MostrarProductos extends HttpServlet {
 //        System.out.println(codigo);
 
         if(codigo.equals("false"))
-            productList = dbProduct.getProductList();
+            productList = dbProduct.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
             productList = historicoProductos.getProducts(codigo);

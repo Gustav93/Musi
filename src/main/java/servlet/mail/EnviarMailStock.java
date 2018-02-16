@@ -1,5 +1,6 @@
 package servlet.mail;
 
+import DataBase.DBStock;
 import Utilities.Mail;
 
 import javax.servlet.RequestDispatcher;
@@ -11,16 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class EnviarMailStock extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class EnviarMailStock extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         Mail mail = new Mail();
+        DBStock dbStock = new DBStock();
+        int cantCARSA = dbStock.getCantidadRegistrosCARSA();
+        int cantEMSA = dbStock.getCantidadRegistrosEMSA();
 
-        mail.sendStockFeedNotProcessedOk("cbaez@musi.com.ar");
+        if(cantCARSA > 0 && cantEMSA <= 0)
+            mail.enviarRegistrosStockSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosStockSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+
+        else if(cantCARSA <= 0 && cantEMSA > 0)
+            mail.enviarRegistrosStockSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosStockSinProcesarCorrectamente("vizaral2@gmail.com");
+        else
+            mail.enviarRegistrosStockSinProcesarCorrectamente("cbaez@musi.com.ar");
+//            mail.enviarRegistrosStockSinProcesarCorrectamente("gsanchez@musi.com.ar");
 
         RequestDispatcher rq = request.getRequestDispatcher("Stock.html");
         rq.forward(request, response);

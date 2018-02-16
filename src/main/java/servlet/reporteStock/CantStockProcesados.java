@@ -1,8 +1,6 @@
 package servlet.reporteStock;
 
-import DataBase.DBPrice;
 import DataBase.DBStock;
-import DataBase.Historico.HistoricoPrecios;
 import DataBase.Historico.HistoricoStock;
 
 import javax.servlet.ServletException;
@@ -21,7 +19,7 @@ public class CantStockProcesados extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 //        DBStock dbStock = new DBStock();
-//        response.getWriter().append(String.valueOf(dbStock.getNumberProcessed()));
+//        response.getWriter().append(String.valueOf(dbStock.getCantidadRegistrosProcesados()));
 
         String codigoProducto = request.getParameter("codigo");
         String cantProcesados;
@@ -29,7 +27,7 @@ public class CantStockProcesados extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBStock dbStock = new DBStock();
-            cantProcesados = String.valueOf(dbStock.getNumberProcessed());
+            cantProcesados = String.valueOf(dbStock.getCantidadRegistrosProcesados());
         }
 
         else

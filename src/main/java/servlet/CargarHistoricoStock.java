@@ -26,7 +26,7 @@ public class CargarHistoricoStock extends HttpServlet
 
         historicoStock.createTable();
         historicoStock.importarStock();
-        dbStock.deleteTable();
+        dbStock.eliminarTabla();
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request,response);

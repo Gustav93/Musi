@@ -1,6 +1,7 @@
 package servlet;
 
 import DataBase.DBPrice;
+import DataBase.Filtro;
 import DataBase.Historico.HistoricoPrecios;
 import Feed.Price;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +32,7 @@ public class MostrarPrecios extends HttpServlet
         List<Price> priceList;
 
         if(codigo.equals("false"))
-            priceList = dbPrice.getPriceList();
+            priceList = dbPrice.filtrarPor(Filtro.SIN_FILTRAR);
 
         else
             priceList = historicoPrecios.getPrice(codigo);

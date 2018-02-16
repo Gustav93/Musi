@@ -19,7 +19,7 @@ public class CantStockTotal extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
 //        DBStock dbStock = new DBStock();
-//        response.getWriter().append(String.valueOf(dbStock.getNumberStockTotal()));
+//        response.getWriter().append(String.valueOf(dbStock.getCantidadTotalRegistros()));
 
         String codigoProducto = request.getParameter("codigo");
         String cantProcesados;
@@ -27,7 +27,7 @@ public class CantStockTotal extends HttpServlet {
         if(codigoProducto.equals("false"))
         {
             DBStock dbStock = new DBStock();
-            cantProcesados = String.valueOf(dbStock.getNumberStockTotal());
+            cantProcesados = String.valueOf(dbStock.getCantidadTotalRegistros());
         }
 
         else
