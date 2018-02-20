@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 
 public class FeedBuilder
 {
-    private static String importOriginCarsa;
-    private static String importOriginEmsa;
-
+    //estos metodos reciben la lista de filas del archivo csv y dependiendo el metodo que sea, crea una lista de objetos
+    //del fedd correspondiente. En todos los casos se correge el importOrigin ya que desde el csv llega el path absoluto
+    //del archivo.
     public List<Product> createProductList(List<List<String>> rows)
     {
         List<Product> list = new ArrayList<>();
@@ -56,73 +56,6 @@ public class FeedBuilder
 
         return list;
     }
-
-    public List<AuditItem> createAuditList(List<List<String>> rows)
-    {
-        List<AuditItem> list = new ArrayList<>();
-
-//        buscarImportOrigin(rows);
-
-        for(List<String> row : rows)
-        {
-//            System.out.println(row);
-            AuditItem item = new AuditItem();
-            String feedType = row.get(8);
-//            System.out.println(feedType);
-            String errorCode = row.get(3);
-//            System.out.println(errorCode);
-
-
-            if(Utilities.checkFeedType(feedType) || errorCode.equals("E37"))
-            {
-                item.setAuditLevel(row.get(0));
-                item.setAuditType(row.get(1));
-                item.setAuditDate(row.get(2));
-                item.setErrorCode(errorCode);
-                item.setDescription(row.get(4));
-                item.setEmpresa(row.get(5));
-                item.setProductCode(row.get(6));
-                item.setImportOrigin(row.get(7).toLowerCase());
-                item.setFeedType(feedType);
-
-                if(errorCode.equals("E37"))
-                {
-                    fixAuditItem(item);
-                    if(item.getProductCode().equals(""))
-                        continue;
-                }
-
-                if(feedType.equals("MEDIA") || feedType.equals("CLASSIFICATION"))
-                    fixProductCode(item);
-
-//                if(item.getFeedType().equals("STOCK") && !item.getErrorCode().contains("E"))
-//                {
-//                    fixImportOrigin(item);
-//                }
-
-                list.add(item);
-            }
-        }
-
-        return list;
-    }
-
-//    private void fixImportOrigin(AuditItem item)
-//    {
-//
-//        if(importOriginCarsa != null && item.getEmpresa().equals("C"))
-//        {
-//            item.setImportOrigin(importOriginCarsa);
-//            System.out.println("asdfv");
-//        }
-//
-//        else if (importOriginEmsa != null && item.getEmpresa().equals("E"))
-//        {
-//            item.setImportOrigin(importOriginEmsa);
-//            System.out.println("assss");
-//        }
-//
-//    }
 
     public List<Merchandise> createMerchandiseList(List<List<String>> rows)
     {
@@ -183,6 +116,49 @@ public class FeedBuilder
         return list;
     }
 
+    public List<AuditItem> createAuditList(List<List<String>> rows)
+    {
+        List<AuditItem> list = new ArrayList<>();
+
+        for(List<String> row : rows)
+        {
+            AuditItem item = new AuditItem();
+            String feedType = row.get(8);
+            String errorCode = row.get(3);
+
+            //los registros con error "E37" no tienen los campos correctamente, por ejemplo, no tienen el codigo de
+            //producto o el tipo de feed
+            if(Utilities.checkFeedType(feedType) || errorCode.equals("E37"))
+            {
+                item.setAuditLevel(row.get(0));
+                item.setAuditType(row.get(1));
+                item.setAuditDate(row.get(2));
+                item.setErrorCode(errorCode);
+                item.setDescription(row.get(4));
+                item.setEmpresa(row.get(5));
+                item.setProductCode(row.get(6));
+                item.setImportOrigin(row.get(7).toLowerCase());
+                item.setFeedType(feedType);
+
+                //si el registro es un E37 se procede a corregirlo, y si no fue posible, se descarta
+                if(errorCode.equals("E37"))
+                {
+                    fixAuditItem(item);
+                    if(item.getProductCode().equals(""))
+                        continue;
+                }
+
+                //los registros que son de los feeds media y classification tienen errores en el codigo de producto
+                if(feedType.equals("MEDIA") || feedType.equals("CLASSIFICATION"))
+                    fixProductCode(item);
+
+                list.add(item);
+            }
+        }
+
+        return list;
+    }
+
     private void fixAuditItem(AuditItem item)
     {
         fixEmpresa(item);
@@ -190,12 +166,15 @@ public class FeedBuilder
         fixProductCode(item);
     }
 
+    //para corregir el feedType se utilizan expresiones regulares para buscar el tipo de feed en la descripcion del registro
+    //ya que es unico el lugar de donde puedo sacar la informacion.
     private void fixFeedType(AuditItem item)
     {
-        String description = item.getDescription();
-        Pattern pattern = Pattern.compile("classification");
-        Matcher matcher = pattern.matcher(description);
+        String description = item.getDescription(); //descripcion del registro
+        Pattern pattern = Pattern.compile("classification"); //patron con el que vamos a buscar en la descripcion
+        Matcher matcher = pattern.matcher(description); //se compila el patron con la descripcion
 
+        //si encuentra el patron (en este caso es "classification") en el matcher, setea el feed en el registro
         if(matcher.find())
         {
             item.setFeedType("CLASSIFICATION");
@@ -240,6 +219,7 @@ public class FeedBuilder
 
     }
 
+    //con el campo empresa es lo mismo que con el metodo anteriror
     private void fixEmpresa(AuditItem item)
     {
         String description = item.getDescription();
@@ -264,22 +244,26 @@ public class FeedBuilder
         }
     }
 
+    //en este caso el codigo de producto tiene diferentes errores dependiendo del feed
     private void fixProductCode(AuditItem item)
     {
+        //si el registro es un "E37", el patron va a ser una barra invertida (\), comillas ("), 3 o mas digitos,
+        //barra invertida (\) y comillas. Aca se presupone que los codigo de productos tienen 3 o mas digitos.
+        //Por ejemplo con \"123456\" matchea
         if(item.getErrorCode().equals("E37"))
         {
             String description = item.getDescription();
-            String productCodePattern = "\\\\\"\\d{3,}\\\\\""; //matchea por ejemplo con \"123456\"
+            String productCodePattern = "\\\\\"\\d{3,}\\\\\"";
             Pattern pattern = Pattern.compile(productCodePattern);
             Matcher matcher = pattern.matcher(description);
 
             if(matcher.find())
             {
                 String productCode = matcher.group();
-                productCode = productCode.substring(2);
+                productCode = productCode.substring(2); //con esto me saco de encima (\")
                 int index = 0;
 
-                while(index < productCode.length())
+                while(index < productCode.length()) //y con esto quito la parte final (\")
                 {
                     if(productCode.charAt(index) == '\\')
                         break;
@@ -292,6 +276,9 @@ public class FeedBuilder
             }
         }
 
+        //En el caso de que el registro sea del feed "media", el codigo de producto esta segido del nombre de un
+        // archivo jpg. Por ejemplo: 126698-126698_01.jpg. Mientras si es classification, el codigo de producto esta
+        // seguido por categorias de la siguiente manera: 127381/HELADERAS/NO FROST
         else if (item.getFeedType().equals("CLASSIFICATION") || item.getFeedType().equals("MEDIA"))
         {
             String productCode = item.getProductCode();
@@ -307,39 +294,4 @@ public class FeedBuilder
             item.setProductCode(productCode);
         }
     }
-
-    public List<Classification> createClassificationList(List<List<String>> rows)
-    {
-        List<Classification> list = new ArrayList<>();
-
-        return list;
-    }
-
-//    public static void buscarImportOrigin(List<List<String>> filas)
-//    {
-//        importOriginEmsa = null;
-//        importOriginCarsa = null;
-//
-//        for (List<String> fila : filas)
-//        {
-//            String errorCode = fila.get(3);
-//            String feedType = fila.get(8);
-//            String empresa = fila.get(5);
-//            String importOrigin = fila.get(7).toLowerCase();
-//
-//            if(importOriginCarsa != null && importOriginEmsa != null)
-//                break;
-//
-//            if(feedType.equals("STOCK"))
-//            {
-//                if(importOriginCarsa == null && errorCode.contains("E") && empresa.equals("C"))
-//                    importOriginCarsa = importOrigin;
-//
-//                else if(importOriginEmsa == null && errorCode.contains("E") && empresa.equals("E"))
-//                    importOriginEmsa = importOrigin;
-//            }
-//        }
-//        System.out.println("carsa: " + importOriginCarsa);
-//        System.out.println("emsa: " + importOriginEmsa);
-//    }
 }

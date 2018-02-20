@@ -429,7 +429,7 @@ public class DBProduct
         try
         {
             //language=SQL
-            String query = "select count(*) from media where importOrigin like ?";
+            String query = "select count(*) from product where importOrigin like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);
             ResultSet res = statement.executeQuery();

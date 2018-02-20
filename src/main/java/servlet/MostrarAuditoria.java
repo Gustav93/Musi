@@ -14,26 +14,24 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet
-public class MostrarAuditoria extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class MostrarAuditoria extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         DBAudit dbAudit = new DBAudit();
-
-        List<AuditItem> itemList = dbAudit.getListaAuditoria();
-
         ObjectMapper mapper = new ObjectMapper();
-
-        String jsonString = mapper.writeValueAsString(itemList);
-
-        response.setContentType("application/json");
-
         PrintWriter out = response.getWriter();
+        List<AuditItem> itemList = dbAudit.getListaAuditoria(); //me traigo la lista de registros de la auditoria
+        String jsonString = mapper.writeValueAsString(itemList); //lo convierto en un json
 
-        out.print(jsonString);
+        response.setContentType("application/json"); //indico que voy a devolver un json
 
+        out.print(jsonString); //escribo el json en el response
         out.flush();
     }
 }

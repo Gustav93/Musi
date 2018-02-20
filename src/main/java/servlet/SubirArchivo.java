@@ -109,19 +109,19 @@ public class SubirArchivo extends HttpServlet
 //
 //
 //
-////        FileReader fr= new FileReader(nombreArchivo);
-////        BufferedReader br = new BufferedReader(fr);
-////        PrintWriter out = response.getWriter();
-////        String linea = br.readLine();
-////        while(linea != null)
-////        {
-////            out.println(linea);
-////            linea = br.readLine();
-////        }
-////
-////        out.println(nombreArchivo);
-////        fr.close();
-////        br.close();
+//        File file = new File("ej.txt");
+//        FileReader fr= new FileReader(file);
+//        BufferedReader br = new BufferedReader(fr);
+//        PrintWriter out = response.getWriter();
+//        String linea = br.readLine();
+//        while(linea != null)
+//        {
+//            out.println(linea);
+//            linea = br.readLine();
+//        }
+//
+//        fr.close();
+//        br.close();
 //
 //        file.delete();
 //

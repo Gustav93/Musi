@@ -21,28 +21,19 @@ public class EnviarMailPrecios extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-//        Mail mail = new Mail();
-//
-//        mail.enviarRegistrosPreciosSinProcesarCorrectamente("cbaez@musi.com.ar");
-//
-//        RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
-//        rq.forward(request, response);
-
         Mail mail = new Mail();
         DBPrice dbPrice = new DBPrice();
         int cantCARSA = dbPrice.getCantidadRegistrosCARSA();
         int cantEMSA = dbPrice.getCantidadRegistrosEMSA();
 
         if(cantCARSA > 0 && cantEMSA <= 0)
-//            mail.enviarRegistrosPreciosSinProcesarCorrectamente("cbaez@musi.com.ar");
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.CARSA);
 
         else if(cantCARSA <= 0 && cantEMSA > 0)
-//            mail.enviarRegistrosPreciosSinProcesarCorrectamente("cbaez@musi.com.ar");
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente("vizaral2@gmail.com");
+            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.EMSA);
+
         else
-//            mail.enviarRegistrosPreciosSinProcesarCorrectamente("cbaez@musi.com.ar");
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente("gsanchez@musi.com.ar");
+            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.NINGUNA);
 
         RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
         rq.forward(request, response);

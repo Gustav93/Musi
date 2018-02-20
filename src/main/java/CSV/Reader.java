@@ -21,7 +21,8 @@ public class Reader
         this.path = path;
     }
 
-    //Devuelve una lista con todas las filas del csv procesado
+    //Devuelve una lista con todas las filas del csv procesado. En la ultima columna se almacena el path del archivo
+    //para que luego sea utilizado para obtener el nombre del archivo.
     public List<List<String>> procesar() throws IOException
     {
         if (Utilities.isAudit(path))

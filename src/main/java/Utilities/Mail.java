@@ -5,6 +5,7 @@ import DataBase.DBPrice;
 import DataBase.DBProduct;
 import DataBase.DBStock;
 import Reporte.Reporte;
+import servlet.mail.Empresa;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -18,15 +19,29 @@ public class Mail
 {
     private CSV.Writer writer;
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
-    public static final String PWD = "fff0303456fff";
+    private final String PWD = "fff0303456fff";
+//    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
+    private String[] destinatarios = {"gsanchez@musi.com.ar"};
+
 
     public Mail()
     {
         writer = new CSV.Writer();
     }
 
-    public void enviarRegistrosStockSinProcesarCorrectamente(String email)
+    public void enviarRegistrosStockSinProcesarCorrectamente(Empresa empresa)
     {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Stock No Procesado Correctamente (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Stock No Procesado Correctamente (EMSA)";
+
+        else
+            asuntoMail ="Stock No Procesado Correctamente";
+
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
@@ -89,9 +104,9 @@ public class Mail
             message.setFrom(new InternetAddress(EMAILSENDER));
 
             // A quien va dirigido
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
 
-            message.setSubject("Stock No Procesado Correctamente");
+            message.setSubject(asuntoMail);
 
             message.setContent(multipart);
 
@@ -109,8 +124,19 @@ public class Mail
         }
     }
 
-    public void enviarRegistrosProductosSinProcesarCorrectamente(String email)
+    public void enviarRegistrosProductosSinProcesarCorrectamente(Empresa empresa)
     {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Productos No Procesados Correctamente (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Productos No Procesados Correctamente (EMSA)";
+
+        else
+            asuntoMail ="Productos No Procesados Correctamente";
+
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
@@ -173,9 +199,11 @@ public class Mail
             message.setFrom(new InternetAddress(EMAILSENDER));
 
             // A quien va dirigido
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
 
-            message.setSubject("Productos No Procesados Correctamente");
+//            message.setSubject("Productos No Procesados Correctamente");
+            message.setSubject(asuntoMail);
 
             message.setContent(multipart);
 
@@ -193,8 +221,19 @@ public class Mail
         }
     }
 
-    public void enviarRegistrosPreciosSinProcesarCorrectamente(String email)
+    public void enviarRegistrosPreciosSinProcesarCorrectamente(Empresa empresa)
     {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Precios No Procesados Correctamente (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Precios No Procesados Correctamente (EMSA)";
+
+        else
+            asuntoMail ="Precios No Procesados Correctamente";
+
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
@@ -257,9 +296,10 @@ public class Mail
             message.setFrom(new InternetAddress(EMAILSENDER));
 
             // A quien va dirigido
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
 
-            message.setSubject("Precios No Procesados Correctamente");
+            message.setSubject(asuntoMail);
 
             message.setContent(multipart);
 
@@ -277,8 +317,19 @@ public class Mail
         }
     }
 
-    public void enviarRegistrosMediaSinProcesarCorrectamente(String email)
+    public void enviarRegistrosMediaSinProcesarCorrectamente(Empresa empresa)
     {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Media No Procesados Correctamente (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Media No Procesados Correctamente (EMSA)";
+
+        else
+            asuntoMail ="Media No Procesados Correctamente";
+
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
@@ -341,9 +392,10 @@ public class Mail
             message.setFrom(new InternetAddress(EMAILSENDER));
 
             // A quien va dirigido
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
 
-            message.setSubject("Media No Procesados Correctamente");
+            message.setSubject(asuntoMail);
 
             message.setContent(multipart);
 
@@ -436,7 +488,18 @@ public class Mail
 //        mail.enviarRegistrosProductosSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 //        mail.enviarRegistrosPreciosSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 //        mail.enviarRegistrosStockSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
-        mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
+//        mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 
+    }
+
+    //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
+    private Address[] agregarDestinatarios() throws AddressException
+    {
+        Address[] destinos = new Address[destinatarios.length];
+
+        for(int i=0; i < destinatarios.length; i++)
+            destinos[i] = new InternetAddress(destinatarios[i]);
+
+        return destinos;
     }
 }

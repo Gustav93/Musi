@@ -24,7 +24,7 @@ public class DescargarMedia extends HttpServlet
         File archivo = writer.getCsvMediaProcesadoCorrectamente();
         String nombreArchivo = archivo.getName();
 
-        response.setContentType("fileType");
+        response.setContentType("fileType"); //se declara que se va a enviar un archivo
         response.setHeader("Content-disposition", "attachment; filename=" + nombreArchivo);
 
         InputStream in = new FileInputStream(archivo);
