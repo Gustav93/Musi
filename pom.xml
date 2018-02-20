@@ -56,7 +56,7 @@
 				<configuration>
 					<!-- Use sourcePaths if you want to provide a single RAML file or a 
 						list of RAML files -->
-					<sourceDirectory>src/main/webapp/api-files</sourceDirectory>
+					<sourceDirectory>src/</sourceDirectory>
 					<!-- Optionally configure outputDirectory if you don't like the default 
 						value: ${project.build.directory}/generated-sources/raml-jaxrs -->
 					<!-- Replace with your package name -->
