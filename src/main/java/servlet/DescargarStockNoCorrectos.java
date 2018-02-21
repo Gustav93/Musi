@@ -14,7 +14,6 @@ public class DescargarStockNoCorrectos extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -31,9 +30,9 @@ public class DescargarStockNoCorrectos extends HttpServlet
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null)
             out.println(line);
-        }
+
         reader.close();
         archivo.delete();
     }

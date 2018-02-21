@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class CantProductosProcesados extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+public class CantProductosProcesados extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -30,7 +31,6 @@ public class CantProductosProcesados extends HttpServlet {
         else
         {
             HistoricoProductos historicoProductos = new HistoricoProductos();
-
             cantProcesados = String.valueOf(historicoProductos.getCantidadRegistrosProcesados(codigoProducto));
         }
 

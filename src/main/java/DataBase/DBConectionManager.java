@@ -15,7 +15,6 @@ public class DBConectionManager
         try
         {
             Class.forName(DB_DRIVER);
-
         }
         catch (ClassNotFoundException e)
         {
@@ -28,7 +27,6 @@ public class DBConectionManager
         {
 //            c = DriverManager.getConnection("jdbc:mysql://localhost/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
             c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
-//            String URL = "jdbc:mysql://mysql{node_id}-{environment_name}.{hoster_domain}/{dbname}";
 //            c = DriverManager.getConnection("jdbc:mysql://mysq14505-musiwebapp.jelastic.saveincloud.net/feed", "user", "sWGgjGnHwbI1mORB");
             c.setAutoCommit(false);
         }

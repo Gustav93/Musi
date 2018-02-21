@@ -16,19 +16,20 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet
-public class MostrarProductos extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class MostrarProductos extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         DBProduct dbProduct = new DBProduct();
         HistoricoProductos historicoProductos = new HistoricoProductos();
 
         String codigo = request.getParameter("codigo");
         List<Product> productList;
-
-//        System.out.println(codigo);
 
         if(codigo.equals("false"))
             productList = dbProduct.filtrarPor(Filtro.SIN_FILTRAR);

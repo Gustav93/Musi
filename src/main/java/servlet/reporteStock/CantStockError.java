@@ -13,16 +13,12 @@ import java.io.IOException;
 @WebServlet
 public class CantStockError extends HttpServlet
 {
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-//        DBStock dbStock = new DBStock();
-//        response.getWriter().append(String.valueOf(dbStock.getCantidadRegistrosProcesadosConError()));
-
         String codigoProducto = request.getParameter("codigo");
         String cantProcesadosConError;
 
@@ -35,7 +31,6 @@ public class CantStockError extends HttpServlet
         else
         {
             HistoricoStock historicoStock = new HistoricoStock();
-
             cantProcesadosConError = String.valueOf(historicoStock.getCantidadRegistrosProcesadosConError(codigoProducto));
         }
 

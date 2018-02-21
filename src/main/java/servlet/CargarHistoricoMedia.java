@@ -16,9 +16,9 @@ public class CargarHistoricoMedia extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
+    //se copia el contenido de la tabla temporal al registro historico. Luego se la elimina
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         DBMedia dbMedia = new DBMedia();

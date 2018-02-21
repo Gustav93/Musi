@@ -10,17 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 @WebServlet
-public class DescargarPreciosNoCorrectos extends HttpServlet {
+public class DescargarPreciosNoCorrectos extends HttpServlet
+{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         PrintWriter out = response.getWriter();
         CSV.Writer writer = new Writer();
-//        File archivo = writer.getCsvPreciosProcesadosCorrectamente();
         File archivo = writer.getCsvPreciosNoProcesadosCorrectamente();
         String nombreArchivo = archivo.getName();
 
@@ -31,9 +30,9 @@ public class DescargarPreciosNoCorrectos extends HttpServlet {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null)
             out.println(line);
-        }
+
         reader.close();
         archivo.delete();
     }

@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 @WebServlet
-public class DescargarStock extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+public class DescargarStock extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -29,9 +30,9 @@ public class DescargarStock extends HttpServlet {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         String line;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null)
             out.println(line);
-        }
+
         reader.close();
         archivo.delete();
     }

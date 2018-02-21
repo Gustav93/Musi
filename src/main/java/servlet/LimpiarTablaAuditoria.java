@@ -15,7 +15,6 @@ public class LimpiarTablaAuditoria extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        response.getWriter().append("asdas");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

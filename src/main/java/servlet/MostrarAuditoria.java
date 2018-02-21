@@ -18,9 +18,9 @@ public class MostrarAuditoria extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
+    //devuelvo un json con los registros de la auditoria
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         DBAudit dbAudit = new DBAudit();

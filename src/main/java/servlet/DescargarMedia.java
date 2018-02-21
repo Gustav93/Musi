@@ -14,9 +14,9 @@ public class DescargarMedia extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
+    //Desgarga un archivo csv con los registros que fueron procesados correctamente
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         PrintWriter out = response.getWriter();
@@ -27,6 +27,7 @@ public class DescargarMedia extends HttpServlet
         response.setContentType("fileType"); //se declara que se va a enviar un archivo
         response.setHeader("Content-disposition", "attachment; filename=" + nombreArchivo);
 
+        //se copia el contenido del archivo en el response
         InputStream in = new FileInputStream(archivo);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 

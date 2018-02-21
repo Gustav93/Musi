@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class CantPreciosTotal extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+public class CantPreciosTotal extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        DBPrice dbPrice = new DBPrice();
-//        response.getWriter().append(String.valueOf(dbPrice.getCandidadTotalRegistros()));
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         String codigoProducto = request.getParameter("codigo");
         String totalPrecios;
 
@@ -32,7 +31,6 @@ public class CantPreciosTotal extends HttpServlet {
         else
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
-
             totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistros(codigoProducto));
         }
 

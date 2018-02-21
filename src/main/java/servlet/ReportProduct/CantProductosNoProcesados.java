@@ -13,9 +13,6 @@ public class CantProductosNoProcesados extends HttpServlet
 {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-//        si el codigo es distinto de false es porque voy a mostrar la cantidad de productos con el mismo codigo que no
-//        fueron procesados.
-
         String codigoProducto = request.getParameter("codigo");
         String noProcesados;
 
@@ -23,21 +20,18 @@ public class CantProductosNoProcesados extends HttpServlet
         {
             DBProduct dbProduct = new DBProduct();
             noProcesados = String.valueOf(dbProduct.getCantidadRegistrosNoProcesados());
-            System.out.println(dbProduct.getCantidadRegistrosNoProcesados());
         }
 
         else
         {
             HistoricoProductos historicoProductos = new HistoricoProductos();
-
             noProcesados = String.valueOf(historicoProductos.getCantidadRegistrosNoProcesados(codigoProducto));
         }
 
         response.getWriter().append(noProcesados);
-
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 }

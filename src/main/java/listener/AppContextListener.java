@@ -9,22 +9,19 @@ import javax.servlet.annotation.WebListener;
  *
  */
 @WebListener
-public class AppContextListener implements ServletContextListener {
-
+public class AppContextListener implements ServletContextListener
+{
     /**
      * Default constructor. 
      */
     public AppContextListener() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent sce)  
-    { 
-//    	UsuarioServicio db = new UsuarioServicio();
-//    	db.eliminarTabla();
+    {
     	System.out.println("BAJANDO APP");
     }
 
@@ -32,10 +29,7 @@ public class AppContextListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  
-    { 
-//    	UsuarioServicio db = new UsuarioServicio();
-//    	db.crearTabla();
+    {
         System.out.println("LEVANTANDO APP");
     }
-	
 }

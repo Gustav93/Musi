@@ -17,6 +17,7 @@ public class Calendario
         return String.valueOf(calendar.get(calendar.YEAR));
     }
 
+    //por alguna razon los meses se cuentan de 0 a 11. Ademas se agrega un digito los meses del 0 al 9
     public String getMes()
     {
         String mes = String.valueOf(calendar.get(calendar.MONTH)+1);

@@ -81,9 +81,6 @@ public class Utilities
             }
         }
 
-        if(res.equals(""))
-            throw new IllegalArgumentException("El archivo no es valido");
-
         return res;
     }
 

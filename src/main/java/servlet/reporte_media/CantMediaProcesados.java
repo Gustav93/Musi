@@ -18,7 +18,7 @@ public class CantMediaProcesados extends HttpServlet
 
     }
 
-    //Devuelve la cantidad de registros procesados. Si se pasa como parametro el codigo de procudto devuelve
+    //Devuelve la cantidad de registros procesados. Si se pasa como parametro el codigo de producto devuelve
     //la cantidad de registros procesados (que tienen el codigo de producto pasado como parametro) que estan
     //en el registro historico. Si no se pasa el codigo de producto devuelve la cantidad de registros procesados de la
     //db temporal.

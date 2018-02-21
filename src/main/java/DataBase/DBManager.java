@@ -101,6 +101,8 @@ public class DBManager
                 }
             }
         }
+
+
     }
 
     public void verificarPrecios()

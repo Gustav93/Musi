@@ -34,7 +34,8 @@ public class Reporte
         return procesadosCorrectamente;
     }
 
-    public void setProcesadosCorrectamente(Integer procesadosCorrectamente) {
+    public void setProcesadosCorrectamente(Integer procesadosCorrectamente)
+    {
         this.procesadosCorrectamente = procesadosCorrectamente;
     }
 
@@ -57,14 +58,6 @@ public class Reporte
     @Override
     public String toString()
     {
-//        return "Reporte{" +
-//                "nombreArchivo='" + nombreArchivo + '\'' +
-//                ", totalRegistros=" + totalRegistros +
-//                ", procesadosCorrectamente=" + procesadosCorrectamente +
-//                ", noProcesados=" + noProcesados +
-//                ", procesadosConError=" + procesadosConError +
-//                '}';
-
         return "Nombre del Archivo: " + nombreArchivo + ", Cantidad Total de Registros: " + totalRegistros + ", Procesados Correctamente: " + procesadosCorrectamente + ", Procesados con Error: " + procesadosConError + ", No Procesados: " + noProcesados;
     }
 }

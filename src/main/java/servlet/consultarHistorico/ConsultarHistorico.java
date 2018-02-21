@@ -18,9 +18,12 @@ public class ConsultarHistorico extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        //recibo el codigo de producto y el feed en donde quiero consultar
         String codigo = request.getParameter("codigo");
         String feed = request.getParameter("feed");
 
+        //redirecciono a la pag del feed que se quiere consultar. Ademas se pasa el codigo de producto en la url para
+        //luego poder hacer la consulta y mostrarla.
         if(feed.equals("Productos"))
         {
             RequestDispatcher rq = request.getRequestDispatcher("ProductosHistoricos.html?codigo="+ codigo);
@@ -29,12 +32,6 @@ public class ConsultarHistorico extends HttpServlet
 
         else if(feed.equals("Precios"))
         {
-//            HistoricoPrecios historicoPrecios = new HistoricoPrecios();
-//            List<Price> precios = historicoPrecios.getPrice(codigo);
-//
-//            request.setAttribute("listaPrecios", precios);
-
-//            RequestDispatcher rq = request.getRequestDispatcher("WEB-INF/jsp/lista_precios.jsp");
             RequestDispatcher rq = request.getRequestDispatcher("PreciosHistoricos.html?codigo="+ codigo);
             rq.forward(request, response);
         }

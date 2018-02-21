@@ -18,7 +18,7 @@ public class CantMediaError extends HttpServlet
 
     }
 
-    //Devuelve la cantidad de registros procesados con error. Si se pasa como parametro el codigo de procudto devuelve
+    //Devuelve la cantidad de registros procesados con error. Si se pasa como parametro el codigo de producto devuelve
     //la cantidad de registros procesados (que tienen el codigo de producto pasado como parametro) con error que estan
     //en el registro historico. Si no se pasa el codigo de producto devuelve la cantidad de registros procesados con
     //error de la db temporal.

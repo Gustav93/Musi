@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class Procesar extends HttpServlet {
+public class Procesar extends HttpServlet
+{
+    //Procesa el feed seleccionado y redirecciona a la pagina del feed procesado anteriormente
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         DBManager dbManager = new DBManager();
@@ -46,13 +48,10 @@ public class Procesar extends HttpServlet {
             RequestDispatcher rq = request.getRequestDispatcher("Media.html");
             rq.forward(request, response);
         }
-
-//
-
-
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 }

@@ -16,7 +16,6 @@ public class CargarHistoricoProductos extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -31,6 +30,5 @@ public class CargarHistoricoProductos extends HttpServlet
 
         RequestDispatcher rq = request.getRequestDispatcher("Main.html");
         rq.forward(request, response);
-
     }
 }

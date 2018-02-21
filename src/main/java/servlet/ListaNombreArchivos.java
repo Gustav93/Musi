@@ -13,22 +13,25 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet
-public class ListaNombreArchivos extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class ListaNombreArchivos extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DBArchivos dbArchivos = new DBArchivos();
-        ObjectMapper mapper = new ObjectMapper();
-        List<String> nombreArchivos = dbArchivos.getNombreArchivos();
-
-        String jsonString = mapper.writeValueAsString(nombreArchivos);
-
-        response.setContentType("application/json");
-
-        PrintWriter out = response.getWriter();
-        out.print(jsonString);
-        out.flush();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+//        DBArchivos dbArchivos = new DBArchivos();
+//        ObjectMapper mapper = new ObjectMapper();
+//        List<String> nombreArchivos = dbArchivos.getNombreArchivos();
+//
+//        String jsonString = mapper.writeValueAsString(nombreArchivos);
+//
+//        response.setContentType("application/json");
+//
+//        PrintWriter out = response.getWriter();
+//        out.print(jsonString);
+//        out.flush();
     }
 }

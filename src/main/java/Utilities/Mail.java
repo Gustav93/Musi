@@ -23,7 +23,6 @@ public class Mail
 //    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
     private String[] destinatarios = {"gsanchez@musi.com.ar"};
 
-
     public Mail()
     {
         writer = new CSV.Writer();
@@ -34,10 +33,10 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
-            asuntoMail = "Stock No Procesado Correctamente (CARSA)";
+            asuntoMail = "Stock Procesado (CARSA)";
 
         else if (empresa.equals(Empresa.EMSA))
-            asuntoMail = "Stock No Procesado Correctamente (EMSA)";
+            asuntoMail = "Stock Procesado(EMSA)";
 
         else
             asuntoMail ="Stock No Procesado Correctamente";
@@ -75,17 +74,29 @@ public class Mail
             MimeMultipart multipart = new MimeMultipart();
 
             //Si todos los registros fueron procesados correctamente, el mail no se envia.
-            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
+            if(cantNoProcesados != 0 || cantProcsadosConError != 0)
             {
-                file.delete();
-                return;
+                BodyPart attachedFile = new MimeBodyPart();
+
+                attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+                attachedFile.setFileName(fileName);
+                multipart.addBodyPart(attachedFile);
             }
             //Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
 
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            multipart.addBodyPart(attachedFile);
+
+            //Si todos los registros fueron procesados correctamente, el mail no se envia.
+//            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
+//            {
+//                file.delete();
+//                return;
+//            }
+//            //Agrego el archivo adjunto
+//            BodyPart attachedFile = new MimeBodyPart();
+//
+//            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+//            attachedFile.setFileName(fileName);
+//            multipart.addBodyPart(attachedFile);
 
 //            Agrego el cuerpo del mail
             BodyPart texto = new MimeBodyPart();
@@ -226,13 +237,13 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
-            asuntoMail = "Precios No Procesados Correctamente (CARSA)";
+            asuntoMail = "Precios Procesados (CARSA)";
 
         else if (empresa.equals(Empresa.EMSA))
-            asuntoMail = "Precios No Procesados Correctamente (EMSA)";
+            asuntoMail = "Precios Procesados(EMSA)";
 
         else
-            asuntoMail ="Precios No Procesados Correctamente";
+            asuntoMail ="Precios Procesados";
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -267,17 +278,17 @@ public class Mail
             MimeMultipart multipart = new MimeMultipart();
 
             //Si todos los registros fueron procesados correctamente, el mail no se envia.
-            if(cantNoProcesados == 0 && cantProcsadosConError == 0)
+            if(cantNoProcesados != 0 || cantProcsadosConError != 0)
             {
-                file.delete();
-                return;
-            }
-            //Agrego el archivo adjunto
-            BodyPart attachedFile = new MimeBodyPart();
+//                file.delete();
+//                return;
+                //Agrego el archivo adjunto
+                BodyPart attachedFile = new MimeBodyPart();
 
-            attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
-            attachedFile.setFileName(fileName);
-            multipart.addBodyPart(attachedFile);
+                attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+                attachedFile.setFileName(fileName);
+                multipart.addBodyPart(attachedFile);
+            }
 
 //            Agrego el cuerpo del mail
             BodyPart texto = new MimeBodyPart();
@@ -413,7 +424,19 @@ public class Mail
         }
     }
 
-    public static void main(String[] args) throws MessagingException {
+    //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
+    private Address[] agregarDestinatarios() throws AddressException
+    {
+        Address[] destinos = new Address[destinatarios.length];
+
+        for(int i=0; i < destinatarios.length; i++)
+            destinos[i] = new InternetAddress(destinatarios[i]);
+
+        return destinos;
+    }
+
+    public static void main(String[] args) throws MessagingException
+    {
 
 //        CSV.Writer writer = new CSV.Writer();
 //        File products = writer.getCsvProductosProcesadosCorrectamente();
@@ -490,16 +513,5 @@ public class Mail
 //        mail.enviarRegistrosStockSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 //        mail.enviarRegistrosMediaSinProcesarCorrectamente("gustavsanchez@yahoo.com.ar");
 
-    }
-
-    //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
-    private Address[] agregarDestinatarios() throws AddressException
-    {
-        Address[] destinos = new Address[destinatarios.length];
-
-        for(int i=0; i < destinatarios.length; i++)
-            destinos[i] = new InternetAddress(destinatarios[i]);
-
-        return destinos;
     }
 }

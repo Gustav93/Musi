@@ -11,16 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class CantStockProcesados extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+public class CantStockProcesados extends HttpServlet
+{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-//        DBStock dbStock = new DBStock();
-//        response.getWriter().append(String.valueOf(dbStock.getCantidadRegistrosProcesados()));
-
         String codigoProducto = request.getParameter("codigo");
         String cantProcesados;
 
@@ -33,7 +31,6 @@ public class CantStockProcesados extends HttpServlet {
         else
         {
             HistoricoStock historicoStock = new HistoricoStock();
-
             cantProcesados = String.valueOf(historicoStock.getCantidadRegistrosProcesados(codigoProducto));
         }
 
