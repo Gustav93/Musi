@@ -27,13 +27,13 @@ public class EnviarMailPrecios extends HttpServlet
         int cantEMSA = dbPrice.getCantidadRegistrosEMSA();
 
         if(cantCARSA > 0 && cantEMSA <= 0)
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.CARSA);
+            mail.enviarInformePrecios(Empresa.CARSA);
 
         else if(cantCARSA <= 0 && cantEMSA > 0)
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.EMSA);
+            mail.enviarInformePrecios(Empresa.EMSA);
 
         else
-            mail.enviarRegistrosPreciosSinProcesarCorrectamente(Empresa.NINGUNA);
+            mail.enviarInformePrecios(Empresa.NINGUNA);
 
         RequestDispatcher rq = request.getRequestDispatcher("Precios.html");
         rq.forward(request, response);

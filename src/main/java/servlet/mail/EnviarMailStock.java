@@ -27,12 +27,12 @@ public class EnviarMailStock extends HttpServlet
         int cantEMSA = dbStock.getCantidadRegistrosEMSA();
 
         if(cantCARSA > 0 && cantEMSA <= 0)
-            mail.enviarRegistrosStockSinProcesarCorrectamente(Empresa.CARSA);
+            mail.enviarInformeStock(Empresa.CARSA);
 
         else if(cantCARSA <= 0 && cantEMSA > 0)
-            mail.enviarRegistrosStockSinProcesarCorrectamente(Empresa.EMSA);
+            mail.enviarInformeStock(Empresa.EMSA);
         else
-            mail.enviarRegistrosStockSinProcesarCorrectamente(Empresa.NINGUNA);
+            mail.enviarInformeStock(Empresa.NINGUNA);
 
         RequestDispatcher rq = request.getRequestDispatcher("Stock.html");
         rq.forward(request, response);

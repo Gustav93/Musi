@@ -27,13 +27,13 @@ public class EnviarMailMedia extends HttpServlet
         int cantEMSA = dbMedia.getCantidadRegistrosEMSA();
 
         if(cantCARSA > 0 && cantEMSA <= 0)
-            mail.enviarRegistrosMediaSinProcesarCorrectamente(Empresa.CARSA);
+            mail.enviarInformeMedia(Empresa.CARSA);
 
         else if(cantCARSA <= 0 && cantEMSA > 0)
-            mail.enviarRegistrosMediaSinProcesarCorrectamente(Empresa.EMSA);
+            mail.enviarInformeMedia(Empresa.EMSA);
 
         else
-            mail.enviarRegistrosMediaSinProcesarCorrectamente(Empresa.NINGUNA);
+            mail.enviarInformeMedia(Empresa.NINGUNA);
 
         RequestDispatcher rq = request.getRequestDispatcher("Media.html");
         rq.forward(request, response);

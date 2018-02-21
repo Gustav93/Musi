@@ -29,13 +29,13 @@ public class EnviarMailProductos extends HttpServlet
         //se va a eviar el mail a la respectiva empresa si hay por lo menos 1 registro que sea de EMSA o CARSA, de lo
         //contrario lo deberia enviar a otro mail (no a las empresas).
         if(cantCARSA > 0 && cantEMSA <= 0)
-            mail.enviarRegistrosProductosSinProcesarCorrectamente(Empresa.CARSA);
+            mail.enviarInformeProductos(Empresa.CARSA);
 
         else if(cantCARSA <= 0 && cantEMSA > 0)
-            mail.enviarRegistrosProductosSinProcesarCorrectamente(Empresa.EMSA);
+            mail.enviarInformeProductos(Empresa.EMSA);
 
         else
-            mail.enviarRegistrosProductosSinProcesarCorrectamente(Empresa.NINGUNA);
+            mail.enviarInformeProductos(Empresa.NINGUNA);
 
         RequestDispatcher rq = request.getRequestDispatcher("Productos.html");
         rq.forward(request, response);
