@@ -20,8 +20,8 @@ public class Mail
     private CSV.Writer writer;
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     private final String PWD = "fff0303456fff";
-//    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
-    private String[] destinatarios = {"gsanchez@musi.com.ar"};
+    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
+//    private String[] destinatarios = {"gsanchez@musi.com.ar"};
 
     public Mail()
     {
@@ -221,7 +221,7 @@ public class Mail
             asuntoMail = "Precios Procesados (CARSA)";
 
         else if (empresa.equals(Empresa.EMSA))
-            asuntoMail = "Precios Procesados(EMSA)";
+            asuntoMail = "Precios Procesados (EMSA)";
 
         else
             asuntoMail ="Precios Procesados";
