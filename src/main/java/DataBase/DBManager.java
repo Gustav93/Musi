@@ -105,7 +105,11 @@ public class DBManager
 //            }
 //        }
 //    }
-
+    //Para verificar los registros primero traigo la lista de productos que van a ser procesados luego recorro dicha
+    //lista y por cada elemento me traigo de la auditoria los registros que tienen el mismo codigo de produto, archivo de
+    // importacion y ademas el tipo de error separados en 3 listas (I, W, E). Si hay algun elemento que cumpla esto se copia
+    // la descripcion de error en un StringBuilder. Esto se hace para poder almacenar varias descripciones de error, por
+    // ejemplo en el caso que un registro se halla procesado (I30) pero ademas halla lanzado un warning (W22 por ej).
     public void verificarProductos()
     {
         List<Product> productList = db_product.filtrarPor(Filtro.SIN_FILTRAR);
@@ -116,6 +120,8 @@ public class DBManager
             StringBuilder errorDescription = new StringBuilder();
             auditItemList = db_audit.getRegistro(p.getCode(), p.getImportOrigin(), ErrorType.I);
 
+            //los breaks los hago porque si la lista tiene mas de 1 elemento, son todos iguales (de momento, puede
+            //existir un caso en el que no pero todavia no pasom por eso la aclaracion)
             for (AuditItem auditItem : auditItemList)
             {
                 p.setEmpresa(auditItem.getEmpresa());
@@ -177,9 +183,9 @@ public class DBManager
 //        }
 
         List<AuditItem> listaRegistrosAuditoria;
-        List<Price> priceList = db_price.filtrarPor(Filtro.SIN_FILTRAR);
+        List<Price> listaPrecios = db_price.filtrarPor(Filtro.SIN_FILTRAR);
 
-        for (Price p : priceList)
+        for (Price p : listaPrecios)
         {
             StringBuilder errorDescription = new StringBuilder();
             listaRegistrosAuditoria = db_audit.getRegistro(p.getProductCode(), p.getImportOrigin(), ErrorType.I);
@@ -322,6 +328,7 @@ public class DBManager
             StringBuilder errorDescription = new StringBuilder();
             listaRegistrosAuditoria = db_audit.getRegistro(media.getProductCode(), media.getImportOrigin(), ErrorType.I);
 
+
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
@@ -355,13 +362,14 @@ public class DBManager
     }
 
 
-
+    //busco en la descripcion del error el tipo de error que se genero para que en base a eso devolver si el registro
+    //fue procesado correctamente o con error.
     private String setProcessed(String errorDescription)
     {
         String processed = "";
-        Pattern patternProcesadoOk = Pattern.compile("I\\d{2}");
-        Pattern patternProcesadoError = Pattern.compile("E\\d{2}");
-        Pattern patternProcesadoWarning = Pattern.compile("W\\d{2}");
+        Pattern patternProcesadoOk = Pattern.compile("I\\d{2}"); //matchea por ejemplo con I30
+        Pattern patternProcesadoError = Pattern.compile("E\\d{2}"); //matchea por ejemplo con E37
+        Pattern patternProcesadoWarning = Pattern.compile("W\\d{2}"); // matchea por ejemplo con W22
         Matcher matcherProcesadoOk = patternProcesadoOk.matcher(errorDescription);
         Matcher matcherProcesadoError = patternProcesadoError.matcher(errorDescription);
         Matcher matcherProcesadoWarning = patternProcesadoWarning.matcher(errorDescription);
@@ -370,10 +378,13 @@ public class DBManager
         Boolean procesadoWarning = matcherProcesadoWarning.find();
         Boolean procesadoError = matcherProcesadoError.find();
 
-
+        //si solo encontro en la descripcion del error un I** y no E** ni W** es porque el registro fue procesado
+        //correctamente.
         if(procesadoOk && !procesadoError && !procesadoWarning)
             processed = "Procesado";
 
+        //si en la descripcion del error hay un I** y W**, el registro se proceso pero con error. En cambio si se
+        //encuentra un E** el registro se intento procesar pero lanzo un error.
         else if((procesadoOk && procesadoWarning) || procesadoError)
             processed = "Procesado con error";
 
