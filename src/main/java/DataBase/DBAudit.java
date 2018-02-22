@@ -132,6 +132,59 @@ public class DBAudit
         return list;
     }
 
+    public List<AuditItem> getRegistro(String productCode, String importOrigin, ErrorType errorType)
+    {
+        //language=SQL
+        String query;
+
+        if(errorType.equals(ErrorType.E))
+            query = "select * from audit where productCode = ? and importOrigin = ? and errorCode like '%E%'";
+
+        else if(errorType.equals(ErrorType.I))
+            query = "select * from audit where productCode = ? and importOrigin = ? and errorCode like '%I%'";
+
+        else
+            query = "select * from audit where productCode = ? and importOrigin = ? and errorCode like '%W%'";
+
+        List<AuditItem> list = new ArrayList<>();
+        Connection c = DBConectionManager.openConnection();
+
+        try
+        {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setString(1, productCode);
+            ps.setString(2, importOrigin);
+            ResultSet res = ps.executeQuery();
+
+            while (res.next())
+            {
+                AuditItem item = new AuditItem();
+
+                item.setAuditLevel(productCode);
+                item.setAuditType(res.getString(2));
+                item.setAuditDate(res.getString(3));
+                item.setErrorCode(res.getString(4));
+                item.setDescription(res.getString(5));
+                item.setEmpresa(res.getString(6));
+                item.setProductCode(res.getString(7));
+                item.setImportOrigin(res.getString(8));
+                item.setFeedType(res.getString(9));
+
+                list.add(item);
+            }
+        }
+
+        catch (Exception e)
+        {
+            DBConectionManager.rollback(c);
+        }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+        return list;
+    }
+
     public List<AuditItem> getListaAuditoria()
     {
         ArrayList<AuditItem> auditItemList = new ArrayList<>();
