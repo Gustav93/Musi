@@ -27,7 +27,8 @@ public class DBConectionManager
         {
 //            c = DriverManager.getConnection("jdbc:mysql://localhost/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
             c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
-//            c = DriverManager.getConnection("jdbc:mysql://mysq14505-musiwebapp.jelastic.saveincloud.net/feed", "user", "sWGgjGnHwbI1mORB");
+//            c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
+
             c.setAutoCommit(false);
         }
         catch (SQLException e)
