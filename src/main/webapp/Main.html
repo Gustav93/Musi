@@ -11,17 +11,8 @@
 <style>
 
 	h1 {text-align: center;}
-	
-	input[type=text]{margin-bottom: 15px;}
 
-	input[type=submit]
-	{
-
-		background-color: rgb(47, 67, 86);
-		color: white;
-		margin-bottom: 10px;
-		border-radius: 4px;
-	}
+	/*input[type=text]{margin-bottom: 15px;}*/
 
 	input[type=button]
 	{
@@ -32,57 +23,50 @@
 		margin-bottom: 5px;
 		border-radius: 4px;
 	}
-
-	form
-	{
-		width:40%;
-		margin:0 auto;
-	}
-	
 </style>
 
-<script>
-	function goServlet(servlet) 
-	{
-		document.form.action = servlet;
-		document.form.submit();
-	}
-</script>
+<!--<script>-->
+	<!--function goServlet(servlet) -->
+	<!--{-->
+		<!--document.form.action = servlet;-->
+		<!--document.form.submit();-->
+	<!--}-->
+<!--</script>-->
 
 <body>
 
 	<h1>Feeds</h1>
 
-	<form name="form"  method="POST" enctype="multipart/form-data">
-		Seleccione el archivo: <input class = "form-control" type="file" name="archivo" onchange="subirArchivo(this)" accept="text/csv" multiple>
-		<input type="hidden" name="nombreArchivo" value=""><br>
-		<input class = "form-control" type="submit" value="Subir Archivo" onclick="validarExtension(this.form.archivo.value)">
-	</form>
+	<!--<form name="form"  method="POST" enctype="multipart/form-data">-->
+		<!--Seleccione el archivo: <input class = "form-control" type="file" name="archivo" onchange="subirArchivo(this)" accept="text/csv" multiple>-->
+		<!--<input type="hidden" name="nombreArchivo" value=""><br>-->
+		<!--<input class = "form-control" type="submit" value="Subir Archivo" onclick="validarExtension(this.form.archivo.value)">-->
+	<!--</form>-->
 
-	<br>
+	<!--<br>-->
 
-	<input class = "form-control" type="button" value="Mostrar Precios" onclick=$(location).attr('href','Precios.html');>
-	<input class = "form-control" type="button" value="Mostrar Productos" onclick=$(location).attr('href','Productos.html');>
-	<input class = "form-control" type="button" value="Mostrar Stock" onclick=$(location).attr('href','Stock.html');>
-	<input class = "form-control" type="button" value="Mostrar Media" onclick=$(location).attr('href','Media.html');>
-	<input class = "form-control" type="button" value="Mostrar Auditoria" onclick=$(location).attr('href','Auditoria.html');>
-	<input class = "form-control" type="button" value="Buscar en Registro Historico" onclick=$(location).attr('href','ConsultarHistorico.html');>
+	<!--<input class = "form-control" type="button" value="Mostrar Precios" onclick=$(location).attr('href','Precios.html');>-->
+	<!--<input class = "form-control" type="button" value="Mostrar Productos" onclick=$(location).attr('href','Productos.html');>-->
+	<!--<input class = "form-control" type="button" value="Mostrar Stock" onclick=$(location).attr('href','Stock.html');>-->
+	<!--<input class = "form-control" type="button" value="Mostrar Media" onclick=$(location).attr('href','Media.html');>-->
+	<input class = "form-control" type="button" value="Procesar Archivos" onclick=$(location).attr('href','Procesar.html');>
+	<input class = "form-control" type="button" value="Registro Historico" onclick=$(location).attr('href','ConsultarHistorico.html');>
 
-	<br>
+	<!--<br>-->
 
-	<form name="procesarDatos" method="post" action="procesar">
+	<!--<form name="procesarDatos" method="post" action="procesar">-->
 
-		Seleccionar el Feed a Procesar: <select class = "form-control" name="Feed">
-			<option value="Precios">Precios</option>
-			<option value="Productos">Productos</option>
-			<option value="Stock">Stock</option>
-			<option value="Media">Media</option>
-		</select><br>
-		<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">
-	</form>
+		<!--Seleccionar el Feed a Procesar: <select class = "form-control" name="Feed">-->
+			<!--<option value="Precios">Precios</option>-->
+			<!--<option value="Productos">Productos</option>-->
+			<!--<option value="Stock">Stock</option>-->
+			<!--<option value="Media">Media</option>-->
+		<!--</select><br>-->
+		<!--<input class = "form-control" type="submit" value="Procesar" onclick="goServlet('procesar')">-->
+	<!--</form>-->
 
-	<form method="get" action="limpiar_tabla_auditoria">
-		<input class = "form-control" type="submit" value="Limpiar Tabla Auditoria">
-	</form>
+	<!--<form method="get" action="limpiar_tabla_auditoria">-->
+		<!--<input class = "form-control" type="submit" value="Limpiar Tabla Auditoria">-->
+	<!--</form>-->
 </body>
 </html>

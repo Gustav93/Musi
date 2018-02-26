@@ -77,7 +77,7 @@ public class SubirArchivo extends HttpServlet
             i++;
         }
 
-        RequestDispatcher rq = request.getRequestDispatcher("Main.html");
+        RequestDispatcher rq = request.getRequestDispatcher("Procesar.html");
         rq.forward(request, response);
     }
 
