@@ -149,7 +149,7 @@ public class DBStock
 //        }
 
         //language=SQL
-        String query = "update stock set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ?";
+        String query = "update stock set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? and importOrigin = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -160,6 +160,7 @@ public class DBStock
             ps.setString(2, stock.getErrorDescription());
             ps.setString(3,stock.getEmpresa());
             ps.setString(4, stock.getProductCode());
+            ps.setString(5, stock.getImportOrigin());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);

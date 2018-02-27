@@ -28,7 +28,7 @@ public class CargarHistoricoPrecios extends HttpServlet
 
         dbPrice.eliminarTable();
 
-        RequestDispatcher rq = request.getRequestDispatcher("Main.html");
+        RequestDispatcher rq = request.getRequestDispatcher("Procesar.html");
         rq.forward(request, response);
     }
 }

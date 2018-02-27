@@ -107,7 +107,7 @@ public class DBAudit
             {
                 AuditItem item = new AuditItem();
 
-                item.setAuditLevel(productCode);
+                item.setAuditLevel(res.getString(1));
                 item.setAuditType(res.getString(2));
                 item.setAuditDate(res.getString(3));
                 item.setErrorCode(res.getString(4));
@@ -160,7 +160,7 @@ public class DBAudit
             {
                 AuditItem item = new AuditItem();
 
-                item.setAuditLevel(productCode);
+                item.setAuditLevel(res.getString(1));
                 item.setAuditType(res.getString(2));
                 item.setAuditDate(res.getString(3));
                 item.setErrorCode(res.getString(4));

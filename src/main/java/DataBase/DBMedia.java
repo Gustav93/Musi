@@ -115,7 +115,7 @@ public class DBMedia
     public void editar(Media media)
     {
         //language=SQL
-        String query = "update media set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ?";
+        String query = "update media set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? and importOrigin = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -126,6 +126,7 @@ public class DBMedia
             ps.setString(2, media.getErrorDescription());
             ps.setString(3,media.getEmpresa());
             ps.setString(4, media.getProductCode());
+            ps.setString(5, media.getImportOrigin());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);

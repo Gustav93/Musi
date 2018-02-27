@@ -27,7 +27,7 @@ public class CargarHistoricoStock extends HttpServlet
         historicoStock.importarStock();
         dbStock.eliminarTabla();
 
-        RequestDispatcher rq = request.getRequestDispatcher("Main.html");
+        RequestDispatcher rq = request.getRequestDispatcher("Procesar.html");
         rq.forward(request,response);
     }
 }

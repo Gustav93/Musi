@@ -130,7 +130,7 @@ public class DBPrice
     public void editar(Price p)
     {
         //language=SQL
-        String query = "update price set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ?";
+        String query = "update price set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? and importOrigin = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -141,6 +141,7 @@ public class DBPrice
             ps.setString(2, p.getErrorDescription());
             ps.setString(3, p.getEmpresa());
             ps.setString(4, p.getProductCode());
+            ps.setString(5, p.getImportOrigin());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);

@@ -136,7 +136,7 @@ public class DBProduct
     public void editar(Product p)
     {
         //language=SQL
-        String query = "update product set processed = ?, errorDescription = ?, empresa = ? WHERE code = ?";
+        String query = "update product set processed = ?, errorDescription = ?, empresa = ? WHERE code = ? and importOrigin = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -147,6 +147,7 @@ public class DBProduct
             ps.setString(2, p.getErrorDescription());
             ps.setString(3, p.getEmpresa());
             ps.setString(4, p.getCode());
+            ps.setString(5, p.getImportOrigin());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
