@@ -1,4 +1,5 @@
 import CSV.Writer;
+import FileLoader.FileLoader;
 
 import java.io.File;
 
@@ -18,7 +19,8 @@ public class Main
 //
 //        dbm.agregarRegistrosAuditoria(f);
 
-//        FileLoader fileLoader = new FileLoader();
+        FileLoader fileLoader = new FileLoader();
+
 //        fileLoader.loadFile("D:\\media-1712070001.csv");
 //        fileLoader.loadFile("D:\\merchandise-1712070003.csv");
 //        fileLoader.loadFile("D:\\precio-1712070003.csv");
@@ -40,7 +42,7 @@ public class Main
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801140001.csv");
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-20180114027.csv");
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801170001_aud.csv");
-//        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801170001.csv");
+        fileLoader.loadFile("D:\\Feeds\\merchandise-1712070003.csv");
 
 
 //        dbConecionManager.verificarProductos();
@@ -150,9 +152,9 @@ public class Main
 ////
 //        dbManager.verificarMedia();
 
-        Writer writer = new Writer();
-
-        File f = writer.getCsvMediaNoProcesadoCorrectamente();
+//        Writer writer = new Writer();
+//
+//        File f = writer.getCsvMediaNoProcesadoCorrectamente();
 
     }
 }

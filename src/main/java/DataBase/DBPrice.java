@@ -34,7 +34,7 @@ public class DBPrice
 
     }
 
-    public void eliminarTable()
+    public void eliminarTabla()
     {
         //language=SQL
         String query = "drop table price";
@@ -85,7 +85,6 @@ public class DBPrice
         {
             DBConectionManager.closeConnection(c);
         }
-
     }
 
 //    public Price getRegistros(String productCode) {
@@ -115,7 +114,7 @@ public class DBPrice
 //            try {
 //                DBConectionManager.closeConnection(c);
 //            } catch (Exception e) {
-//                // TODO Auto-generated catch block
+//
 //                e.printStackTrace();
 //            }
 //        }

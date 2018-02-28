@@ -196,6 +196,19 @@ public class Utilities
         return "producto-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
     }
 
+    public static String nombreArchivoProcesadoMerchandise()
+    {
+        Calendario calendario = new Calendario();
+
+        return "merchandise-procesado" + calendario.getFechaYHora() + ".csv";
+    }
+
+    public static String nombreArchivoNoProcesadoCorrectamenteMerchandise()
+    {
+        Calendario calendario = new Calendario();
+        return "merchandise-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+    }
+
     //crea un indice en la db temporal del feed pasado como parametro
     public static void crearIndice(Feed feed)
     {
@@ -215,6 +228,9 @@ public class Utilities
             query = "alter table media add index indiceMedia (productCode, importOrigin)";
 
         else if(feed.equals(Feed.AUDITORIA))
+            query = "alter table audit add index indiceAudit (productCode, importOrigin)";
+
+        else if(feed.equals(Feed.MERCHANDISE))
             query = "alter table audit add index indiceAudit (productCode, importOrigin)";
 
         try
@@ -250,6 +266,9 @@ public class Utilities
         else if(feed.equals(Feed.MEDIA))
             query = "alter table historico_media add index indiceHistoricoMedia (productCode)";
 
+        else if(feed.equals(Feed.MERCHANDISE))
+            query = "alter table historico_merchandise add index indiceHistoricoMerchandise (source)";
+
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
@@ -275,14 +294,17 @@ public class Utilities
         if(feed.equals(Feed.PRECIO))
             query = "select importOrigin from price group by importOrigin";
 
-        else if (feed.equals(Feed.PRODUCTO))
+        else if(feed.equals(Feed.PRODUCTO))
             query = "select importOrigin from product group by importOrigin";
 
-        else if (feed.equals(Feed.STOCK))
+        else if(feed.equals(Feed.STOCK))
             query = "select importOrigin from stock group by importOrigin";
 
-        else if (feed.equals(Feed.MEDIA))
+        else if(feed.equals(Feed.MEDIA))
             query = "select importOrigin from media group by importOrigin";
+
+        else if(feed.equals(Feed.MERCHANDISE))
+            query = "select importOrigin from merchandise group by importOrigin";
 
         try
         {

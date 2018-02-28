@@ -1,26 +1,24 @@
 package Feed;
 
-public class Merchandise
+public class Merchandise extends Feed
 {
-    private String source, refType, target, relacion, qualifier, preselected, importOrigin;
+    private String refType, target, relacion, qualifier, preselected;
 
     public Merchandise()
     {
-        this.source = null;
         this.refType = null;
         this.target = null;
         this.relacion = null;
         this.qualifier = null;
         this.preselected = null;
-        this.importOrigin = null;
     }
 
     public String getSource() {
-        return source;
+        return getCodigoProducto();
     }
 
     public void setSource(String source) {
-        this.source = source;
+        setCodigoProducto(source);
     }
 
     public String getRefType() {
@@ -63,24 +61,24 @@ public class Merchandise
         this.preselected = preselected;
     }
 
-    public String getImportOrigin() {
-        return importOrigin;
-    }
-
-    public void setImportOrigin(String importOrigin) {
-        this.importOrigin = importOrigin;
-    }
-
     @Override
     public String toString() {
         return "Merchandise{" +
-                "source='" + source + '\'' +
+                "source='" + getSource() + '\'' +
                 ", refType='" + refType + '\'' +
                 ", target='" + target + '\'' +
                 ", relacion='" + relacion + '\'' +
                 ", qualifier='" + qualifier + '\'' +
                 ", preselected='" + preselected + '\'' +
-                ", importOrigin='" + importOrigin + '\'' +
                 '}';
     }
+
+    public static void main(String[] args) {
+        Merchandise m = new Merchandise();
+
+        m.setEmpresa("musi");
+
+        System.out.println(m.getEmpresa());
+    }
+
 }

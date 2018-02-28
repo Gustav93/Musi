@@ -71,7 +71,7 @@ public class FeedBuilder
             merch.setRelacion(row.get(3));
             merch.setQualifier(row.get(4));
             merch.setPreselected(row.get(5));
-            merch.setImportOrigin(Utilities.setImportOrigin(row.get(6)));
+            merch.setOrigenImportacion(Utilities.setImportOrigin(row.get(6)));
 
             list.add(merch);
         }

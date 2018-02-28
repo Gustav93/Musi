@@ -73,6 +73,7 @@ public class DBMedia
             ps.executeUpdate();
             DBConectionManager.commit(c);
         }
+
         catch (Exception e)
         {
             DBConectionManager.rollback(c);

@@ -2,11 +2,11 @@ package Feed;
 
 public class Product
 {
-    private String code, ean, brand, name, category, description, importOrigin,onlineDateTime, offlineDateTime, approvalStatus, weight, processed, errorDescription, empresa;
+    private String productCode, ean, brand, name, category, description, importOrigin,onlineDateTime, offlineDateTime, approvalStatus, weight, processed, errorDescription, empresa;
 
     public Product()
     {
-        this.code = null;
+        this.productCode = null;
         this.ean = null;
         this.brand = null;
         this.name = null;
@@ -23,7 +23,7 @@ public class Product
     }
 
     public String getCode() {
-        return code;
+        return productCode;
     }
 
     public String getEan() {
@@ -66,7 +66,7 @@ public class Product
         return weight;
     }
 
-    public void setCode(String code) { this.code = code; }
+    public void setCode(String code) { this.productCode = code; }
 
     public void setEan(String ean) {
         this.ean = ean;
@@ -135,7 +135,7 @@ public class Product
     @Override
     public String toString() {
         return "Product{" +
-                "code='" + code + '\'' +
+                "productCode='" + productCode + '\'' +
                 ", ean='" + ean + '\'' +
                 ", brand='" + brand + '\'' +
                 ", name='" + name + '\'' +
