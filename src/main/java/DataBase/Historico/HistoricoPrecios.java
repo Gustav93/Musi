@@ -96,14 +96,14 @@ public class HistoricoPrecios
 
             while (res.next()) {
                 Price price = new Price();
-                price.setProductCode(productCode);
+                price.setCodigoProducto(productCode);
                 price.setOnlinePrice(res.getString(2));
                 price.setCurrency(res.getString(3));
                 price.setStorePrice(res.getString(4));
                 price.setHasPriority(res.getString(5));
-                price.setImportOrigin(res.getString(6));
-                price.setProcessed(res.getString(7));
-                price.setErrorDescription(res.getString(8));
+                price.setOrigenImportacion(res.getString(6));
+                price.setEstadoProcesamiento(res.getString(7));
+                price.setDescripcionError(res.getString(8));
                 price.setEmpresa(res.getString(9));
                 priceList.add(price);
             }

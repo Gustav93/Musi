@@ -2,10 +2,9 @@ package Feed;
 
 public class Feed
 {
-    private String codigoProducto, origenImportacion, estadoProcesamiento, descripcionError, empresa;
+    protected String codigoProducto, origenImportacion, estadoProcesamiento, descripcionError, empresa;
 
-    public Feed()
-    {
+    public Feed() {
         codigoProducto = null;
         origenImportacion = null;
         estadoProcesamiento = "Sin Procesar";

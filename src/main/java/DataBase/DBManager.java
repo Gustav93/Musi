@@ -83,35 +83,35 @@ public class DBManager
 
         for (Product p : listaProductos)
         {
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getCode(), p.getImportOrigin(), ErrorType.I);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.I);
 
             //los breaks los hago porque si la lista tiene mas de 1 elemento, son todos iguales (de momento, puede
             //existir un caso en el que no pero todavia no pasom por eso la aclaracion)
             for (AuditItem auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
-                p.setErrorDescription(auditItem.getErrorCode() + ": " + auditItem.getDescription());
-                p.setProcessed("Procesado");
+                p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
+                p.setEstadoProcesamiento("Procesado");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getCode(), p.getImportOrigin(), ErrorType.W);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.W);
 
             for (AuditItem auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
-                p.setErrorDescription(auditItem.getErrorCode() + ": " + auditItem.getDescription());
-                p.setProcessed("Procesado con error");
+                p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
+                p.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getCode(), p.getImportOrigin(), ErrorType.E);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.E);
 
             for (AuditItem auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
-                p.setErrorDescription(auditItem.getErrorCode() + ": " + auditItem.getDescription());
-                p.setProcessed("Procesado con error");
+                p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
+                p.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
@@ -126,32 +126,32 @@ public class DBManager
 
         for (Price p : listaPrecios)
         {
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getProductCode(), p.getImportOrigin(), ErrorType.I);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.I);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 p.setEmpresa(registro.getEmpresa());
-                p.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                p.setProcessed("Procesado");
+                p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                p.setEstadoProcesamiento("Procesado");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getProductCode(), p.getImportOrigin(), ErrorType.W);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.W);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 p.setEmpresa(registro.getEmpresa());
-                p.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                p.setProcessed("Procesado con error");
+                p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                p.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(p.getProductCode(), p.getImportOrigin(), ErrorType.E);
+            listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.E);
 
             for (AuditItem registro : listaRegistrosAuditoria) {
                 p.setEmpresa(registro.getEmpresa());
-                p.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                p.setProcessed("Procesado con error");
+                p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                p.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
@@ -166,33 +166,33 @@ public class DBManager
 
         for (Stock stock : stockList)
         {
-            listaRegistrosAuditoria = db_audit.getRegistro(stock.getProductCode(), stock.getImportOrigin(), ErrorType.I);
+            listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.I);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
-                stock.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                stock.setProcessed("Procesado");
+                stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                stock.setEstadoProcesamiento("Procesado");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(stock.getProductCode(), stock.getImportOrigin(), ErrorType.W);
+            listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.W);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
-                stock.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                stock.setProcessed("Procesado con error");
+                stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                stock.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(stock.getProductCode(), stock.getImportOrigin(), ErrorType.E);
+            listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.E);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
-                stock.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                stock.setProcessed("Procesado con error");
+                stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                stock.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
@@ -207,34 +207,34 @@ public class DBManager
 
         for (Media media : mediaList)
         {
-            listaRegistrosAuditoria = db_audit.getRegistro(media.getProductCode(), media.getImportOrigin(), ErrorType.I);
+            listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.I);
 
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
-                media.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                media.setProcessed("Procesado");
+                media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                media.setEstadoProcesamiento("Procesado");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(media.getProductCode(), media.getImportOrigin(), ErrorType.W);
+            listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.W);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
-                media.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                media.setProcessed("Procesado con error");
+                media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                media.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(media.getProductCode(), media.getImportOrigin(), ErrorType.E);
+            listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.E);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
-                media.setErrorDescription(registro.getErrorCode() + ": " + registro.getDescription());
-                media.setProcessed("Procesado con error");
+                media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                media.setEstadoProcesamiento("Procesado con error");
                 break;
             }
 
@@ -249,7 +249,7 @@ public class DBManager
 
         for (Merchandise m : listaMerchandise)
         {
-            listaRegistrosAuditoria = db_audit.getRegistro(m.getSource(), m.getOrigenImportacion(), ErrorType.I);
+            listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.I);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
@@ -259,7 +259,7 @@ public class DBManager
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(m.getSource(), m.getOrigenImportacion(), ErrorType.W);
+            listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.W);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {
@@ -269,7 +269,7 @@ public class DBManager
                 break;
             }
 
-            listaRegistrosAuditoria = db_audit.getRegistro(m.getSource(), m.getOrigenImportacion(), ErrorType.E);
+            listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.E);
 
             for (AuditItem registro : listaRegistrosAuditoria)
             {

@@ -102,13 +102,13 @@ public class HistoricoStock
             while (res.next())
             {
                 Stock stock = new Stock();
-                stock.setProductCode(productCode);
+                stock.setCodigoProducto(productCode);
                 stock.setStock(res.getString(2));
                 stock.setWarehouse(res.getString(3));
                 stock.setStatus(res.getString(4));
-                stock.setImportOrigin(res.getString(5));
-                stock.setProcessed(res.getString(6));
-                stock.setErrorDescription(res.getString(7));
+                stock.setOrigenImportacion(res.getString(5));
+                stock.setEstadoProcesamiento(res.getString(6));
+                stock.setDescripcionError(res.getString(7));
                 stock.setEmpresa(res.getString(8));
                 stockList.add(stock);
             }

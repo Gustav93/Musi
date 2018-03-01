@@ -64,14 +64,14 @@ public class DBPrice
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, price.getProductCode());
+            ps.setString(1, price.getCodigoProducto());
             ps.setString(2, price.getOnlinePrice());
             ps.setString(3, price.getCurrency());
             ps.setString(4, price.getStorePrice());
             ps.setString(5, price.getHasPriority());
-            ps.setString(6, price.getImportOrigin());
-            ps.setString(7, price.getProcessed());
-            ps.setString(8, price.getErrorDescription());
+            ps.setString(6, price.getOrigenImportacion());
+            ps.setString(7, price.getEstadoProcesamiento());
+            ps.setString(8, price.getDescripcionError());
             ps.setString(9, price.getEmpresa());
 
             ps.executeUpdate();
@@ -136,11 +136,11 @@ public class DBPrice
         {
             PreparedStatement ps = c.prepareStatement(query);
 
-            ps.setString(1, p.getProcessed());
-            ps.setString(2, p.getErrorDescription());
+            ps.setString(1, p.getEstadoProcesamiento());
+            ps.setString(2, p.getDescripcionError());
             ps.setString(3, p.getEmpresa());
-            ps.setString(4, p.getProductCode());
-            ps.setString(5, p.getImportOrigin());
+            ps.setString(4, p.getCodigoProducto());
+            ps.setString(5, p.getOrigenImportacion());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -193,14 +193,14 @@ public class DBPrice
             {
                 Price p = new Price();
 
-                p.setProductCode(res.getString(1));
+                p.setCodigoProducto(res.getString(1));
                 p.setOnlinePrice(res.getString(2));
                 p.setCurrency(res.getString(3));
                 p.setStorePrice(res.getString(4));
                 p.setHasPriority(res.getString(5));
-                p.setImportOrigin(res.getString(6));
-                p.setProcessed(res.getString(7));
-                p.setErrorDescription(res.getString(8));
+                p.setOrigenImportacion(res.getString(6));
+                p.setEstadoProcesamiento(res.getString(7));
+                p.setDescripcionError(res.getString(8));
                 p.setEmpresa(res.getString(9));
 
                 list.add(p);

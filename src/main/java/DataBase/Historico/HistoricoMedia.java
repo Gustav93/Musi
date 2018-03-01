@@ -101,12 +101,12 @@ public class HistoricoMedia
             while (res.next())
             {
                 Media media = new Media();
-                media.setProductCode(productCode);
+                media.setCodigoProducto(productCode);
                 media.setCodeMedia(res.getString(2));
                 media.setIsDefault(res.getString(3));
-                media.setImportOrigin(res.getString(4));
-                media.setProcessed(res.getString(5));
-                media.setErrorDescription(res.getString(6));
+                media.setOrigenImportacion(res.getString(4));
+                media.setEstadoProcesamiento(res.getString(5));
+                media.setDescripcionError(res.getString(6));
                 media.setEmpresa(res.getString(7));
                 mediaList.add(media);
             }

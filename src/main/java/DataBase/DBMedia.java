@@ -62,12 +62,12 @@ public class DBMedia
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, media.getProductCode());
+            ps.setString(1, media.getCodigoProducto());
             ps.setString(2, media.getCodeMedia());
             ps.setString(3, media.getIsDefault());
-            ps.setString(4, media.getImportOrigin());
-            ps.setString(5, media.getProcessed());
-            ps.setString(6, media.getErrorDescription());
+            ps.setString(4, media.getOrigenImportacion());
+            ps.setString(5, media.getEstadoProcesamiento());
+            ps.setString(6, media.getDescripcionError());
             ps.setString(7, media.getEmpresa());
 
             ps.executeUpdate();
@@ -123,11 +123,11 @@ public class DBMedia
         {
             PreparedStatement ps = c.prepareStatement(query);
 
-            ps.setString(1, media.getProcessed());
-            ps.setString(2, media.getErrorDescription());
+            ps.setString(1, media.getEstadoProcesamiento());
+            ps.setString(2, media.getDescripcionError());
             ps.setString(3,media.getEmpresa());
-            ps.setString(4, media.getProductCode());
-            ps.setString(5, media.getImportOrigin());
+            ps.setString(4, media.getCodigoProducto());
+            ps.setString(5, media.getOrigenImportacion());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -180,12 +180,12 @@ public class DBMedia
             {
                 Media media = new Media();
 
-                media.setProductCode(res.getString(1));
+                media.setCodigoProducto(res.getString(1));
                 media.setCodeMedia(res.getString(2));
                 media.setIsDefault(res.getString(3));
-                media.setImportOrigin(res.getString(4));
-                media.setProcessed(res.getString(5));
-                media.setErrorDescription(res.getString(6));
+                media.setOrigenImportacion(res.getString(4));
+                media.setEstadoProcesamiento(res.getString(5));
+                media.setDescripcionError(res.getString(6));
                 media.setEmpresa(res.getString(7));
 
                 list.add(media);

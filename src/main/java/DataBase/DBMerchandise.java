@@ -58,7 +58,7 @@ public class DBMerchandise
 
         try {
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, merchandise.getSource());
+            ps.setString(1, merchandise.getCodigoProducto());
             ps.setString(2, merchandise.getRefType());
             ps.setString(3, merchandise.getTarget());
             ps.setString(4, merchandise.getRelacion());
@@ -160,7 +160,7 @@ public class DBMerchandise
             ps.setString(1, m.getEstadoProcesamiento());
             ps.setString(2, m.getDescripcionError());
             ps.setString(3, m.getEmpresa());
-            ps.setString(4, m.getSource());
+            ps.setString(4, m.getCodigoProducto());
             ps.setString(5, m.getOrigenImportacion());
 
             ps.executeUpdate();
@@ -207,7 +207,7 @@ public class DBMerchandise
             {
                 Merchandise m = new Merchandise();
 
-                m.setSource(res.getString(1));
+                m.setCodigoProducto(res.getString(1));
                 m.setRefType(res.getString(2));
                 m.setTarget(res.getString(3));
                 m.setRelacion(res.getString(4));

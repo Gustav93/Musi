@@ -26,22 +26,22 @@ public class FileLoader
         reader = new Reader(path);
 
         if (Utilities.isAudit(path))
-            db.agregarRegistrosAuditoria(builder.createAuditList(reader.procesar()));
+            db.agregarRegistrosAuditoria(builder.crearListaRegistrosAuditoria(reader.procesar()));
 
         else if(Utilities.isPriceFeed(path))
-            db.agregarListaPrecios(builder.createPriceList(reader.procesar()));
+            db.agregarListaPrecios(builder.crearListaPrecios(reader.procesar()));
 
         else if (Utilities.isProductFeed(path))
-            db.agregarListaProductos(builder.createProductList(reader.procesar()));
+            db.agregarListaProductos(builder.crearListaProductos(reader.procesar()));
 
         else if(Utilities.isMerchandiseFeed(path))
-            db.agregarListaMerchandise(builder.createMerchandiseList(reader.procesar()));
+            db.agregarListaMerchandise(builder.crearListaMerchandise(reader.procesar()));
 
         else if(Utilities.isMediaFeed(path))
-            db.agregarListaMedia(builder.createMediaList(reader.procesar()));
+            db.agregarListaMedia(builder.crearListaMedia(reader.procesar()));
 
         else if(Utilities.isStockFeed(path))
-            db.agregarListaStock(builder.createStockList(reader.procesar()));
+            db.agregarListaStock(builder.crearListaStock(reader.procesar()));
 
         System.out.println("ok");
     }

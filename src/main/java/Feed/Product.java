@@ -1,12 +1,11 @@
 package Feed;
 
-public class Product
+public class Product extends Feed
 {
-    private String productCode, ean, brand, name, category, description, importOrigin,onlineDateTime, offlineDateTime, approvalStatus, weight, processed, errorDescription, empresa;
+    private String ean, brand, name, category, description, onlineDateTime, offlineDateTime, approvalStatus, weight;
 
     public Product()
     {
-        this.productCode = null;
         this.ean = null;
         this.brand = null;
         this.name = null;
@@ -16,14 +15,6 @@ public class Product
         this.offlineDateTime = null;
         this.approvalStatus = null;
         this.category = null;
-        this.importOrigin = null;
-        this.processed = "Sin Procesar";
-        this.errorDescription = "";
-        this.empresa = null;
-    }
-
-    public String getCode() {
-        return productCode;
     }
 
     public String getEan() {
@@ -46,10 +37,6 @@ public class Product
         return description;
     }
 
-    public String getImportOrigin() {
-        return importOrigin;
-    }
-
     public String getOnlineDateTime() {
         return onlineDateTime;
     }
@@ -65,8 +52,6 @@ public class Product
     public String getWeight() {
         return weight;
     }
-
-    public void setCode(String code) { this.productCode = code; }
 
     public void setEan(String ean) {
         this.ean = ean;
@@ -88,10 +73,6 @@ public class Product
         this.description = description;
     }
 
-    public void setImportOrigin(String importOrigin) {
-        this.importOrigin = importOrigin;
-    }
-
     public void setOnlineDateTime(String onlineDateTime) {
         this.onlineDateTime = onlineDateTime;
     }
@@ -108,40 +89,16 @@ public class Product
         this.weight = weight;
     }
 
-    public String getProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(String processed) {
-        this.processed = processed;
-    }
-
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
-
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
-                "productCode='" + productCode + '\'' +
+                "productCode='" + codigoProducto + '\'' +
                 ", ean='" + ean + '\'' +
                 ", brand='" + brand + '\'' +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
-                ", importOrigin='" + importOrigin + '\'' +
+                ", importOrigin='" + getOrigenImportacion() + '\'' +
                 ", onlineDateTime='" + onlineDateTime + '\'' +
                 ", offlineDateTime='" + offlineDateTime + '\'' +
                 ", approvalStatus='" + approvalStatus + '\'' +

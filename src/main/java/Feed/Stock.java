@@ -1,27 +1,14 @@
 package Feed;
 
-public class Stock
+public class Stock extends Feed
 {
-    private String productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa;
+    private String stock, warehouse, status;
 
     public Stock()
     {
-        this.productCode = null;
         this.stock = null;
         this.warehouse = null;
         this.status = null;
-        this.importOrigin = null;
-        this.processed = "Sin Procesar";
-        this.errorDescription = "";
-        this.empresa = null;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public String getStock() {
@@ -48,48 +35,16 @@ public class Stock
         this.status = status;
     }
 
-    public String getImportOrigin() {
-        return importOrigin;
-    }
-
-    public void setImportOrigin(String importOrigin) {
-        this.importOrigin = importOrigin;
-    }
-
-    public String getProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(String processed) {
-        this.processed = processed;
-    }
-
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
-
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
     @Override
     public String toString() {
         return "Stock{" +
-                "productCode='" + productCode + '\'' +
+                "productCode='" + codigoProducto + '\'' +
                 ", stock='" + stock + '\'' +
                 ", warehouse='" + warehouse + '\'' +
                 ", status='" + status + '\'' +
-                ", importOrigin='" + importOrigin + '\'' +
-                ", processed='" + processed + '\'' +
-                ", errorDescription='" + errorDescription + '\'' +
+                ", importOrigin='" + origenImportacion + '\'' +
+                ", processed='" + estadoProcesamiento + '\'' +
+                ", errorDescription='" + descripcionError + '\'' +
                 '}';
     }
 }

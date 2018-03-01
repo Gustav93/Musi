@@ -13,14 +13,6 @@ public class Merchandise extends Feed
         this.preselected = null;
     }
 
-    public String getSource() {
-        return getCodigoProducto();
-    }
-
-    public void setSource(String source) {
-        setCodigoProducto(source);
-    }
-
     public String getRefType() {
         return refType;
     }
@@ -64,7 +56,6 @@ public class Merchandise extends Feed
     @Override
     public String toString() {
         return "Merchandise{" +
-                "source='" + getSource() + '\'' +
                 ", refType='" + refType + '\'' +
                 ", target='" + target + '\'' +
                 ", relacion='" + relacion + '\'' +
@@ -72,13 +63,4 @@ public class Merchandise extends Feed
                 ", preselected='" + preselected + '\'' +
                 '}';
     }
-
-    public static void main(String[] args) {
-        Merchandise m = new Merchandise();
-
-        m.setEmpresa("musi");
-
-        System.out.println(m.getEmpresa());
-    }
-
 }

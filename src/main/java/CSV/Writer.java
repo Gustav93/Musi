@@ -99,12 +99,12 @@ public class Writer
 
             for (Media media : mediaList)
             {
-                writer.write(media.getProductCode());
+                writer.write(media.getCodigoProducto());
                 writer.write(media.getCodeMedia());
                 writer.write(media.getIsDefault());
-                writer.write(media.getImportOrigin());
-                writer.write(media.getProcessed());
-                writer.write(media.getErrorDescription());
+                writer.write(media.getOrigenImportacion());
+                writer.write(media.getEstadoProcesamiento());
+                writer.write(media.getDescripcionError());
                 writer.write(media.getEmpresa());
                 writer.endRecord();
             }
@@ -161,14 +161,14 @@ public class Writer
 
             for (Price price : priceList)
             {
-                writer.write(price.getProductCode());
+                writer.write(price.getCodigoProducto());
                 writer.write(price.getOnlinePrice());
                 writer.write(price.getCurrency());
                 writer.write(price.getStorePrice());
                 writer.write(price.getHasPriority());
-                writer.write(price.getImportOrigin());
-                writer.write(price.getProcessed());
-                writer.write(price.getErrorDescription());
+                writer.write(price.getOrigenImportacion());
+                writer.write(price.getEstadoProcesamiento());
+                writer.write(price.getDescripcionError());
                 writer.write(price.getEmpresa());
                 writer.endRecord();
             }
@@ -230,7 +230,7 @@ public class Writer
 
             for (Product p : productList)
             {
-                writer.write(p.getCode());
+                writer.write(p.getCodigoProducto());
                 writer.write(p.getEan());
                 writer.write(p.getBrand());
                 writer.write(p.getName());
@@ -240,9 +240,9 @@ public class Writer
                 writer.write(p.getOfflineDateTime());
                 writer.write(p.getApprovalStatus());
                 writer.write(p.getDescription());
-                writer.write(p.getImportOrigin());
-                writer.write(p.getProcessed());
-                writer.write(p.getErrorDescription());
+                writer.write(p.getOrigenImportacion());
+                writer.write(p.getEstadoProcesamiento());
+                writer.write(p.getDescripcionError());
                 writer.write(p.getEmpresa());
                 writer.endRecord();
             }
@@ -298,13 +298,13 @@ public class Writer
 
             for (Stock stock : stockList)
             {
-                writer.write(stock.getProductCode());
+                writer.write(stock.getCodigoProducto());
                 writer.write(stock.getStock());
                 writer.write(stock.getWarehouse());
                 writer.write(stock.getStatus());
-                writer.write(stock.getImportOrigin());
-                writer.write(stock.getProcessed());
-                writer.write(stock.getErrorDescription());
+                writer.write(stock.getOrigenImportacion());
+                writer.write(stock.getEstadoProcesamiento());
+                writer.write(stock.getDescripcionError());
                 writer.write(stock.getEmpresa());
                 writer.endRecord();
             }
@@ -362,7 +362,7 @@ public class Writer
 
             for (Merchandise m : listaMerchandise)
             {
-                writer.write(m.getSource());
+                writer.write(m.getCodigoProducto());
                 writer.write(m.getRefType());
                 writer.write(m.getTarget());
                 writer.write(m.getRelacion());

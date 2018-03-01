@@ -108,7 +108,7 @@ public class HistoricoProductos
             while (res.next())
             {
                 Product p = new Product();
-                p.setCode(code);
+                p.setCodigoProducto(code);
                 p.setEan(res.getString(2));
                 p.setBrand(res.getString(3));
                 p.setName(res.getString(4));
@@ -118,9 +118,9 @@ public class HistoricoProductos
                 p.setOfflineDateTime(res.getString(8));
                 p.setApprovalStatus(res.getString(9));
                 p.setDescription(res.getString(10));
-                p.setImportOrigin(res.getString(11));
-                p.setProcessed(res.getString(12));
-                p.setErrorDescription(res.getString(13));
+                p.setOrigenImportacion(res.getString(11));
+                p.setEstadoProcesamiento(res.getString(12));
+                p.setDescripcionError(res.getString(13));
                 p.setEmpresa(res.getString(14));
 
                 productList.add(p);

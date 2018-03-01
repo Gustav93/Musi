@@ -1,4 +1,4 @@
 package Feed;
 
-public class Classification {
+public class Classification extends Feed {
 }

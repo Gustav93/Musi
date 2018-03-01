@@ -2571,7 +2571,7 @@ if (typeof NProgress != 'undefined') {
                         ajax:{url:'/mostrar_productos?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                         columns: [
 
-                            {"data": "code" },
+                            {"data": "codigoProducto" },
                             {"data": "ean" },
                             {"data": "brand" },
                             {"data": "name" },
@@ -2581,9 +2581,9 @@ if (typeof NProgress != 'undefined') {
                             {"data": "offlineDateTime" },
                             {"data": "approvalStatus" },
                             {"data": "description" },
-                            {"data": "importOrigin" },
-                            {"data": "processed" },
-                            {"data": "errorDescription" },
+                            {"data": "origenImportacion" },
+                            {"data": "estadoProcesamiento" },
+                            {"data": "descripcionError" },
                             {"data": "empresa" },
                         ]
                     }
@@ -2593,13 +2593,13 @@ if (typeof NProgress != 'undefined') {
                     ajax:{url:'/mostrar_stock?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                     columns: [
 
-                        {"data": "productCode" },
+                        {"data": "codigoProducto" },
                         {"data": "stock" },
                         {"data": "warehouse" },
                         {"data": "status" },
-                        {"data": "importOrigin" },
-                        {"data": "processed" },
-                        {"data": "errorDescription" },
+                        {"data": "origenImportacion" },
+                        {"data": "estadoProcesamiento" },
+                        {"data": "descripcionError" },
                         {"data": "empresa" }
                     ]
 				});
@@ -2608,7 +2608,7 @@ if (typeof NProgress != 'undefined') {
                     ajax:{url:'/mostrar_auditoria',dataSrc:""},
                     columns: [
 
-                    	{"data": "auditLevel" },
+						{"data": "auditLevel" },
                        {"data": "auditType" },
                        {"data": "auditDate" },
                        {"data": "errorCode" },
@@ -2624,14 +2624,14 @@ if (typeof NProgress != 'undefined') {
                     ajax:{url:'/mostrar_precios?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                     columns: [
 
-                        {"data": "productCode" },
+                        {"data": "codigoProducto" },
                         {"data": "onlinePrice" },
                         {"data": "currency" },
                         {"data": "storePrice" },
                         {"data": "hasPriority" },
-                        {"data": "importOrigin" },
-                        {"data": "processed" },
-                        {"data": "errorDescription" },
+                        {"data": "origenImportacion" },
+                        {"data": "estadoProcesamiento" },
+                        {"data": "descripcionError" },
                         {"data": "empresa" },
                     ]
 				});
@@ -2640,12 +2640,12 @@ if (typeof NProgress != 'undefined') {
                     ajax:{url:'/mostrar_media?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
                     columns: [
 
-                        {"data": "productCode" },
+                        {"data": "codigoProducto" },
                         {"data": "codeMedia" },
                         {"data": "isDefault" },
-                        {"data": "importOrigin" },
-                        {"data": "processed" },
-                        {"data": "errorDescription" },
+                        {"data": "origenImportacion" },
+                        {"data": "estadoProcesamiento" },
+                        {"data": "descripcionError" },
                         {"data": "empresa" },
                     ]
                 });

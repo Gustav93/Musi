@@ -12,14 +12,14 @@ public class FeedBuilder
     //estos metodos reciben la lista de filas del archivo csv y dependiendo el metodo que sea, crea una lista de objetos
     //del fedd correspondiente. En todos los casos se correge el importOrigin ya que desde el csv llega el path absoluto
     //del archivo.
-    public List<Product> createProductList(List<List<String>> rows)
+    public List<Product> crearListaProductos(List<List<String>> rows)
     {
         List<Product> list = new ArrayList<>();
 
         for(List<String> row : rows)
         {
             Product p = new Product();
-            p.setCode(row.get(0));
+            p.setCodigoProducto(row.get(0));
             p.setEan(row.get(1));
             p.setBrand(row.get(2));
             p.setName(row.get(3));
@@ -29,14 +29,14 @@ public class FeedBuilder
             p.setOfflineDateTime(row.get(7));
             p.setApprovalStatus(row.get(8));
             p.setDescription(row.get(9));
-            p.setImportOrigin(Utilities.setImportOrigin(row.get(10)));
+            p.setOrigenImportacion(Utilities.setImportOrigin(row.get(10)));
 
             list.add(p);
         }
         return list;
     }
 
-    public List<Price> createPriceList(List<List<String>> rows)
+    public List<Price> crearListaPrecios(List<List<String>> rows)
     {
         List<Price> list = new ArrayList<>();
 
@@ -44,12 +44,12 @@ public class FeedBuilder
         {
             Price price = new Price();
 
-            price.setProductCode(row.get(0));
+            price.setCodigoProducto(row.get(0));
             price.setOnlinePrice(row.get(1));
             price.setCurrency(row.get(2));
             price.setStorePrice(row.get(3));
             price.setHasPriority(row.get(4));
-            price.setImportOrigin(Utilities.setImportOrigin(row.get(5)));
+            price.setOrigenImportacion(Utilities.setImportOrigin(row.get(5)));
 
             list.add(price);
         }
@@ -57,7 +57,7 @@ public class FeedBuilder
         return list;
     }
 
-    public List<Merchandise> createMerchandiseList(List<List<String>> rows)
+    public List<Merchandise> crearListaMerchandise(List<List<String>> rows)
     {
         List<Merchandise> list = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class FeedBuilder
         {
             Merchandise merch = new Merchandise();
 
-            merch.setSource(row.get(0));
+            merch.setCodigoProducto(row.get(0));
             merch.setRefType(row.get(1));
             merch.setTarget(row.get(2));
             merch.setRelacion(row.get(3));
@@ -78,7 +78,7 @@ public class FeedBuilder
         return list;
     }
 
-    public List<Media> createMediaList(List<List<String>> rows)
+    public List<Media> crearListaMedia(List<List<String>> rows)
     {
         List<Media> list = new ArrayList<>();
 
@@ -86,17 +86,17 @@ public class FeedBuilder
         {
             Media media = new Media();
 
-            media.setProductCode(row.get(0));
+            media.setCodigoProducto(row.get(0));
             media.setCodeMedia(row.get(1));
             media.setIsDefault(row.get(2));
-            media.setImportOrigin(Utilities.setImportOrigin(row.get(3)));
+            media.setOrigenImportacion(Utilities.setImportOrigin(row.get(3)));
 
             list.add(media);
         }
         return list;
     }
 
-    public List<Stock> createStockList(List<List<String>> rows)
+    public List<Stock> crearListaStock(List<List<String>> rows)
     {
         List<Stock> list = new ArrayList<>();
 
@@ -104,11 +104,11 @@ public class FeedBuilder
         {
             Stock stock = new Stock();
 
-            stock.setProductCode(row.get(0));
+            stock.setCodigoProducto(row.get(0));
             stock.setStock(row.get(1));
             stock.setWarehouse(row.get(2));
             stock.setStatus(row.get(3));
-            stock.setImportOrigin(Utilities.setImportOrigin(row.get(4)));
+            stock.setOrigenImportacion(Utilities.setImportOrigin(row.get(4)));
 
             list.add(stock);
         }
@@ -116,7 +116,7 @@ public class FeedBuilder
         return list;
     }
 
-    public List<AuditItem> createAuditList(List<List<String>> rows)
+    public List<AuditItem> crearListaRegistrosAuditoria(List<List<String>> rows)
     {
         List<AuditItem> list = new ArrayList<>();
 
@@ -143,14 +143,14 @@ public class FeedBuilder
                 //si el registro es un E37 se procede a corregirlo, y si no fue posible, se descarta
                 if(errorCode.equals("E37"))
                 {
-                    fixAuditItem(item);
+                    corregirRegistroAuditoria(item);
                     if(item.getProductCode().equals(""))
                         continue;
                 }
 
                 //los registros que son de los feeds media y classification tienen errores en el codigo de producto
                 if(feedType.equals("MEDIA") || feedType.equals("CLASSIFICATION"))
-                    fixProductCode(item);
+                    corregirCodigoProducto(item);
 
                 list.add(item);
             }
@@ -159,16 +159,16 @@ public class FeedBuilder
         return list;
     }
 
-    private void fixAuditItem(AuditItem item)
+    private void corregirRegistroAuditoria(AuditItem item)
     {
-        fixEmpresa(item);
-        fixFeedType(item);
-        fixProductCode(item);
+        corregirEmpresa(item);
+        corregirTipoFeed(item);
+        corregirCodigoProducto(item);
     }
 
     //para corregir el feedType se utilizan expresiones regulares para buscar el tipo de feed en la descripcion del registro
     //ya que es unico el lugar de donde puedo sacar la informacion.
-    private void fixFeedType(AuditItem item)
+    private void corregirTipoFeed(AuditItem item)
     {
         String description = item.getDescription(); //descripcion del registro
         Pattern pattern = Pattern.compile("classification"); //patron con el que vamos a buscar en la descripcion
@@ -220,7 +220,7 @@ public class FeedBuilder
     }
 
     //con el campo empresa es lo mismo que con el metodo anteriror
-    private void fixEmpresa(AuditItem item)
+    private void corregirEmpresa(AuditItem item)
     {
         String description = item.getDescription();
         String emsaPattern = "emsa";
@@ -245,7 +245,7 @@ public class FeedBuilder
     }
 
     //en este caso el codigo de producto tiene diferentes errores dependiendo del feed
-    private void fixProductCode(AuditItem item)
+    private void corregirCodigoProducto(AuditItem item)
     {
         //si el registro es un "E37", el patron va a ser una barra invertida (\), comillas ("), 3 o mas digitos,
         //barra invertida (\) y comillas. Aca se presupone que los codigo de productos tienen 3 o mas digitos.

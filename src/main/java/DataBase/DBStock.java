@@ -62,13 +62,13 @@ public class DBStock
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, stock.getProductCode());
+            ps.setString(1, stock.getCodigoProducto());
             ps.setString(2, stock.getStock());
             ps.setString(3, stock.getWarehouse());
             ps.setString(4, stock.getStatus());
-            ps.setString(5, stock.getImportOrigin());
-            ps.setString(6, stock.getProcessed());
-            ps.setString(7,stock.getErrorDescription());
+            ps.setString(5, stock.getOrigenImportacion());
+            ps.setString(6, stock.getEstadoProcesamiento());
+            ps.setString(7,stock.getDescripcionError());
             ps.setString(8, stock.getEmpresa());
 
             ps.executeUpdate();
@@ -156,11 +156,11 @@ public class DBStock
         {
             PreparedStatement ps = c.prepareStatement(query);
 
-            ps.setString(1, stock.getProcessed());
-            ps.setString(2, stock.getErrorDescription());
+            ps.setString(1, stock.getEstadoProcesamiento());
+            ps.setString(2, stock.getDescripcionError());
             ps.setString(3,stock.getEmpresa());
-            ps.setString(4, stock.getProductCode());
-            ps.setString(5, stock.getImportOrigin());
+            ps.setString(4, stock.getCodigoProducto());
+            ps.setString(5, stock.getOrigenImportacion());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -212,13 +212,13 @@ public class DBStock
             {
                 Stock stock = new Stock();
 
-                stock.setProductCode(res.getString(1));
+                stock.setCodigoProducto(res.getString(1));
                 stock.setStock(res.getString(2));
                 stock.setWarehouse(res.getString(3));
                 stock.setStatus(res.getString(4));
-                stock.setImportOrigin(res.getString(5));
-                stock.setProcessed(res.getString(6));
-                stock.setErrorDescription(res.getString(7));
+                stock.setOrigenImportacion(res.getString(5));
+                stock.setEstadoProcesamiento(res.getString(6));
+                stock.setDescripcionError(res.getString(7));
                 stock.setEmpresa(res.getString(8));
 
                 list.add(stock);

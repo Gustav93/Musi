@@ -62,7 +62,7 @@ public class DBProduct
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setString(1, p.getCode());
+            ps.setString(1, p.getCodigoProducto());
             ps.setString(2, p.getEan());
             ps.setString(3, p.getBrand());
             ps.setString(4, p.getName());
@@ -72,9 +72,9 @@ public class DBProduct
             ps.setString(8, p.getOfflineDateTime());
             ps.setString(9, p.getApprovalStatus());
             ps.setString(10, p.getDescription());
-            ps.setString(11, p.getImportOrigin());
-            ps.setString(12, p.getProcessed());
-            ps.setString(13, p.getErrorDescription());
+            ps.setString(11, p.getOrigenImportacion());
+            ps.setString(12, p.getEstadoProcesamiento());
+            ps.setString(13, p.getDescripcionError());
             ps.setString(14, p.getEmpresa());
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -89,50 +89,6 @@ public class DBProduct
         }
     }
 
-//    public Product getProduct(String code) {
-//
-//        Product p = new Product();
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try {
-//            PreparedStatement ps = c.prepareStatement(GET_PRODUCT);
-//            ps.setString(1, code);
-//            ResultSet res = ps.executeQuery();
-//
-//            while (res.next()) {
-//                p.setCode(code);
-//                p.setEan(res.getString(2));
-//                p.setBrand(res.getString(3));
-//                p.setName(res.getString(4));
-//                p.setCategory(res.getString(5));
-//                p.setWeight(res.getString(6));
-//                p.setOnlineDateTime(res.getString(7));
-//                p.setOfflineDateTime(res.getString(8));
-//                p.setApprovalStatus(res.getString(9));
-//                p.setDescription(res.getString(10));
-//                p.setImportOrigin(res.getString(11));
-//                p.setProcessed(res.getString(12));
-//                p.setErrorDescription(res.getString(13));
-//                p.setEmpresa(res.getString(14));
-//            }
-//        } catch (Exception e) {
-//            DBConectionManager.rollback(c);
-//        } finally {
-//            try {
-//                DBConectionManager.closeConnection(c);
-//            } catch (Exception e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//        }
-//        return p;
-//    }
-
-//    public List<Product> getProductList()
-//    {
-//        return filtrarPor(PRODUCT_LIST);
-//    }
-
     public void editar(Product p)
     {
         //language=SQL
@@ -143,11 +99,11 @@ public class DBProduct
         {
             PreparedStatement ps = c.prepareStatement(query);
 
-            ps.setString(1, p.getProcessed());
-            ps.setString(2, p.getErrorDescription());
+            ps.setString(1, p.getEstadoProcesamiento());
+            ps.setString(2, p.getDescripcionError());
             ps.setString(3, p.getEmpresa());
-            ps.setString(4, p.getCode());
-            ps.setString(5, p.getImportOrigin());
+            ps.setString(4, p.getCodigoProducto());
+            ps.setString(5, p.getOrigenImportacion());
 
             ps.executeUpdate();
             DBConectionManager.commit(c);
@@ -198,7 +154,7 @@ public class DBProduct
             {
                 Product p = new Product();
 
-                p.setCode(res.getString(1));
+                p.setCodigoProducto(res.getString(1));
                 p.setEan(res.getString(2));
                 p.setBrand(res.getString(3));
                 p.setName(res.getString(4));
@@ -208,9 +164,9 @@ public class DBProduct
                 p.setOfflineDateTime(res.getString(8));
                 p.setApprovalStatus(res.getString(9));
                 p.setDescription(res.getString(10));
-                p.setImportOrigin(res.getString(11));
-                p.setProcessed(res.getString(12));
-                p.setErrorDescription(res.getString(13));
+                p.setOrigenImportacion(res.getString(11));
+                p.setEstadoProcesamiento(res.getString(12));
+                p.setDescripcionError(res.getString(13));
                 p.setEmpresa(res.getString(14));
 
                 list.add(p);

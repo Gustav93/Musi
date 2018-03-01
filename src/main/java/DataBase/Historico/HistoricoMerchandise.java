@@ -99,7 +99,7 @@ public class HistoricoMerchandise
             while (res.next())
             {
                 Merchandise m = new Merchandise();
-                m.setSource(source);
+                m.setCodigoProducto(source);
                 m.setRefType(res.getString(2));
                 m.setTarget(res.getString(3));
                 m.setRelacion(res.getString(4));

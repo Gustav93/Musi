@@ -1,28 +1,15 @@
 package Feed;
 
-public class Price
+public class Price extends Feed
 {
-    private String productCode, currency, importOrigin, onlinePrice,storePrice, hasPriority, processed, errorDescription, empresa;
+    private String currency, onlinePrice,storePrice, hasPriority;
 
     public Price()
     {
-        this.productCode = null;
         this.onlinePrice = null;
         this.currency = null;
         this.storePrice = null;
         this.hasPriority = null;
-        this.importOrigin = null;
-        this.processed = "Sin Procesar";
-        this.errorDescription = "";
-        this.empresa = "";
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public String getCurrency() {
@@ -57,47 +44,15 @@ public class Price
         this.hasPriority = hasPriority;
     }
 
-    public String getImportOrigin() {
-        return importOrigin;
-    }
-
-    public void setImportOrigin(String importOrigin) {
-        this.importOrigin = importOrigin;
-    }
-
-    public String getProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(String processed) {
-        this.processed = processed;
-    }
-
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
-
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Price{");
-        sb.append("productCode='").append(productCode).append('\'');
+        sb.append("productCode='").append(super.getCodigoProducto()).append('\'');
         sb.append(", onlinePrice=").append(onlinePrice);
         sb.append(", currency='").append(currency).append('\'');
         sb.append(", storePrice=").append(storePrice);
         sb.append(", hasPriority=").append(hasPriority);
-        sb.append(", importOrigin=").append(importOrigin);
+        sb.append(", importOrigin=").append(super.getOrigenImportacion());
         sb.append('}');
         return sb.toString();
     }
