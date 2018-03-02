@@ -1,6 +1,7 @@
 package DataBase;
 
 import Feed.*;
+import auditoria.RegistroAuditoria;
 
 import java.util.List;
 
@@ -32,11 +33,11 @@ public class DBManager
 
     }
 
-    public void agregarRegistrosAuditoria(List<AuditItem> items)
+    public void agregarRegistrosAuditoria(List<RegistroAuditoria> items)
     {
         db_audit.crearTabla();
 
-        for (AuditItem item : items)
+        for (RegistroAuditoria item : items)
             db_audit.crearRegistro(item);
     }
 
@@ -79,7 +80,7 @@ public class DBManager
     public void verificarProductos()
     {
         List<Product> listaProductos = db_product.filtrarPor(Filtro.SIN_FILTRAR);
-        List<AuditItem> listaRegistrosAuditoria;
+        List<RegistroAuditoria> listaRegistrosAuditoria;
 
         for (Product p : listaProductos)
         {
@@ -87,7 +88,7 @@ public class DBManager
 
             //los breaks los hago porque si la lista tiene mas de 1 elemento, son todos iguales (de momento, puede
             //existir un caso en el que no pero todavia no pasom por eso la aclaracion)
-            for (AuditItem auditItem : listaRegistrosAuditoria)
+            for (RegistroAuditoria auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
                 p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
@@ -97,7 +98,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.W);
 
-            for (AuditItem auditItem : listaRegistrosAuditoria)
+            for (RegistroAuditoria auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
                 p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
@@ -107,7 +108,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.E);
 
-            for (AuditItem auditItem : listaRegistrosAuditoria)
+            for (RegistroAuditoria auditItem : listaRegistrosAuditoria)
             {
                 p.setEmpresa(auditItem.getEmpresa());
                 p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
@@ -121,14 +122,14 @@ public class DBManager
 
     public void verificarPrecios()
     {
-        List<AuditItem> listaRegistrosAuditoria;
+        List<RegistroAuditoria> listaRegistrosAuditoria;
         List<Price> listaPrecios = db_price.filtrarPor(Filtro.SIN_FILTRAR);
 
         for (Price p : listaPrecios)
         {
             listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.I);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 p.setEmpresa(registro.getEmpresa());
                 p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -138,7 +139,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.W);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 p.setEmpresa(registro.getEmpresa());
                 p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -148,7 +149,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(p.getCodigoProducto(), p.getOrigenImportacion(), ErrorType.E);
 
-            for (AuditItem registro : listaRegistrosAuditoria) {
+            for (RegistroAuditoria registro : listaRegistrosAuditoria) {
                 p.setEmpresa(registro.getEmpresa());
                 p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
                 p.setEstadoProcesamiento("Procesado con error");
@@ -162,13 +163,13 @@ public class DBManager
     public void verificarStock()
     {
         List<Stock> stockList = db_stock.filtrarPor(Filtro.SIN_FILTRAR);
-        List<AuditItem> listaRegistrosAuditoria;
+        List<RegistroAuditoria> listaRegistrosAuditoria;
 
         for (Stock stock : stockList)
         {
             listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.I);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
                 stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -178,7 +179,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.W);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
                 stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -188,7 +189,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(stock.getCodigoProducto(), stock.getOrigenImportacion(), ErrorType.E);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 stock.setEmpresa(registro.getEmpresa());
                 stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -203,14 +204,14 @@ public class DBManager
     public void verificarMedia()
     {
         List<Media> mediaList = db_media.filtrarPor(Filtro.SIN_FILTRAR);
-        List<AuditItem> listaRegistrosAuditoria;
+        List<RegistroAuditoria> listaRegistrosAuditoria;
 
         for (Media media : mediaList)
         {
             listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.I);
 
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
                 media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -220,7 +221,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.W);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
                 media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -230,7 +231,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(media.getCodigoProducto(), media.getOrigenImportacion(), ErrorType.E);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 media.setEmpresa(registro.getEmpresa());
                 media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -245,13 +246,13 @@ public class DBManager
     public void verificarMerchandise()
     {
         List<Merchandise> listaMerchandise = db_merchandise.filtrarPor(Filtro.SIN_FILTRAR);
-        List<AuditItem> listaRegistrosAuditoria;
+        List<RegistroAuditoria> listaRegistrosAuditoria;
 
         for (Merchandise m : listaMerchandise)
         {
             listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.I);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 m.setEmpresa(registro.getEmpresa());
                 m.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -261,7 +262,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.W);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 m.setEmpresa(registro.getEmpresa());
                 m.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
@@ -271,7 +272,7 @@ public class DBManager
 
             listaRegistrosAuditoria = db_audit.getRegistro(m.getCodigoProducto(), m.getOrigenImportacion(), ErrorType.E);
 
-            for (AuditItem registro : listaRegistrosAuditoria)
+            for (RegistroAuditoria registro : listaRegistrosAuditoria)
             {
                 m.setEmpresa(registro.getEmpresa());
                 m.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());

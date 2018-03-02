@@ -30,7 +30,7 @@ public class DBProduct
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndice(Feed.PRODUCTO);
+        Utilities.crearIndice(TipoFeed.PRODUCTO);
     }
 
     public void eliminarTabla()
@@ -361,7 +361,7 @@ public class DBProduct
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.PRODUCTO);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.PRODUCTO);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();

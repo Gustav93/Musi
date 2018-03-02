@@ -30,7 +30,7 @@ public class DBMerchandise
             System.out.println("La tabla MERCHANDISE ya existe");
         }
 
-        Utilities.crearIndice(Feed.MERCHANDISE);
+        Utilities.crearIndice(TipoFeed.MERCHANDISE);
         DBConectionManager.closeConnection(c);
 
     }
@@ -387,7 +387,7 @@ public class DBMerchandise
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.MERCHANDISE);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.MERCHANDISE);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();

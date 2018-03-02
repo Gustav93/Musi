@@ -1,5 +1,6 @@
 import CSV.Writer;
 import FileLoader.FileLoader;
+import utilidades.TestPaginas;
 
 import java.io.File;
 
@@ -11,7 +12,7 @@ public class Main
 //        List<List<String>> list = reader.procesar();
 //        System.out.println(list.get(1));
 //
-//        List<AuditItem> f = FeedBuilder.crearListaRegistrosAuditoria(list);
+//        List<RegistroAuditoria> f = FeedBuilder.crearListaRegistrosAuditoria(list);
 //
 //        System.out.println(f);
 //
@@ -42,7 +43,7 @@ public class Main
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801140001.csv");
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-20180114027.csv");
 //        fileLoader.loadFile("D:\\Nueva Carpeta\\stock-1801170001_aud.csv");
-        fileLoader.loadFile("D:\\Feeds\\merchandise-1712070003.csv");
+//        fileLoader.loadFile("D:\\Feeds\\merchandise-1712070003.csv");
 
 
 //        dbConecionManager.verificarProductos();
@@ -156,5 +157,8 @@ public class Main
 //
 //        File f = writer.getCsvMediaNoProcesadoCorrectamente();
 
+        TestPaginas testPaginas = new TestPaginas();
+
+        testPaginas.chequear404();
     }
 }

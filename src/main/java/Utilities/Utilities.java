@@ -1,7 +1,7 @@
 package Utilities;
 
 import DataBase.DBConectionManager;
-import DataBase.Feed;
+import DataBase.TipoFeed;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -210,27 +210,27 @@ public class Utilities
     }
 
     //crea un indice en la db temporal del feed pasado como parametro
-    public static void crearIndice(Feed feed)
+    public static void crearIndice(TipoFeed feed)
     {
         String query = null;
         Connection c = DBConectionManager.openConnection();
 
-        if(feed.equals(Feed.PRECIO))
+        if(feed.equals(TipoFeed.PRECIO))
             query = "alter table price add index indicePrice (productCode, importOrigin)";
 
-        else if(feed.equals(Feed.PRODUCTO))
+        else if(feed.equals(TipoFeed.PRODUCTO))
             query = "alter table product add index indiceProduct (code, importOrigin)";
 
-        else if(feed.equals(Feed.STOCK))
+        else if(feed.equals(TipoFeed.STOCK))
             query = "alter table stock add index indiceStock (productCode, importOrigin)";
 
-        else if(feed.equals(Feed.MEDIA))
+        else if(feed.equals(TipoFeed.MEDIA))
             query = "alter table media add index indiceMedia (productCode, importOrigin)";
 
-        else if(feed.equals(Feed.AUDITORIA))
+        else if(feed.equals(TipoFeed.AUDITORIA))
             query = "alter table audit add index indiceAudit (productCode, importOrigin)";
 
-        else if(feed.equals(Feed.MERCHANDISE))
+        else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "alter table audit add index indiceAudit (productCode, importOrigin)";
 
         try
@@ -249,24 +249,24 @@ public class Utilities
     }
 
     //crea un indice en la db historica del feed pasado como parametro
-    public static void crearIndiceHistorico(Feed feed)
+    public static void crearIndiceHistorico(TipoFeed feed)
     {
         String query = null;
         Connection c = DBConectionManager.openConnection();
 
-        if(feed.equals(Feed.PRECIO))
+        if(feed.equals(TipoFeed.PRECIO))
             query = "alter table historico_precios add index indiceHistoricoPrecio (productCode)";
 
-        else if(feed.equals(Feed.PRODUCTO))
+        else if(feed.equals(TipoFeed.PRODUCTO))
             query = "alter table historico_productos add index indiceHistoricoProducto (code)";
 
-        else if(feed.equals(Feed.STOCK))
+        else if(feed.equals(TipoFeed.STOCK))
             query = "alter table historico_stock add index indiceHistoricoStock (productCode)";
 
-        else if(feed.equals(Feed.MEDIA))
+        else if(feed.equals(TipoFeed.MEDIA))
             query = "alter table historico_media add index indiceHistoricoMedia (productCode)";
 
-        else if(feed.equals(Feed.MERCHANDISE))
+        else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "alter table historico_merchandise add index indiceHistoricoMerchandise (source)";
 
         try
@@ -285,25 +285,25 @@ public class Utilities
     }
 
     //Devuelve una lista con los nombres de los archivos que hay en los registros de la db del feed solicitado
-    public static List<String> getImportOriginList(Feed feed)
+    public static List<String> getImportOriginList(TipoFeed feed)
     {
         List<String> importOriginList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
         String query = null;
 
-        if(feed.equals(Feed.PRECIO))
+        if(feed.equals(TipoFeed.PRECIO))
             query = "select importOrigin from price group by importOrigin";
 
-        else if(feed.equals(Feed.PRODUCTO))
+        else if(feed.equals(TipoFeed.PRODUCTO))
             query = "select importOrigin from product group by importOrigin";
 
-        else if(feed.equals(Feed.STOCK))
+        else if(feed.equals(TipoFeed.STOCK))
             query = "select importOrigin from stock group by importOrigin";
 
-        else if(feed.equals(Feed.MEDIA))
+        else if(feed.equals(TipoFeed.MEDIA))
             query = "select importOrigin from media group by importOrigin";
 
-        else if(feed.equals(Feed.MERCHANDISE))
+        else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "select importOrigin from merchandise group by importOrigin";
 
         try

@@ -1,6 +1,6 @@
 package DataBase;
 
-import Feed.AuditItem;
+import auditoria.RegistroAuditoria;
 import Utilities.Utilities;
 
 import java.sql.Connection;
@@ -32,7 +32,7 @@ public class DBAudit
 
         DBConectionManager.closeConnection(c);
 
-        Utilities.crearIndice(Feed.AUDITORIA);
+        Utilities.crearIndice(TipoFeed.AUDITORIA);
     }
 
     public void eliminarTabla()
@@ -56,7 +56,7 @@ public class DBAudit
         DBConectionManager.closeConnection(c);
     }
 
-    public void crearRegistro(AuditItem item)
+    public void crearRegistro(RegistroAuditoria item)
     {
         String query = "insert into audit (auditLevel, auditType, auditDate, errorCode, description, empresa, productCode, importOrigin, feedType) values (?,?,?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
@@ -89,11 +89,11 @@ public class DBAudit
         }
     }
 
-    public List<AuditItem> getRegistro(String productCode, String importOrigin)
+    public List<RegistroAuditoria> getRegistro(String productCode, String importOrigin)
     {
         //language=SQL
         String query = "select * from audit where productCode = ? and importOrigin = ?";
-        List<AuditItem> list = new ArrayList<>();
+        List<RegistroAuditoria> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -105,7 +105,7 @@ public class DBAudit
 
             while (res.next())
             {
-                AuditItem item = new AuditItem();
+                RegistroAuditoria item = new RegistroAuditoria();
 
                 item.setAuditLevel(res.getString(1));
                 item.setAuditType(res.getString(2));
@@ -132,7 +132,7 @@ public class DBAudit
         return list;
     }
 
-    public List<AuditItem> getRegistro(String productCode, String importOrigin, ErrorType errorType)
+    public List<RegistroAuditoria> getRegistro(String productCode, String importOrigin, ErrorType errorType)
     {
         //language=SQL
         String query;
@@ -146,7 +146,7 @@ public class DBAudit
         else
             query = "select * from audit where productCode = ? and importOrigin = ? and errorCode like '%W%'";
 
-        List<AuditItem> list = new ArrayList<>();
+        List<RegistroAuditoria> list = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -158,7 +158,7 @@ public class DBAudit
 
             while (res.next())
             {
-                AuditItem item = new AuditItem();
+                RegistroAuditoria item = new RegistroAuditoria();
 
                 item.setAuditLevel(res.getString(1));
                 item.setAuditType(res.getString(2));
@@ -185,9 +185,9 @@ public class DBAudit
         return list;
     }
 
-    public List<AuditItem> getListaAuditoria()
+    public List<RegistroAuditoria> getListaAuditoria()
     {
-        ArrayList<AuditItem> auditItemList = new ArrayList<>();
+        ArrayList<RegistroAuditoria> auditItemList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
         //language=SQL
         String query = "select * from audit";
@@ -199,7 +199,7 @@ public class DBAudit
 
             while(res.next())
             {
-                AuditItem item = new AuditItem();
+                RegistroAuditoria item = new RegistroAuditoria();
 
                 item.setAuditLevel(res.getString(1));
                 item.setAuditType(res.getString(2));
@@ -227,7 +227,7 @@ public class DBAudit
         return auditItemList;
     }
 
-    public void editar(AuditItem item)
+    public void editar(RegistroAuditoria item)
     {
         Connection c = DBConectionManager.openConnection();
         //language=SQL

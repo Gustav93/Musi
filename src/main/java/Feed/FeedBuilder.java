@@ -1,6 +1,7 @@
 package Feed;
 
 import Utilities.Utilities;
+import auditoria.RegistroAuditoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,13 +117,13 @@ public class FeedBuilder
         return list;
     }
 
-    public List<AuditItem> crearListaRegistrosAuditoria(List<List<String>> rows)
+    public List<RegistroAuditoria> crearListaRegistrosAuditoria(List<List<String>> rows)
     {
-        List<AuditItem> list = new ArrayList<>();
+        List<RegistroAuditoria> list = new ArrayList<>();
 
         for(List<String> row : rows)
         {
-            AuditItem item = new AuditItem();
+            RegistroAuditoria item = new RegistroAuditoria();
             String feedType = row.get(8);
             String errorCode = row.get(3);
 
@@ -159,7 +160,7 @@ public class FeedBuilder
         return list;
     }
 
-    private void corregirRegistroAuditoria(AuditItem item)
+    private void corregirRegistroAuditoria(RegistroAuditoria item)
     {
         corregirEmpresa(item);
         corregirTipoFeed(item);
@@ -168,7 +169,7 @@ public class FeedBuilder
 
     //para corregir el feedType se utilizan expresiones regulares para buscar el tipo de feed en la descripcion del registro
     //ya que es unico el lugar de donde puedo sacar la informacion.
-    private void corregirTipoFeed(AuditItem item)
+    private void corregirTipoFeed(RegistroAuditoria item)
     {
         String description = item.getDescription(); //descripcion del registro
         Pattern pattern = Pattern.compile("classification"); //patron con el que vamos a buscar en la descripcion
@@ -220,7 +221,7 @@ public class FeedBuilder
     }
 
     //con el campo empresa es lo mismo que con el metodo anteriror
-    private void corregirEmpresa(AuditItem item)
+    private void corregirEmpresa(RegistroAuditoria item)
     {
         String description = item.getDescription();
         String emsaPattern = "emsa";
@@ -245,7 +246,7 @@ public class FeedBuilder
     }
 
     //en este caso el codigo de producto tiene diferentes errores dependiendo del feed
-    private void corregirCodigoProducto(AuditItem item)
+    private void corregirCodigoProducto(RegistroAuditoria item)
     {
         //si el registro es un "E37", el patron va a ser una barra invertida (\), comillas ("), 3 o mas digitos,
         //barra invertida (\) y comillas. Aca se presupone que los codigo de productos tienen 3 o mas digitos.

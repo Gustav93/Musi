@@ -30,7 +30,7 @@ public class DBPrice
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndice(Feed.PRECIO);
+        Utilities.crearIndice(TipoFeed.PRECIO);
 
     }
 
@@ -372,7 +372,7 @@ public class DBPrice
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.PRECIO);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.PRECIO);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();

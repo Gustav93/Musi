@@ -1,6 +1,6 @@
 package DataBase;
 
-public enum Feed
+public enum TipoFeed
 {
     PRECIO, PRODUCTO, STOCK, MEDIA, MERCHANDISE, AUDITORIA
 }

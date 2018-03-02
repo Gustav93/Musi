@@ -1,7 +1,7 @@
 package DataBase.Historico;
 
 import DataBase.DBConectionManager;
-import DataBase.Feed;
+import DataBase.TipoFeed;
 import Feed.Stock;
 import DataBase.Contador;
 import Utilities.Utilities;
@@ -32,7 +32,7 @@ public class HistoricoStock
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndiceHistorico(Feed.STOCK);
+        Utilities.crearIndiceHistorico(TipoFeed.STOCK);
     }
 
 //    public void eliminarTabla()

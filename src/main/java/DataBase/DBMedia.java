@@ -1,6 +1,5 @@
 package DataBase;
-
-import Feed.Media;
+import Feed.*;
 import Reporte.Reporte;
 import Utilities.Utilities;
 
@@ -30,7 +29,7 @@ public class DBMedia
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndice(Feed.MEDIA);
+        Utilities.crearIndice(TipoFeed.MEDIA);
     }
 
     public void eliminarTabla()
@@ -357,7 +356,7 @@ public class DBMedia
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.MEDIA);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.MEDIA);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();

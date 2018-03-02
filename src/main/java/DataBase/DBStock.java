@@ -30,7 +30,7 @@ public class DBStock
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndice(Feed.STOCK);
+        Utilities.crearIndice(TipoFeed.STOCK);
     }
 
     public void eliminarTabla()
@@ -386,7 +386,7 @@ public class DBStock
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(Feed.STOCK);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.STOCK);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();

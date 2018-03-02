@@ -1,7 +1,7 @@
 package servlet;
 
 import DataBase.DBAudit;
-import Feed.AuditItem;
+import auditoria.RegistroAuditoria;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class MostrarAuditoria extends HttpServlet
         DBAudit dbAudit = new DBAudit();
         ObjectMapper mapper = new ObjectMapper();
         PrintWriter out = response.getWriter();
-        List<AuditItem> itemList = dbAudit.getListaAuditoria(); //me traigo la lista de registros de la auditoria
+        List<RegistroAuditoria> itemList = dbAudit.getListaAuditoria(); //me traigo la lista de registros de la auditoria
         String jsonString = mapper.writeValueAsString(itemList); //lo convierto en un json
 
         response.setContentType("application/json"); //indico que voy a devolver un json

@@ -20,8 +20,8 @@ public class Mail
     private CSV.Writer writer;
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     private final String PWD = "fff0303456fff";
-    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
-//    private String[] destinatarios = {"gsanchez@musi.com.ar"};
+//    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
+    private String[] destinatarios = {"gsanchez@musi.com.ar"};
 
     public Mail()
     {
@@ -394,6 +394,74 @@ public class Mail
             e.printStackTrace();
         }
     }
+
+    public void enviarInformeLinksRotos(List<String> links)
+    {
+        if(links == null || links.size() == 0)
+            return;
+
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // Nombre del host de correo, es smtp.gmail.com
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // TLS si está disponible
+        props.setProperty("mail.smtp.starttls.enable", "true");
+
+        // Puerto de gmail para envio de correos
+        props.setProperty("mail.smtp.port","587");
+
+        // Nombre del usuario
+        props.setProperty("mail.smtp.user", "gsanchez@musi.com.ar");
+
+        // Si requiere o no usuario y password para conectarse.
+        props.setProperty("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        session.setDebug(true);
+
+        Transport t;
+        try
+        {
+            MimeMultipart multipart = new MimeMultipart();
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("Links con error 404:"+"\n\n");
+            for(String link : links)
+                sb.append(link + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
+
+            MimeMessage message = new MimeMessage(session);
+
+            // Quien envia el correo
+            message.setFrom(new InternetAddress(EMAILSENDER));
+
+            // A quien va dirigido
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
+
+            message.setSubject("Control 404");
+
+            message.setContent(multipart);
+
+            t = session.getTransport("smtp");
+            t.connect(EMAILSENDER, PWD);
+
+            t.sendMessage(message,message.getAllRecipients());
+
+            t.close();
+        }
+        catch (MessagingException e)
+        {
+            e.printStackTrace();
+        }
+}
 
     //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
     private Address[] agregarDestinatarios() throws AddressException

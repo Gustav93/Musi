@@ -1,7 +1,7 @@
 package DataBase.Historico;
 
 import DataBase.DBConectionManager;
-import DataBase.Feed;
+import DataBase.TipoFeed;
 import Feed.Price;
 import DataBase.Contador;
 import Utilities.Utilities;
@@ -29,7 +29,7 @@ public class HistoricoPrecios
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndiceHistorico(Feed.PRECIO);
+        Utilities.crearIndiceHistorico(TipoFeed.PRECIO);
     }
 
 //    public void eliminarTabla()
