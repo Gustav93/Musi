@@ -92,7 +92,7 @@ public class Product extends Feed
     @Override
     public String toString() {
         return "Product{" +
-                "productCode='" + codigoProducto + '\'' +
+                "productCode='" + super.getCodigoProducto() + '\'' +
                 ", ean='" + ean + '\'' +
                 ", brand='" + brand + '\'' +
                 ", name='" + name + '\'' +

@@ -35,16 +35,16 @@ public class Stock extends Feed
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "productCode='" + codigoProducto + '\'' +
-                ", stock='" + stock + '\'' +
-                ", warehouse='" + warehouse + '\'' +
-                ", status='" + status + '\'' +
-                ", importOrigin='" + origenImportacion + '\'' +
-                ", processed='" + estadoProcesamiento + '\'' +
-                ", errorDescription='" + descripcionError + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Stock{" +
+//                "productCode='" + codigoProducto + '\'' +
+//                ", stock='" + stock + '\'' +
+//                ", warehouse='" + warehouse + '\'' +
+//                ", status='" + status + '\'' +
+//                ", importOrigin='" + origenImportacion + '\'' +
+//                ", processed='" + estadoProcesamiento + '\'' +
+//                ", errorDescription='" + descripcionError + '\'' +
+//                '}';
+//    }
 }

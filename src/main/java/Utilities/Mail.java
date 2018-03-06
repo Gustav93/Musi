@@ -21,7 +21,12 @@ public class Mail
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     private final String PWD = "fff0303456fff";
 //    private String[] destinatarios = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar"};
+//    private String[] destinatarios = {"gsanchez@musi.com.ar"};
     private String[] destinatarios = {"gsanchez@musi.com.ar"};
+//    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar", "marcelo.hassan@grupocarsa.com", "nestor.gatter@grupocarsa.com", "federico.henchoz@grupocarsa.com"};
+//    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar", "alejandro.brun@emusimundo.com"};
+    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar"};
+    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar"};
 
     public Mail()
     {
@@ -35,10 +40,16 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
+        {
             asuntoMail = "Stock Procesado (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
 
         else if (empresa.equals(Empresa.EMSA))
+        {
             asuntoMail = "Stock Procesado(EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
 
         else
             asuntoMail ="Stock Procesado";
@@ -126,10 +137,17 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
+        {
             asuntoMail = "Productos Procesados (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
+
 
         else if (empresa.equals(Empresa.EMSA))
+        {
             asuntoMail = "Productos Procesados (EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
 
         else
             asuntoMail ="Productos Procesados";
@@ -218,10 +236,18 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
+        {
             asuntoMail = "Precios Procesados (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
+
 
         else if (empresa.equals(Empresa.EMSA))
+        {
             asuntoMail = "Precios Procesados (EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
+
 
         else
             asuntoMail ="Precios Procesados";
@@ -461,7 +487,7 @@ public class Mail
         {
             e.printStackTrace();
         }
-}
+    }
 
     //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
     private Address[] agregarDestinatarios() throws AddressException

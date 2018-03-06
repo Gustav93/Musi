@@ -32,6 +32,7 @@ public class FeedBuilder
             p.setDescription(row.get(9));
             p.setOrigenImportacion(Utilities.setImportOrigin(row.get(10)));
 
+            corregirCodigoProducto(p);
             list.add(p);
         }
         return list;
@@ -293,6 +294,18 @@ public class FeedBuilder
                 }
             }
             item.setProductCode(productCode);
+        }
+    }
+
+    private void corregirCodigoProducto(Product p)
+    {
+        if(p.getCodigoProducto().contains("\""))
+        {
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(p.getCodigoProducto());
+
+            if(matcher.find())
+                p.setCodigoProducto(matcher.group());
         }
     }
 }
