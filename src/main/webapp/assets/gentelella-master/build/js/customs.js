@@ -2489,62 +2489,73 @@ if (typeof NProgress != 'undefined') {
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
 				console.log('init_DataTables');
 				
-				// var handleDataTableButtons = function()
-				// {
-				//   if ($("#datatable_productos_procesados").length)
-				//   {
-				// 	$("#datatable_productos_procesados").DataTable({
-                //
-                 //        ajax:{url:'/mostrar_productos',dataSrc:""},
-                 //        columns: [
-                //
-                 //            {"data": "code" },
-                 //            {"data": "ean" },
-                 //            {"data": "brand" },
-                 //            {"data": "name" },
-                 //            {"data": "category" },
-                 //            {"data": "weight" },
-                 //            {"data": "onlineDateTime" },
-                 //            {"data": "offlineDateTime" },
-                 //            {"data": "approvalStatus" },
-                 //            {"data": "description" },
-                 //            {"data": "importOrigin" },
-                 //            {"data": "processed" },
-                 //            {"data": "errorDescription" },
-                 //        ],
-                //
-				// 	  dom: "Blfrtip",
-				// 	  buttons: [
-				// 		// {
-				// 		//   extend: "copy",
-				// 		//   className: "btn-sm"
-				// 		// },
-				// 		{
-				// 		  extend: "csv",
-				// 		  className: "btn-sm"
-				// 		},
-				// 		// {
-				// 		//   extend: "excel",
-				// 		//   className: "btn-sm"
-				// 		// },
-				// 		// {
-				// 		//   extend: "pdfHtml5",
-				// 		//   className: "btn-sm"
-				// 		// },
-				// 		// {
-				// 		//   extend: "print",
-				// 		//   className: "btn-sm"
-				// 		// },
-				// 	  ],
-				// 	  responsive: true
-				// 	});
-				//   }
-                //
-				// };
+				var handleDataTableButtons = function() {
+				  if ($("#datatable_precios").length) {
+					$("#datatable_precios").DataTable({
 
-                var handleDataTableButtons = function() {
-                    if ($("#datatable-buttons").length) {
-                        $("#datatable-buttons").DataTable({
+                        ajax:{url:'/mostrar_precios?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                        columns: [
+
+                            {"data": "codigoProducto" },
+                            {"data": "onlinePrice" },
+                            {"data": "currency" },
+                            {"data": "storePrice" },
+                            {"data": "hasPriority" },
+                            {"data": "origenImportacion" },
+                            {"data": "estadoProcesamiento" },
+                            {"data": "descripcionError" },
+                            {"data": "empresa" },
+                        ],
+
+					  dom: "Blfrtip",
+					  buttons: [
+						{
+						  extend: "copy",
+						  className: "btn-sm"
+						},
+						{
+						  extend: "csv",
+						  className: "btn-sm"
+						},
+						{
+						  extend: "excel",
+						  className: "btn-sm"
+						},
+						{
+						  extend: "pdfHtml5",
+						  className: "btn-sm"
+						},
+						{
+						  extend: "print",
+						  className: "btn-sm"
+						},
+					  ],
+					  responsive: true
+					});
+				  }
+
+				  if ($("#datatable_productos").length) {
+                        $("#datatable_productos").DataTable({
+
+                            ajax:{url:'/mostrar_productos?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                            columns: [
+
+                                {"data": "codigoProducto" },
+                                {"data": "ean" },
+                                {"data": "brand" },
+                                {"data": "name" },
+                                {"data": "category" },
+                                {"data": "weight" },
+                                {"data": "description" },
+                                {"data": "origenImportacion" },
+                                {"data": "estadoProcesamiento" },
+                                {"data": "descripcionError" },
+                                {"data": "empresa" },
+                                {"data": "approvalStatus" },
+								{"data": "onlineDateTime" },
+                                {"data": "offlineDateTime" },
+                            ],
+
                             dom: "Blfrtip",
                             buttons: [
                                 {
@@ -2571,7 +2582,92 @@ if (typeof NProgress != 'undefined') {
                             responsive: true
                         });
                     }
-                };
+
+                  if ($("#datatable_stock").length) {
+                        $("#datatable_stock").DataTable({
+
+                            ajax:{url:'/mostrar_stock?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                            columns: [
+
+                                {"data": "codigoProducto" },
+                                {"data": "stock" },
+                                {"data": "warehouse" },
+                                {"data": "status" },
+                                {"data": "origenImportacion" },
+                                {"data": "estadoProcesamiento" },
+                                {"data": "descripcionError" },
+                                {"data": "empresa" }
+                            ],
+
+                            dom: "Blfrtip",
+                            buttons: [
+                                {
+                                    extend: "copy",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "csv",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "excel",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "pdfHtml5",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "print",
+                                    className: "btn-sm"
+                                },
+                            ],
+                            responsive: true
+                        });
+                    }
+
+                  if ($("#datatable_media").length) {
+                        $("#datatable_media").DataTable({
+
+                            ajax:{url:'/mostrar_media?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                            columns: [
+
+                                {"data": "codigoProducto" },
+                                {"data": "codeMedia" },
+                                {"data": "isDefault" },
+                                {"data": "origenImportacion" },
+                                {"data": "estadoProcesamiento" },
+                                {"data": "descripcionError" },
+                                {"data": "empresa" },
+                            ],
+
+                            dom: "Blfrtip",
+                            buttons: [
+                                {
+                                    extend: "copy",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "csv",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "excel",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "pdfHtml5",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "print",
+                                    className: "btn-sm"
+                                },
+                            ],
+                            responsive: true
+                        });
+                    }
+				};
 
 				TableManageButtons = function() {
 				  "use strict";
@@ -2582,106 +2678,7 @@ if (typeof NProgress != 'undefined') {
 				  };
 				}();
 
-                function getQueryVariable(variable) {
-                    // Estoy asumiendo que query es window.location.search.substring(1);
-                    var query = window.location.search.substring(1);
-                    var vars = query.split("&");
-                    // alert(vars);
-                    for (var i=0; i < vars.length; i++) {
-                        var pair = vars[i].split("=");
-                        if (pair[0] == variable) {
-                            return pair[1];
-                        }
-                    }
-                    return false;
-                }
-                var codigoProducto = getQueryVariable('codigo');
-                // console.log(codigoProducto);
-				$('#datatable_productos').dataTable(
-                    {
-
-                        ajax:{url:'/mostrar_productos?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
-                        columns: [
-
-                            {"data": "codigoProducto" },
-                            {"data": "ean" },
-                            {"data": "brand" },
-                            {"data": "name" },
-                            {"data": "category" },
-                            {"data": "weight" },
-                            {"data": "onlineDateTime" },
-                            {"data": "offlineDateTime" },
-                            {"data": "approvalStatus" },
-                            {"data": "description" },
-                            {"data": "origenImportacion" },
-                            {"data": "estadoProcesamiento" },
-                            {"data": "descripcionError" },
-                            {"data": "empresa" },
-                        ]
-                    }
-				);
-
-				$('#datatable_stock').DataTable({
-                    ajax:{url:'/mostrar_stock?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
-                    columns: [
-
-                        {"data": "codigoProducto" },
-                        {"data": "stock" },
-                        {"data": "warehouse" },
-                        {"data": "status" },
-                        {"data": "origenImportacion" },
-                        {"data": "estadoProcesamiento" },
-                        {"data": "descripcionError" },
-                        {"data": "empresa" }
-                    ]
-				});
-
-				$('#datatable_audit').DataTable({
-                    ajax:{url:'/mostrar_auditoria',dataSrc:""},
-                    columns: [
-
-						{"data": "auditLevel" },
-                       {"data": "auditType" },
-                       {"data": "auditDate" },
-                       {"data": "errorCode" },
-                       {"data": "description" },
-                       {"data": "empresa" },
-                       {"data": "productCode" },
-                       {"data": "importOrigin" },
-                       {"data": "feedType" }
-                    ]
-				});
-
-				$('#datatable_precios').DataTable({
-                    ajax:{url:'/mostrar_precios?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
-                    columns: [
-
-                        {"data": "codigoProducto" },
-                        {"data": "onlinePrice" },
-                        {"data": "currency" },
-                        {"data": "storePrice" },
-                        {"data": "hasPriority" },
-                        {"data": "origenImportacion" },
-                        {"data": "estadoProcesamiento" },
-                        {"data": "descripcionError" },
-                        {"data": "empresa" },
-                    ]
-				});
-
-                $('#datatable_media').DataTable({
-                    ajax:{url:'/mostrar_media?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
-                    columns: [
-
-                        {"data": "codigoProducto" },
-                        {"data": "codeMedia" },
-                        {"data": "isDefault" },
-                        {"data": "origenImportacion" },
-                        {"data": "estadoProcesamiento" },
-                        {"data": "descripcionError" },
-                        {"data": "empresa" },
-                    ]
-                });
-
+				$('#datatable').dataTable();
 
 				$('#datatable-keytable').DataTable({
 				  keys: true
@@ -2715,7 +2712,7 @@ if (typeof NProgress != 'undefined') {
 				  });
 				});
 
-				// TableManageButtons.init();
+				TableManageButtons.init();
 				
 			};
 	   
