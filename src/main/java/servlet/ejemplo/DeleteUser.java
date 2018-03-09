@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.UsuarioServicio;
+import ejemplo.database_ejemplo.UsuarioServicio;
 
 /**
  * Servlet implementation class DeleteUser

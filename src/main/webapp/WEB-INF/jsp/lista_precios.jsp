@@ -1,7 +1,7 @@
-<%@ page import="Feed.Product" %>
+<%@ page import="Feeds.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Feed.Price" %><%--
+<%@ page import="Feeds.Price" %><%--
   Created by IntelliJ IDEA.
   User: gsanchez
   Date: 1/2/2018

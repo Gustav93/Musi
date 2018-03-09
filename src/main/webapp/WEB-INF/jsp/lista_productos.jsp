@@ -1,4 +1,4 @@
-<%@ page import="Feed.Product" %>
+<%@ page import="Feeds.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.

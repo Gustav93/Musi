@@ -1,7 +1,8 @@
 package servlet.mail;
 
-import DataBase.DBStock;
-import Utilities.Mail;
+import db.temporal.DBStock;
+import utilidades.Mail;
+import utilidades.enums.Empresa;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

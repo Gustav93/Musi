@@ -1,8 +1,4 @@
-import CSV.Writer;
-import FileLoader.FileLoader;
-import utilidades.TestPaginas;
-
-import java.io.File;
+import file_loader.FileLoader;
 
 public class Main
 {
@@ -140,12 +136,12 @@ public class Main
 //        DBMedia dbMedia = new DBMedia();
 //
 //        dbMedia.crearTabla();
-//        Feed.Media m = new Media();
+//        Feeds.Media m = new Media();
 //        m.setProductCode("asdasda");
 //
 //        dbMedia.crearRegistro(m);
 
-//        FileLoader loader = new FileLoader();
+//        FileLoader loader = new file_loader();
 ////        loader.loadFile("D:\\Media EMSA - 16012018 al 31012018_aud.csv");
 //        loader.loadFile("D:\\media-20180122025.csv");
 ////
@@ -156,9 +152,5 @@ public class Main
 //        Writer writer = new Writer();
 //
 //        File f = writer.getCsvMediaNoProcesadoCorrectamente();
-
-        TestPaginas testPaginas = new TestPaginas();
-
-        testPaginas.chequear404();
     }
 }

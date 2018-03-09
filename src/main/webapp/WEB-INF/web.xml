@@ -15,7 +15,7 @@
     	</description>
     	<display-name>MostrarProductos</display-name>
     	<servlet-name>MostrarProductos</servlet-name>
-    	<servlet-class>servlet.MostrarProductos</servlet-class>
+    	<servlet-class>servlet.registros.mostrar.MostrarProductos</servlet-class>
     </servlet>
 
 	<servlet-mapping>
@@ -28,7 +28,7 @@
 		</description>
 		<display-name>SubirArchivo</display-name>
 		<servlet-name>SubirArchivo</servlet-name>
-		<servlet-class>servlet.SubirArchivo</servlet-class>
+		<servlet-class>servlet.registros.SubirArchivo</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -41,7 +41,7 @@
 		</description>
 		<display-name>MostrarAuditoria</display-name>
 		<servlet-name>MostrarAuditoria</servlet-name>
-		<servlet-class>servlet.MostrarAuditoria</servlet-class>
+		<servlet-class>servlet.registros.mostrar.MostrarAuditoria</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -54,7 +54,7 @@
 	</description>
 	<display-name>MostrarPrecios</display-name>
 	<servlet-name>MostrarPrecios</servlet-name>
-	<servlet-class>servlet.MostrarPrecios</servlet-class>
+	<servlet-class>servlet.registros.mostrar.MostrarPrecios</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -67,7 +67,7 @@
 		</description>
 		<display-name>MostrarStock</display-name>
 		<servlet-name>MostrarStock</servlet-name>
-		<servlet-class>servlet.MostrarStock</servlet-class>
+		<servlet-class>servlet.registros.mostrar.MostrarStock</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -80,7 +80,7 @@
 		</description>
 		<display-name>MostrarMedia</display-name>
 		<servlet-name>MostrarMedia</servlet-name>
-		<servlet-class>servlet.MostrarMedia</servlet-class>
+		<servlet-class>servlet.registros.mostrar.MostrarMedia</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -94,7 +94,7 @@
 	</description>
 	<display-name>Procesar</display-name>
 	<servlet-name>Procesar</servlet-name>
-	<servlet-class>servlet.Procesar</servlet-class>
+	<servlet-class>servlet.registros.Procesar</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -159,7 +159,7 @@
 		</description>
 		<display-name>Servlet</display-name>
 		<servlet-name>Servlet</servlet-name>
-		<servlet-class>servlet.Servlet</servlet-class>
+		<servlet-class>servlet.ejemplo.Servlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -172,7 +172,7 @@
 		</description>
 		<display-name>CantProductosTotal</display-name>
 		<servlet-name>CantProductosTotal</servlet-name>
-		<servlet-class>servlet.ReportProduct.CantProductosTotal</servlet-class>
+		<servlet-class>servlet.reportes.productos.CantProductosTotal</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -185,7 +185,7 @@
 		</description>
 		<display-name>CantProductosProcesados</display-name>
 		<servlet-name>CantProductosProcesados</servlet-name>
-		<servlet-class>servlet.ReportProduct.CantProductosProcesados</servlet-class>
+		<servlet-class>servlet.reportes.productos.CantProductosProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -198,7 +198,7 @@
 		</description>
 		<display-name>CantProductosNoProcesados</display-name>
 		<servlet-name>CantProductosNoProcesados</servlet-name>
-		<servlet-class>servlet.ReportProduct.CantProductosNoProcesados</servlet-class>
+		<servlet-class>servlet.reportes.productos.CantProductosNoProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -211,7 +211,7 @@
 		</description>
 		<display-name>CantProductosError</display-name>
 		<servlet-name>CantProductosError</servlet-name>
-		<servlet-class>servlet.ReportProduct.CantProductosError</servlet-class>
+		<servlet-class>servlet.reportes.productos.CantProductosError</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -224,7 +224,7 @@
 		</description>
 		<display-name>CantStockTotal</display-name>
 		<servlet-name>CantStockTotal</servlet-name>
-		<servlet-class>servlet.reporteStock.CantStockTotal</servlet-class>
+		<servlet-class>servlet.reportes.stock.CantStockTotal</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -237,7 +237,7 @@
 		</description>
 		<display-name>CantStockProcesados</display-name>
 		<servlet-name>CantStockProcesados</servlet-name>
-		<servlet-class>servlet.reporteStock.CantStockProcesados</servlet-class>
+		<servlet-class>servlet.reportes.stock.CantStockProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -250,7 +250,7 @@
 		</description>
 		<display-name>CantStockNoProcesados</display-name>
 		<servlet-name>CantStockNoProcesados</servlet-name>
-		<servlet-class>servlet.reporteStock.CantStockNoPocesados</servlet-class>
+		<servlet-class>servlet.reportes.stock.CantStockNoPocesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -263,7 +263,7 @@
 		</description>
 		<display-name>CantStockError</display-name>
 		<servlet-name>CantStockError</servlet-name>
-		<servlet-class>servlet.reporteStock.CantStockError</servlet-class>
+		<servlet-class>servlet.reportes.stock.CantStockError</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -276,7 +276,7 @@
 		</description>
 		<display-name>CantPreciosTotal</display-name>
 		<servlet-name>CantPreciosTotal</servlet-name>
-		<servlet-class>servlet.reportePrecios.CantPreciosTotal</servlet-class>
+		<servlet-class>servlet.reportes.precios.CantPreciosTotal</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -289,7 +289,7 @@
 		</description>
 		<display-name>CantPreciosProcesados</display-name>
 		<servlet-name>CantPreciosProcesados</servlet-name>
-		<servlet-class>servlet.reportePrecios.CantPreciosProcesados</servlet-class>
+		<servlet-class>servlet.reportes.precios.CantPreciosProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -302,7 +302,7 @@
 		</description>
 		<display-name>CantPreciosNoProcesados</display-name>
 		<servlet-name>CantPreciosNoProcesados</servlet-name>
-		<servlet-class>servlet.reportePrecios.CantPreciosNoProcesados</servlet-class>
+		<servlet-class>servlet.reportes.precios.CantPreciosNoProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -315,7 +315,7 @@
 		</description>
 		<display-name>CantPreciosError</display-name>
 		<servlet-name>CantPreciosError</servlet-name>
-		<servlet-class>servlet.reportePrecios.CantPreciosError</servlet-class>
+		<servlet-class>servlet.reportes.precios.CantPreciosError</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -328,7 +328,7 @@
 		</description>
 		<display-name>CantMediaTotal</display-name>
 		<servlet-name>CantMediaTotal</servlet-name>
-		<servlet-class>servlet.reporte_media.CantMediaTotal</servlet-class>
+		<servlet-class>servlet.reportes.media.CantMediaTotal</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -341,7 +341,7 @@
 		</description>
 		<display-name>CantMediaProcesados</display-name>
 		<servlet-name>CantMediaProcesados</servlet-name>
-		<servlet-class>servlet.reporte_media.CantMediaProcesados</servlet-class>
+		<servlet-class>servlet.reportes.media.CantMediaProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -354,7 +354,7 @@
 		</description>
 		<display-name>CantMediaNoProcesados</display-name>
 		<servlet-name>CantMediaNoProcesados</servlet-name>
-		<servlet-class>servlet.reporte_media.CantMediaNoProcesados</servlet-class>
+		<servlet-class>servlet.reportes.media.CantMediaNoProcesados</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -367,7 +367,7 @@
 		</description>
 		<display-name>CantMediaError</display-name>
 		<servlet-name>CantMediaError</servlet-name>
-		<servlet-class>servlet.reporte_media.CantMediaError</servlet-class>
+		<servlet-class>servlet.reportes.media.CantMediaError</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -376,25 +376,11 @@
 	</servlet-mapping>
 
 	<servlet>
-	<description>
-	</description>
-	<display-name>ListaNombreArchivos</display-name>
-	<servlet-name>ListaNombreArchivos</servlet-name>
-	<servlet-class>servlet.ListaNombreArchivos</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ListaNombreArchivos</servlet-name>
-		<url-pattern>/lista_nombre_archivos</url-pattern>
-	</servlet-mapping>
-
-
-	<servlet>
 		<description>
 		</description>
 		<display-name>CargarHistoricoPoductos</display-name>
 		<servlet-name>CargarHistoricoProductos</servlet-name>
-		<servlet-class>servlet.CargarHistoricoProductos</servlet-class>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoProductos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -407,7 +393,7 @@
 		</description>
 		<display-name>CargarHistoricoPrecios</display-name>
 		<servlet-name>CargarHistoricoPrecios</servlet-name>
-		<servlet-class>servlet.CargarHistoricoPrecios</servlet-class>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoPrecios</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -420,7 +406,7 @@
 		</description>
 		<display-name>CargarHistoricoStock</display-name>
 		<servlet-name>CargarHistoricoStock</servlet-name>
-		<servlet-class>servlet.CargarHistoricoStock</servlet-class>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoStock</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -433,7 +419,7 @@
 		</description>
 		<display-name>CargarHistoricoMedia</display-name>
 		<servlet-name>CargarHistoricoMedia</servlet-name>
-		<servlet-class>servlet.CargarHistoricoMedia</servlet-class>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoMedia</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -446,7 +432,7 @@
 		</description>
 		<display-name>ConsultarHistorico</display-name>
 		<servlet-name>ConsultarHistorico</servlet-name>
-		<servlet-class>servlet.consultarHistorico.ConsultarHistorico</servlet-class>
+		<servlet-class>servlet.registros.historico.consultar.ConsultarHistorico</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -459,7 +445,7 @@
 		</description>
 		<display-name>DescargarProduct</display-name>
 		<servlet-name>DescargarProduct</servlet-name>
-		<servlet-class>servlet.DescargarProduct</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarProduct</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -472,7 +458,7 @@
 		</description>
 		<display-name>DescargarPrice</display-name>
 		<servlet-name>DescargarPrice</servlet-name>
-		<servlet-class>servlet.DescargarPrice</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarPrice</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -485,7 +471,7 @@
 		</description>
 		<display-name>DescargarStock</display-name>
 		<servlet-name>DescargarStock</servlet-name>
-		<servlet-class>servlet.DescargarStock</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarStock</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -498,7 +484,7 @@
 		</description>
 		<display-name>DescargarMedia</display-name>
 		<servlet-name>DescargarMedia</servlet-name>
-		<servlet-class>servlet.DescargarMedia</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarMedia</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -511,7 +497,7 @@
 		</description>
 		<display-name>LimpiarTablaAuditoria</display-name>
 		<servlet-name>LimpiarTablaAuditoria</servlet-name>
-		<servlet-class>servlet.LimpiarTablaAuditoria</servlet-class>
+		<servlet-class>servlet.registros.LimpiarTablaAuditoria</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -524,7 +510,7 @@
 		</description>
 		<display-name>DescargarPreciosNoCorrectos</display-name>
 		<servlet-name>DescargarPreciosNoCorrectos</servlet-name>
-		<servlet-class>servlet.DescargarPreciosNoCorrectos</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarPreciosNoCorrectos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -537,7 +523,7 @@
 		</description>
 		<display-name>DescargarProductosNoCorrectos</display-name>
 		<servlet-name>DescargarProductosNoCorrectos</servlet-name>
-		<servlet-class>servlet.DescargarProductosNoCorrectos</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarProductosNoCorrectos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -550,7 +536,7 @@
 		</description>
 		<display-name>DescargarStockNoCorrectos</display-name>
 		<servlet-name>DescargarStockNoCorrectos</servlet-name>
-		<servlet-class>servlet.DescargarStockNoCorrectos</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarStockNoCorrectos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -563,7 +549,7 @@
 		</description>
 		<display-name>DescargarMediaNoCorrectos</display-name>
 		<servlet-name>DescargarMediaNoCorrectos</servlet-name>
-		<servlet-class>servlet.DescargarMediaNoCorrectos</servlet-class>
+		<servlet-class>servlet.registros.descargar.DescargarMediaNoCorrectos</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

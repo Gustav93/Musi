@@ -1,10 +1,10 @@
-<%@page import="entidad_usuario.Usuario"%>
+<%@page import="ejemplo.entidad_usuario.Usuario"%>
 <%@page import="utilidades.FechaUtil"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 
-<%@page import="db.UsuarioServicio"%>
+<%@page import="ejemplo.database_ejemplo.UsuarioServicio"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

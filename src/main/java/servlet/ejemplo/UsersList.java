@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.UsuarioServicio;
-import entidad_usuario.Usuario;
-import servlet.ejemplo.SecureServlet;
+import ejemplo.database_ejemplo.UsuarioServicio;
+import ejemplo.entidad_usuario.Usuario;
 
 /**
  * Servlet implementation class Add_user

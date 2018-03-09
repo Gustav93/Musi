@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DataBase.DBAudit;
-import DataBase.DBPrice;
-import DataBase.DBProduct;
-import DataBase.Filtro;
-import Feed.Price;
+import db.temporal.DBAudit;
+import db.temporal.DBPrice;
+import db.temporal.DBProduct;
+import utilidades.enums.Filtro;
+import Feeds.Price;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import db.*;
+import ejemplo.database_ejemplo.*;
 
 /**
  * Servlet implementation class UsersListJson
