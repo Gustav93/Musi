@@ -47,5 +47,11 @@ public class ConsultarHistorico extends HttpServlet
             RequestDispatcher rq = request.getRequestDispatcher("MediaHistorico.html?codigo="+ codigo);
             rq.forward(request, response);
         }
+
+        else if(feed.equals("Merchandise"))
+        {
+            RequestDispatcher rq = request.getRequestDispatcher("MerchandiseHistorico.html?codigo="+ codigo);
+            rq.forward(request, response);
+        }
     }
 }

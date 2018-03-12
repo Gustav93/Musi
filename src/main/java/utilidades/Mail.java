@@ -1,9 +1,6 @@
 package utilidades;
 
-import db.temporal.DBMedia;
-import db.temporal.DBPrice;
-import db.temporal.DBProduct;
-import db.temporal.DBStock;
+import db.temporal.*;
 import utilidades.enums.Empresa;
 
 import javax.activation.DataHandler;
@@ -418,6 +415,96 @@ public class Mail
         }
     }
 
+    public void enviarInformeMerchandise(Empresa empresa)
+    {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Merchandise Procesados (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Merchandise Procesados (EMSA)";
+
+        else
+            asuntoMail ="Merchandise Procesados";
+
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // Nombre del host de correo, es smtp.gmail.com
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // TLS si está disponible
+        props.setProperty("mail.smtp.starttls.enable", "true");
+
+        // Puerto de gmail para envio de correos
+        props.setProperty("mail.smtp.port","587");
+
+        // Nombre del usuario
+        props.setProperty("mail.smtp.user", "gsanchez@musi.com.ar");
+
+        // Si requiere o no usuario y password para conectarse.
+        props.setProperty("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        session.setDebug(true);
+
+        File file = writer.getCsvMerchandiseNoProcesadoCorrectamente();
+        String fileName = file.getName();
+
+        Transport t;
+        try
+        {
+            DBMerchandise dbMerchandise = new DBMerchandise();
+            int cantProcsadosConError = dbMerchandise.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbMerchandise.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
+
+            if(cantNoProcesados != 0 || cantProcsadosConError != 0)
+            {
+                BodyPart attachedFile = new MimeBodyPart();
+                attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+                attachedFile.setFileName(fileName);
+                multipart.addBodyPart(attachedFile);
+            }
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbMerchandise.getReportes();
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
+
+            MimeMessage message = new MimeMessage(session);
+
+            // Quien envia el correo
+            message.setFrom(new InternetAddress(EMAILSENDER));
+
+            // A quien va dirigido
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
+
+            message.setSubject(asuntoMail);
+
+            message.setContent(multipart);
+
+            t = session.getTransport("smtp");
+            t.connect(EMAILSENDER, PWD);
+
+            t.sendMessage(message,message.getAllRecipients());
+
+            t.close();
+            file.delete();
+        }
+        catch (MessagingException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
     private Address[] agregarDestinatarios() throws AddressException
     {
@@ -508,4 +595,6 @@ public class Mail
 //        mail.enviarInformeMedia("gustavsanchez@yahoo.com.ar");
 
     }
+
+
 }

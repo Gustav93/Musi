@@ -39,7 +39,7 @@ public class DBMerchandise
 
     }
 
-    public void deleteTable()
+    public void eliminarTabla()
     {
         String query = "DROP TABLE merchandise";
         Connection c = DBConectionManager.openConnection();

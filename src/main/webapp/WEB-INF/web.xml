@@ -88,6 +88,18 @@
 		<url-pattern>/mostrar_media</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<description>
+		</description>
+		<display-name>MostrarMerchandise</display-name>
+		<servlet-name>MostrarMerchandise</servlet-name>
+		<servlet-class>servlet.registros.mostrar.MostrarMerchandise</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarMerchandise</servlet-name>
+		<url-pattern>/mostrar_merchandise</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 	<description>
@@ -152,6 +164,19 @@
 	<servlet-mapping>
 		<servlet-name>EnviarMailMedia</servlet-name>
 		<url-pattern>/enviar_mail_media</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailMerchandise</display-name>
+		<servlet-name>EnviarMailMerchandise</servlet-name>
+		<servlet-class>servlet.mail.EnviarMailMerchandise</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailMerchandise</servlet-name>
+		<url-pattern>/enviar_mail_merchandise</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -378,6 +403,58 @@
 	<servlet>
 		<description>
 		</description>
+		<display-name>CantMediaTotal</display-name>
+		<servlet-name>CantMerchandiseTotal</servlet-name>
+		<servlet-class>servlet.reportes.merchandise.CantMerchandiseTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMerchandiseTotal</servlet-name>
+		<url-pattern>/cant_merchandise_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantMerchandiseProcesados</display-name>
+		<servlet-name>CantMerchandiseProcesados</servlet-name>
+		<servlet-class>servlet.reportes.merchandise.CantMerchandiseProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMerchandiseProcesados</servlet-name>
+		<url-pattern>/cant_merchandise_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantMerchandiseNoProcesados</display-name>
+		<servlet-name>CantMerchandiseNoProcesados</servlet-name>
+		<servlet-class>servlet.reportes.merchandise.CantMerchandiseNoProcesados</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMerchandiseNoProcesados</servlet-name>
+		<url-pattern>/cant_merchandise_no_procesados</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CanterchandiseError</display-name>
+		<servlet-name>CantMerchandiseError</servlet-name>
+		<servlet-class>servlet.reportes.merchandise.CantMerchandiseError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantMerchandiseError</servlet-name>
+		<url-pattern>/cant_merchandise_error</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
 		<display-name>CargarHistoricoPoductos</display-name>
 		<servlet-name>CargarHistoricoProductos</servlet-name>
 		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoProductos</servlet-class>
@@ -425,6 +502,19 @@
 	<servlet-mapping>
 		<servlet-name>CargarHistoricoMedia</servlet-name>
 		<url-pattern>/cargar_historico_media</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CargarHistoricoMerchandise</display-name>
+		<servlet-name>CargarHistoricoMerchandise</servlet-name>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoMerchandise</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CargarHistoricoMerchandise</servlet-name>
+		<url-pattern>/cargar_historico_merchandise</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -495,6 +585,19 @@
 	<servlet>
 		<description>
 		</description>
+		<display-name>DescargarMerchandise</display-name>
+		<servlet-name>DescargarMerchandise</servlet-name>
+		<servlet-class>servlet.registros.descargar.DescargarMerchandise</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarMerchandise</servlet-name>
+		<url-pattern>/descargar_merchandise</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
 		<display-name>LimpiarTablaAuditoria</display-name>
 		<servlet-name>LimpiarTablaAuditoria</servlet-name>
 		<servlet-class>servlet.registros.LimpiarTablaAuditoria</servlet-class>
@@ -555,6 +658,19 @@
 	<servlet-mapping>
 		<servlet-name>DescargarMediaNoCorrectos</servlet-name>
 		<url-pattern>/descargar_media_no_correctos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarMerchandiseNoCorrectos</display-name>
+		<servlet-name>DescargarMerchandiseNoCorrectos</servlet-name>
+		<servlet-class>servlet.registros.descargar.DescargarMerchandiseNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarMerchandiseNoCorrectos</servlet-name>
+		<url-pattern>/descargar_merchandise_no_correctos</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

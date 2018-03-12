@@ -48,6 +48,13 @@ public class Procesar extends HttpServlet
             RequestDispatcher rq = request.getRequestDispatcher("Media.html");
             rq.forward(request, response);
         }
+
+        else if(feed.equals("Merchandise"))
+        {
+            dbManager.verificarMerchandise();
+            RequestDispatcher rq = request.getRequestDispatcher("Merchandise.html");
+            rq.forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

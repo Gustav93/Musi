@@ -2682,6 +2682,23 @@ if (typeof NProgress != 'undefined') {
                     ]
                 });
 
+                $('#datatable_merchandise').DataTable({
+                    ajax:{url:'/mostrar_merchandise?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                    columns: [
+
+                        {"data": "codigoProducto" },
+                        {"data": "refType" },
+                        {"data": "target" },
+                        {"data": "relacion" },
+                        {"data": "qualifier" },
+                        {"data": "preselected" },
+                        {"data": "origenImportacion" },
+                        {"data": "estadoProcesamiento" },
+                        {"data": "descripcionError" },
+                        {"data": "empresa" },
+                    ]
+                });
+
 
 				$('#datatable-keytable').DataTable({
 				  keys: true

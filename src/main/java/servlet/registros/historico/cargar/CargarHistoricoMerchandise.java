@@ -1,7 +1,7 @@
 package servlet.registros.historico.cargar;
 
-import db.temporal.DBPrice;
-import db.historico.HistoricoPrecios;
+import db.historico.HistoricoMerchandise;
+import db.temporal.DBMerchandise;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet
-public class CargarHistoricoPrecios extends HttpServlet
+public class CargarHistoricoMerchandise extends HttpServlet
 {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -21,13 +21,13 @@ public class CargarHistoricoPrecios extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        DBPrice dbPrice = new DBPrice();
-        HistoricoPrecios historicoPrecios= new HistoricoPrecios();
+        DBMerchandise dbMerchandise = new DBMerchandise();
+        HistoricoMerchandise historicoMerchandise= new HistoricoMerchandise();
 
-        historicoPrecios.crearTabla();
-        historicoPrecios.importarPrecios();
+        historicoMerchandise.crearTabla();
+        historicoMerchandise.importarMerchandise();
 
-        dbPrice.eliminarTabla();
+        dbMerchandise.eliminarTabla();
 
         RequestDispatcher rq = request.getRequestDispatcher("Procesar.html");
         rq.forward(request, response);

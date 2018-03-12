@@ -304,7 +304,7 @@ public class Utilities
             query = "select importOrigin from media group by importOrigin";
 
         else if(feed.equals(TipoFeed.MERCHANDISE))
-            query = "select importOrigin from merchandise group by importOrigin";
+            query = "select origenImportacion from merchandise group by origenImportacion";
 
         try
         {

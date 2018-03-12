@@ -38,6 +38,8 @@ public class Writer
         return getCsvMedia(Filtro.SIN_FILTRAR);
     }
 
+    public File getCsvMerchandiseProcesadoCorrectamente(){return getCsvMerchandise(Filtro.SIN_FILTRAR);}
+
     public File getCsvPreciosNoProcesadosCorrectamente()
     {
         return getCsvPrecio(Filtro.NO_PROCESADOS_CORRECTAMENTE);
@@ -56,6 +58,11 @@ public class Writer
     public File getCsvMediaNoProcesadoCorrectamente()
     {
         return getCsvMedia(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+    }
+
+    public File getCsvMerchandiseNoProcesadoCorrectamente()
+    {
+        return getCsvMerchandise(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
     //Devuelve un archivo csv que contriene los registros obtenidos de la db temporal, estos registros pueden ser
