@@ -43,6 +43,9 @@ public class FileLoader
         else if(Utilities.isStockFeed(path))
             db.agregarListaStock(builder.crearListaStock(reader.procesar()));
 
+        else if(Utilities.isClassificationFeed(path))
+            db.agregarListaClasificacion(builder.crearListaClasificacion(reader.procesar()));
+
         System.out.println("ok");
     }
 }

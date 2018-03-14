@@ -17,6 +17,7 @@ public class DBManager
     private DBPrice db_price;
     private DBProduct db_product;
     private DBStock db_stock;
+    private DBClassification db_classification;
 
     public DBManager()
     {
@@ -26,6 +27,7 @@ public class DBManager
         db_merchandise = new DBMerchandise();
         db_price = new DBPrice();
         db_stock = new DBStock();
+        db_classification = new DBClassification();
     }
 
     public void agregarListaProductos(List<Product> productList)
@@ -75,6 +77,14 @@ public class DBManager
 
         for (Stock stock : stockList)
             db_stock.crearRegistro(stock);
+    }
+
+    public void agregarListaClasificacion(List<Classification> listaClasificacion)
+    {
+        db_classification.crearTabla();
+
+        for (Classification classificacion : listaClasificacion)
+            db_classification.crearRegistro(classificacion);
     }
 
     //Para verificar los registros primero traigo la lista de productos que van a ser procesados luego recorro dicha
@@ -285,6 +295,44 @@ public class DBManager
             }
 
             db_merchandise.editar(m);
+        }
+    }
+
+    public void verificarClasificacion()
+    {
+        List<Classification> listaClasificacion = db_classification.filtrarPor(Filtro.SIN_FILTRAR);
+        List<RegistroAuditoria> listaRegistrosAuditoria;
+
+        for (Classification c : listaClasificacion)
+        {
+            listaRegistrosAuditoria = db_audit.getRegistro(c.getCodigoProducto(), c.getOrigenImportacion(), ErrorType.I);
+
+            for (RegistroAuditoria registro : listaRegistrosAuditoria) {
+                c.setEmpresa(registro.getEmpresa());
+                c.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                c.setEstadoProcesamiento("Procesado");
+                break;
+            }
+
+            listaRegistrosAuditoria = db_audit.getRegistro(c.getCodigoProducto(), c.getOrigenImportacion(), ErrorType.W);
+
+            for (RegistroAuditoria registro : listaRegistrosAuditoria) {
+                c.setEmpresa(registro.getEmpresa());
+                c.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                c.setEstadoProcesamiento("Procesado con error");
+                break;
+            }
+
+            listaRegistrosAuditoria = db_audit.getRegistro(c.getCodigoProducto(), c.getOrigenImportacion(), ErrorType.E);
+
+            for (RegistroAuditoria registro : listaRegistrosAuditoria) {
+                c.setEmpresa(registro.getEmpresa());
+                c.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
+                c.setEstadoProcesamiento("Procesado con error");
+                break;
+            }
+
+            db_classification.editar(c);
         }
     }
 }

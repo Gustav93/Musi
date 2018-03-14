@@ -31,7 +31,7 @@ public class FeedBuilder
             p.setOfflineDateTime(row.get(7));
             p.setApprovalStatus(row.get(8));
             p.setDescription(row.get(9));
-            p.setOrigenImportacion(Utilities.setImportOrigin(row.get(10)));
+            p.setOrigenImportacion(Utilities.setOrigenImportacion(row.get(10)));
 
             corregirCodigoProducto(p);
             list.add(p);
@@ -52,7 +52,7 @@ public class FeedBuilder
             price.setCurrency(row.get(2));
             price.setStorePrice(row.get(3));
             price.setHasPriority(row.get(4));
-            price.setOrigenImportacion(Utilities.setImportOrigin(row.get(5)));
+            price.setOrigenImportacion(Utilities.setOrigenImportacion(row.get(5)));
 
             list.add(price);
         }
@@ -74,7 +74,7 @@ public class FeedBuilder
             merch.setRelacion(row.get(3));
             merch.setQualifier(row.get(4));
             merch.setPreselected(row.get(5));
-            merch.setOrigenImportacion(Utilities.setImportOrigin(row.get(6)));
+            merch.setOrigenImportacion(Utilities.setOrigenImportacion(row.get(6)));
 
             list.add(merch);
         }
@@ -92,7 +92,7 @@ public class FeedBuilder
             media.setCodigoProducto(row.get(0));
             media.setCodeMedia(row.get(1));
             media.setIsDefault(row.get(2));
-            media.setOrigenImportacion(Utilities.setImportOrigin(row.get(3)));
+            media.setOrigenImportacion(Utilities.setOrigenImportacion(row.get(3)));
 
             list.add(media);
         }
@@ -111,12 +111,31 @@ public class FeedBuilder
             stock.setStock(row.get(1));
             stock.setWarehouse(row.get(2));
             stock.setStatus(row.get(3));
-            stock.setOrigenImportacion(Utilities.setImportOrigin(row.get(4)));
+            stock.setOrigenImportacion(Utilities.setOrigenImportacion(row.get(4)));
 
             list.add(stock);
         }
 
         return list;
+    }
+
+    public List<Classification> crearListaClasificacion(List<List<String>> filas)
+    {
+        List<Classification> lista = new ArrayList<>();
+
+        for(List<String> fila : filas)
+        {
+            Classification classification = new Classification();
+
+            classification.setCodigoProducto(fila.get(0));
+            classification.setCodigoAtributo(fila.get(1));
+            classification.setCodigoCategoria(fila.get(2));
+            classification.setValorAtributo(fila.get(3));
+            classification.setOrigenImportacion(Utilities.setOrigenImportacion(fila.get(4)));
+
+            lista.add(classification);
+        }
+        return lista;
     }
 
     public List<RegistroAuditoria> crearListaRegistrosAuditoria(List<List<String>> rows)

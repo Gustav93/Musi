@@ -3,9 +3,9 @@ package csv;
 import utilidades.Utilities;
 import com.csvreader.CsvReader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Reader
@@ -25,6 +25,7 @@ public class Reader
     //para que luego sea utilizado para obtener el nombre del archivo.
     public List<List<String>> procesar() throws IOException
     {
+
         if (Utilities.isAudit(path))
             reader.setDelimiter(';');
 
@@ -58,10 +59,20 @@ public class Reader
                     // el nombre del archivo de donde fue importado, por esto cuando se exporta la auditoria desde
                     //hybris se debe poner el nombre del archivo del feed procesado en el nombre del archivo de la
                     //auditoria seguido de _aud. Con esto me aseguro de tener el nombre del feed procesado.
-                    if(i == 7 && path.contains("_aud") && path.contains("stock"))
+                    if(i == 7 && path.contains("_aud"))
                     {
-                        celda.add(Utilities.setImportOrigin(path));
-                        continue;
+                        if(path.contains("stock"))
+                        {
+                            celda.add(Utilities.setOrigenImportacion(path));
+                            continue;
+                        }
+
+                        else if(reader.get(i).contains("classification"))
+                        {
+                            String origenImportacion = reader.get(i).replaceAll("classification", "clasificacion");
+                            celda.add(origenImportacion);
+                            continue;
+                        }
                     }
 
                     celda.add(reader.get(i));
@@ -89,15 +100,10 @@ public class Reader
                 filas.add(celda);
             }
 
-            //Falta implementar el feed
-//            else if(Utilities.isClassification(path))
-//            {
-//                for(int i=0; i<; i++)
-//                    items.add(reader.get(i));
-//
-//                items.add(path);
-//                filas.add(items);
-//            }
+            else if(Utilities.isClassificationFeed(path))
+            {
+                filas = leer(path);
+            }
 
             else if (Utilities.isStockFeed(path))
             {
@@ -114,5 +120,24 @@ public class Reader
 
         reader.close();
         return filas;
+    }
+    private List<List<String>> leer(String path) throws IOException {
+        List<List<String>> list = new ArrayList();
+        File archivo = new File(path);
+        InputStream in = new FileInputStream(archivo);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            line = line.substring(1, line.length()-1);
+            line = line + "," + path;
+            List<String> fila = Arrays.asList(line.split(","));
+
+            list.add(fila);
+        }
+        reader.close();
+
+        return list;
     }
 }

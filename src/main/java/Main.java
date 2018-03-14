@@ -1,4 +1,10 @@
+import Feeds.builder.FeedBuilder;
+import csv.Reader;
+import csv.Writer;
+import db.manager.DBManager;
 import file_loader.FileLoader;
+
+import java.util.List;
 
 public class Main
 {
@@ -152,5 +158,18 @@ public class Main
 //        Writer writer = new Writer();
 //
 //        File f = writer.getCsvMediaNoProcesadoCorrectamente();
+
+//        Reader r = new Reader("D:\\clasificacion-1803130002.csv");
+//
+//        List<List<String>> l = r.procesar();
+//
+//        System.out.println(l.toString());
+
+//        FileLoader fl = new FileLoader();
+//
+//        fl.loadFile("D:\\export (3)_aud.csv");
+        DBManager dbManager = new DBManager();
+        dbManager.verificarClasificacion();
+
     }
 }

@@ -9,62 +9,97 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utilities
 {
-    private static String[] ARCHIVE_NAME_VALID = {"classification", "producto", "precio", "merchandise", "media", "stock"};
+    private static String[] ARCHIVE_NAME_VALID = {"clasificacion", "producto", "precio", "merchandise", "media", "stock"};
     private static final String[] FEED_TYPE ={"CLASSIFICATION", "PRODUCT", "PRICE", "MERCHANDISE", "MEDIA", "STOCK"};
 
     //extrae el nombre del archivo csv de la direccion absoluta.
-    public static String setImportOrigin(String path)
+    public static String setOrigenImportacion(String path)
     {
-        String archiveName;
-        String feedType = getFeedType(path);
-
-        //empiezo a iterar antes del substring .csv para no tener problemas con stock, ya que utilizo la 's'
-        //(en este caso) para cortar la iteracion
-        int index = path.length()-4;
-
-        int finalIndex = 0;
-        char beginningLetter = 'a';
-
-        if(feedType.equals("PRODUCT") || feedType.equals("PRICE"))
-            beginningLetter = 'p';
-
-        else if(feedType.equals("MEDIA") || feedType.equals("MERCHANDISE"))
-            beginningLetter = 'm';
-
-        else if(feedType.equals("STOCK") || path.contains("_aud"))
-            beginningLetter = 's';
-
-//        else if(path.contains("_aud"))
+//        String archiveName;
+//        String feedType = getFeedType(path);
+//
+//        //empiezo a iterar antes del substring .csv para no tener problemas con stock, ya que utilizo la 's'
+//        //(en este caso) para cortar la iteracion
+//        int index = path.length()-4;
+//
+//        int finalIndex = 0;
+//        char beginningLetter = 'a';
+//
+//        if(feedType.equals("PRODUCT") || feedType.equals("PRICE"))
+//            beginningLetter = 'p';
+//
+//        else if(feedType.equals("MEDIA") || feedType.equals("MERCHANDISE"))
+//            beginningLetter = 'm';
+//
+//        else if(feedType.equals("STOCK") || path.contains("_aud"))
 //            beginningLetter = 's';
+//
+//        else if(feedType.equals("CLASSIFICATION"))
+//            beginningLetter = 'c';
+//
+////        else if(path.contains("_aud"))
+////            beginningLetter = 's';
+//
+//        while(index>0)
+//        {
+//            //Ejemplo del nombre del archivo de la auditoria de stock: "stock-1801170001_aud.csv".
+//            //este es el caso de la auditoria de stock que tiene el prefijo _aud, entonces si encuentro una "d", saco
+//            //"_aud.csv" de la parte que se va a iterar para tener el nombre del archivo correctamente (moviendo el
+//            // puntero finalIndex.
+//            if(path.charAt(index) == 'd')
+//                finalIndex = index - 3;
+//
+//            if(path.charAt(index) == beginningLetter)
+//                break;
+//
+//            index--;
+//        }
+//
+//        //ahora le tengo que agregar el ".csv" que le saque arriba
+//        if(path.contains("_aud"))
+//        {
+//            archiveName = path.substring(index, finalIndex) + ".csv";
+//        }
+//
+//        else
+//            archiveName = path.substring(index);
+//
+//        return archiveName.toLowerCase();
 
-        while(index>0)
-        {
-            //Ejemplo del nombre del archivo de la auditoria de stock: "stock-1801170001_aud.csv".
-            //este es el caso de la auditoria de stock que tiene el prefijo _aud, entonces si encuentro una "d", saco
-            //"_aud.csv" de la parte que se va a iterar para tener el nombre del archivo correctamente (moviendo el
-            // puntero finalIndex.
-            if(path.charAt(index) == 'd')
-                finalIndex = index - 3;
+        String patron = "";
+        String feedType = getFeedType(path);
+        String origenImportacion = "";
 
-            if(path.charAt(index) == beginningLetter)
-                break;
+        if(feedType.equals("PRODUCT"))
+            patron = "producto-\\d+\\.csv";
 
-            index--;
-        }
+        else if(feedType.equals("PRICE"))
+            patron = "precio-\\d+.csv";
 
-        //ahora le tengo que agregar el ".csv" que le saque arriba
-        if(path.contains("_aud"))
-        {
-            archiveName = path.substring(index, finalIndex) + ".csv";
-        }
+        else if(feedType.equals("STOCK"))
+            patron = "stock-\\d+.csv";
 
-        else
-            archiveName = path.substring(index);
+        else if(feedType.equals("MEDIA"))
+            patron = "media-\\d+.csv";
 
-        return archiveName.toLowerCase();
+        else if(feedType.equals("MERCHANDISE"))
+            patron = "merchandise-\\d+.csv";
+
+        else if(feedType.equals("CLASSIFICATION"))
+            patron = "clasificacion-\\d+.csv";
+
+        Pattern pattern = Pattern.compile(patron);
+        Matcher matcher = pattern.matcher(path);
+
+        if(matcher.find())
+            origenImportacion = matcher.group();
+
+        return origenImportacion;
     }
 
     //recibe como parametro el path del archivo y devuelve un string con el tipo de feed que es dicho archivo
@@ -123,19 +158,14 @@ public class Utilities
         return getFeedType(path).equals("MEDIA") && !path.contains("_aud");
     }
 
-//    public static boolean isClassification(String path)
-//    {
-//        return getFeedType(path).equals("CLASSIFICATION") && !path.contains("_aud");
-//    }
-
     public static boolean isStockFeed(String path)
     {
         return getFeedType(path).equals("STOCK") && !path.contains("_aud");
     }
 
-    public static boolean isError(String errorCode)
+    public static boolean isClassificationFeed(String path)
     {
-        return errorCode.contains("E");
+        return getFeedType(path).equals("CLASSIFICATION") && !path.contains("_aud");
     }
 
     //devuelve el nombre del archivo procesado de stock para luego utilizarlo en los archivos que se generan despues de
@@ -231,8 +261,10 @@ public class Utilities
             query = "alter table audit add index indiceAudit (productCode, importOrigin)";
 
         else if(feed.equals(TipoFeed.MERCHANDISE))
-            query = "alter table audit add index indiceAudit (productCode, importOrigin)";
+            query = "alter table merchandise add index indiceMerchandise (source, origenImportacion)";
 
+        else if(feed.equals(TipoFeed.CLASSIFICATION))
+            query = "alter table classification add index indiceClassification (codigoProducto, origenImportacion)";
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
@@ -306,6 +338,9 @@ public class Utilities
         else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "select origenImportacion from merchandise group by origenImportacion";
 
+        else if(feed.equals(TipoFeed.CLASSIFICATION))
+            query = "select origenImportacion from classification group by origenImportacion";
+
         try
         {
             PreparedStatement statement = c.prepareStatement(query);
@@ -328,4 +363,6 @@ public class Utilities
 
         return importOriginList;
     }
+
+
 }
