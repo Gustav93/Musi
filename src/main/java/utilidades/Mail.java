@@ -505,6 +505,96 @@ public class Mail
         }
     }
 
+    public void enviarInformeClasificacion(Empresa empresa)
+    {
+        String asuntoMail;
+
+        if(empresa.equals(Empresa.CARSA))
+            asuntoMail = "Clasificacion Procesado (CARSA)";
+
+        else if (empresa.equals(Empresa.EMSA))
+            asuntoMail = "Clasificacion Procesado (EMSA)";
+
+        else
+            asuntoMail ="Clasificacion Procesado";
+
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // Nombre del host de correo, es smtp.gmail.com
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+        // TLS si está disponible
+        props.setProperty("mail.smtp.starttls.enable", "true");
+
+        // Puerto de gmail para envio de correos
+        props.setProperty("mail.smtp.port","587");
+
+        // Nombre del usuario
+        props.setProperty("mail.smtp.user", "gsanchez@musi.com.ar");
+
+        // Si requiere o no usuario y password para conectarse.
+        props.setProperty("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        session.setDebug(true);
+
+        File file = writer.getCsvClasificacionProcesadoCorrectamente();
+        String fileName = file.getName();
+
+        Transport t;
+        try
+        {
+            DBClasificacion dbClasificacion = new DBClasificacion();
+            int cantProcsadosConError = dbClasificacion.getCantidadRegistrosProcesadosConError();
+            int cantNoProcesados = dbClasificacion.getCantidadRegistrosNoProcesados();
+            MimeMultipart multipart = new MimeMultipart();
+
+            if(cantNoProcesados != 0 || cantProcsadosConError != 0)
+            {
+                BodyPart attachedFile = new MimeBodyPart();
+                attachedFile.setDataHandler(new DataHandler(new FileDataSource(fileName)));
+                attachedFile.setFileName(fileName);
+                multipart.addBodyPart(attachedFile);
+            }
+
+//            Agrego el cuerpo del mail
+            BodyPart texto = new MimeBodyPart();
+            StringBuilder sb = new StringBuilder();
+            List<Reporte> reportes = dbClasificacion.getReportes();
+
+            for(Reporte reporte : reportes)
+                sb.append(reporte.toString() + "\n\n");
+
+            texto.setText(sb.toString());
+            multipart.addBodyPart(texto);
+
+            MimeMessage message = new MimeMessage(session);
+
+            // Quien envia el correo
+            message.setFrom(new InternetAddress(EMAILSENDER));
+
+            // A quien va dirigido
+            message.addRecipients(Message.RecipientType.TO, agregarDestinatarios());
+
+            message.setSubject(asuntoMail);
+
+            message.setContent(multipart);
+
+            t = session.getTransport("smtp");
+            t.connect(EMAILSENDER, PWD);
+
+            t.sendMessage(message,message.getAllRecipients());
+
+            t.close();
+            file.delete();
+        }
+        catch (MessagingException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     //transforma el arreglo de string con las direcciones de mail a un arreglo de Address para poder enviar los correos
     private Address[] agregarDestinatarios() throws AddressException
     {

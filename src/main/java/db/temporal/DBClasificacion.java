@@ -1,7 +1,6 @@
 package db.temporal;
 
 import Feeds.Classification;
-import Feeds.Media;
 import db.conexiones.DBConectionManager;
 import utilidades.Reporte;
 import utilidades.Utilities;
@@ -16,12 +15,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBClassification
+public class DBClasificacion
 {
     public void crearTabla()
     {
         //language=SQL
-        String query = "create table classification (codigoProducto VARCHAR(50), codigoAtributo VARCHAR(200), codigoCategoria VARCHAR(200), valorAtributo VARCHAR(200), origenImportacion VARCHAR(100), estadoProcesamiento VARCHAR(100), descripcionError VARCHAR(600), empresa VARCHAR(10))";
+        String query = "create table clasificacion (codigoProducto VARCHAR(50), codigoAtributo VARCHAR(200), codigoCategoria VARCHAR(200), valorAtributo VARCHAR(200), origenImportacion VARCHAR(100), estadoProcesamiento VARCHAR(100), descripcionError VARCHAR(600), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -35,13 +34,13 @@ public class DBClassification
         }
 
         DBConectionManager.closeConnection(c);
-        Utilities.crearIndice(TipoFeed.CLASSIFICATION);
+        Utilities.crearIndice(TipoFeed.CLASIFICACION);
     }
 
     public void eliminarTabla()
     {
         //language=SQL
-        String query = "drop table classification";
+        String query = "drop table clasificacion";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -52,7 +51,7 @@ public class DBClassification
         }
         catch (SQLException e)
         {
-            System.out.println("Hubo un problema al eliminar la tabla CLASSIFICATION");
+            System.out.println("Hubo un problema al eliminar la tabla CLASIFICACION");
         }
 
         DBConectionManager.closeConnection(c);
@@ -61,7 +60,7 @@ public class DBClassification
     public void crearRegistro(Classification classification)
     {
         //language=SQL
-        String query = "insert into classification (codigoProducto, codigoAtributo, codigoCategoria, valorAtributo, origenImportacion, estadoProcesamiento, descripcionError, empresa) values (?,?,?,?,?,?,?,?)";
+        String query = "insert into clasificacion (codigoProducto, codigoAtributo, codigoCategoria, valorAtributo, origenImportacion, estadoProcesamiento, descripcionError, empresa) values (?,?,?,?,?,?,?,?)";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -122,7 +121,7 @@ public class DBClassification
     public void editar(Classification classification)
     {
         //language=SQL
-        String query = "update classification set estadoProcesamiento = ?, descripcionError = ?, empresa = ? WHERE codigoProducto = ? and origenImportacion = ?";
+        String query = "update clasificacion set estadoProcesamiento = ?, descripcionError = ?, empresa = ? WHERE codigoProducto = ? and origenImportacion = ?";
         Connection c = DBConectionManager.openConnection();
 
         try
@@ -159,23 +158,23 @@ public class DBClassification
 
         if(filtro.equals(Filtro.SIN_FILTRAR))
             //language=SQL
-            query = "select * from classification";
+            query = "select * from clasificacion";
 
         else if(filtro.equals(Filtro.PROCESADOS_CORRECTAMENTE))
             //language=SQL
-            query = "select * from classification where estadoProcesamiento = 'Procesado'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado'";
 
         else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
             //language=SQL
-            query = "select * from classification where estadoProcesamiento = 'Procesado con Error'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error'";
 
         else if(filtro.equals(Filtro.SIN_PROCESAR))
             //language=SQL
-            query = "select * from classification where estadoProcesamiento = 'Sin Procesar'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Sin Procesar'";
 
         else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
-            query = "select * from classification where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Sin Procesar'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Sin Procesar'";
 
         try
         {
@@ -219,7 +218,7 @@ public class DBClassification
         try
         {
             //language=SQL
-            String query = "select count(*) from classification";
+            String query = "select count(*) from clasificacion";
             PreparedStatement statement = c.prepareStatement(query);
             ResultSet res = statement.executeQuery();
 
@@ -276,15 +275,15 @@ public class DBClassification
 
         if(contador.equals(Contador.PROCESADO))
             //language=SQL
-            query = "select count(*) from classification where origenImportacion like ? and estadoProcesamiento like 'Procesado'";
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado'";
 
         else if(contador.equals(Contador.PROCESADO_CON_ERROR))
             //language=SQL
-            query = "select count(*) from classification where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
-            query = "select count(*) from classification where origenImportacion like ? and estadoProcesamiento like 'Sin Procesar'";
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Sin Procesar'";
 
         try
         {
@@ -320,23 +319,23 @@ public class DBClassification
 
         if(contador.equals(Contador.PROCESADO))
             //language=SQL
-            query = "select count(*) from classification where estadoProcesamiento like 'Procesado'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado'";
 
         else if(contador.equals(Contador.PROCESADO_CON_ERROR))
             //language=SQL
-            query = "select count(*) from classification where estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado con Error'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
-            query = "select count(*) from classification where estadoProcesamiento like 'Sin Procesar'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'Sin Procesar'";
 
         else if(contador.equals(Contador.CARSA))
             //language=SQL
-            query = "select count(*) from classification where estadoProcesamiento like 'C'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'C'";
 
         else if(contador.equals(Contador.EMSA))
             //language=SQL
-            query = "select count(*) from classification where empresa like 'E'";
+            query = "select count(*) from clasificacion where empresa like 'E'";
 
         try
         {
@@ -364,7 +363,7 @@ public class DBClassification
     public List<Reporte> getReportes()
     {
         List<Reporte> reportes = new ArrayList<>();
-        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.CLASSIFICATION);
+        List<String> nombreArchivos = Utilities.getImportOriginList(TipoFeed.CLASIFICACION);
         for(String nombreArchivo : nombreArchivos)
         {
             Reporte reporte = new Reporte();
@@ -390,7 +389,7 @@ public class DBClassification
         try
         {
             //language=SQL
-            String query = "select count(*) from classification where origenImportacion like ?";
+            String query = "select count(*) from clasificacion where origenImportacion like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);
             ResultSet res = statement.executeQuery();

@@ -1,12 +1,8 @@
 package csv;
 
+import Feeds.*;
 import utilidades.enums.Filtro;
 import db.temporal.*;
-import Feeds.Merchandise;
-import Feeds.Price;
-import Feeds.Product;
-import Feeds.Stock;
-import Feeds.Media;
 import utilidades.Utilities;
 import com.csvreader.CsvWriter;
 import java.io.File;
@@ -40,10 +36,16 @@ public class Writer
 
     public File getCsvMerchandiseProcesadoCorrectamente(){return getCsvMerchandise(Filtro.SIN_FILTRAR);}
 
+    public File getCsvClasificacionProcesadoCorrectamente()
+    {
+        return getCsvClasificacion(Filtro.SIN_FILTRAR);
+    }
+
     public File getCsvPreciosNoProcesadosCorrectamente()
     {
         return getCsvPrecio(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
+
 
     public File getCsvProductosNoProcesadosCorrectamente()
     {
@@ -55,14 +57,19 @@ public class Writer
         return getCsvStock(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
-    public File getCsvMediaNoProcesadoCorrectamente()
+    public File getCsvClasificacionNoProcesadoCorrectamente()
     {
-        return getCsvMedia(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+        return getCsvClasificacion(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
     public File getCsvMerchandiseNoProcesadoCorrectamente()
     {
         return getCsvMerchandise(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+    }
+
+    public File getCsvMediaNoProcesadoCorrectamente()
+    {
+        return getCsvMedia(Filtro.NO_PROCESADOS_CORRECTAMENTE);
     }
 
     //Devuelve un archivo csv que contriene los registros obtenidos de la db temporal, estos registros pueden ser
@@ -328,7 +335,7 @@ public class Writer
         return file;
     }
 
-    public File getCsvMerchandise(Filtro filtro)
+    private File getCsvMerchandise(Filtro filtro)
     {
         List<Merchandise> listaMerchandise;
         DBMerchandise dbMerchandise = new DBMerchandise();
@@ -379,6 +386,68 @@ public class Writer
                 writer.write(m.getEstadoProcesamiento());
                 writer.write(m.getDescripcionError());
                 writer.write(m.getEmpresa());
+                writer.endRecord();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            writer.close();
+        }
+
+        return file;
+    }
+
+    private File getCsvClasificacion(Filtro filtro)
+    {
+        List<Classification> listaClasificacion;
+        DBClasificacion dbclasificacion = new DBClasificacion();
+        String nombreArchivo;
+
+        if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
+        {
+            listaClasificacion = dbclasificacion.filtrarPor(Filtro.NO_PROCESADOS_CORRECTAMENTE);
+            nombreArchivo = Utilities.nombreArchivoNoProcesadoCorrectamenteClasificacion();
+        }
+
+        else if(filtro.equals(Filtro.SIN_FILTRAR))
+        {
+            listaClasificacion = dbclasificacion.filtrarPor(Filtro.SIN_FILTRAR);
+            nombreArchivo = Utilities.nombreArchivoProcesadoClasificacion();
+        }
+
+        else
+            throw new IllegalArgumentException("Filtro incorrecto");
+
+        try
+        {
+            file = new File(nombreArchivo);
+            FileWriter fileWriter = new FileWriter(file, true);
+            writer = new CsvWriter(fileWriter, ',');
+
+            writer.write("Codigo de Producto");
+            writer.write("Codigo del Atributo");
+            writer.write("Codifo de Categoria");
+            writer.write("Valor del Atributo");
+            writer.write("Origen Importacion");
+            writer.write("Estado Procesamiento");
+            writer.write("Descripcion del Error");
+            writer.write("Empresa");
+            writer.endRecord();
+
+            for (Classification clasificacion : listaClasificacion)
+            {
+                writer.write(clasificacion.getCodigoProducto());
+                writer.write(clasificacion.getCodigoAtributo());
+                writer.write(clasificacion.getCodigoCategoria());
+                writer.write(clasificacion.getValorAtributo());
+                writer.write(clasificacion.getOrigenImportacion());
+                writer.write(clasificacion.getEstadoProcesamiento());
+                writer.write(clasificacion.getDescripcionError());
+                writer.write(clasificacion.getEmpresa());
                 writer.endRecord();
             }
         }

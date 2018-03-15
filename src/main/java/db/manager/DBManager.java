@@ -17,7 +17,7 @@ public class DBManager
     private DBPrice db_price;
     private DBProduct db_product;
     private DBStock db_stock;
-    private DBClassification db_classification;
+    private DBClasificacion db_classification;
 
     public DBManager()
     {
@@ -27,7 +27,7 @@ public class DBManager
         db_merchandise = new DBMerchandise();
         db_price = new DBPrice();
         db_stock = new DBStock();
-        db_classification = new DBClassification();
+        db_classification = new DBClasificacion();
     }
 
     public void agregarListaProductos(List<Product> productList)

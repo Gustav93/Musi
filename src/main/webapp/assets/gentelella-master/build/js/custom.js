@@ -2699,6 +2699,21 @@ if (typeof NProgress != 'undefined') {
                     ]
                 });
 
+                $('#datatable_clasificacion').DataTable({
+                    ajax:{url:'/mostrar_clasificacion?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                    columns: [
+
+                        {"data": "codigoProducto" },
+                        {"data": "codigoAtributo" },
+                        {"data": "codigoCategoria" },
+                        {"data": "valorAtributo" },
+                        {"data": "origenImportacion" },
+                        {"data": "estadoProcesamiento" },
+                        {"data": "descripcionError" },
+                        {"data": "empresa" },
+                    ]
+                });
+
 
 				$('#datatable-keytable').DataTable({
 				  keys: true

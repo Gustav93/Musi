@@ -253,6 +253,19 @@ public class Utilities
         return "merchandise-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
     }
 
+    public static String nombreArchivoProcesadoClasificacion()
+    {
+        Calendario calendario = new Calendario();
+
+        return "clasificacion-procesado" + calendario.getFechaYHora() + ".csv";
+    }
+
+    public static String nombreArchivoNoProcesadoCorrectamenteClasificacion()
+    {
+        Calendario calendario = new Calendario();
+        return "clasificacion-no-procesado-correctamente-" + calendario.getFechaYHora() + ".csv";
+    }
+
     //crea un indice en la db temporal del feed pasado como parametro
     public static void crearIndice(TipoFeed feed)
     {
@@ -277,8 +290,8 @@ public class Utilities
         else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "alter table merchandise add index indiceMerchandise (source, origenImportacion)";
 
-        else if(feed.equals(TipoFeed.CLASSIFICATION))
-            query = "alter table classification add index indiceClassification (codigoProducto, origenImportacion)";
+        else if(feed.equals(TipoFeed.CLASIFICACION))
+            query = "alter table clasificacion add index indiceClasificacion (codigoProducto, origenImportacion)";
         try
         {
             PreparedStatement ps = c.prepareStatement(query);
@@ -314,6 +327,9 @@ public class Utilities
 
         else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "alter table historico_merchandise add index indiceHistoricoMerchandise (source)";
+
+        else if(feed.equals(TipoFeed.CLASIFICACION))
+            query = "alter table historico_clasificacion add index indiceHistoricoClasificacion (codigoProducto)";
 
         try
         {
@@ -352,8 +368,8 @@ public class Utilities
         else if(feed.equals(TipoFeed.MERCHANDISE))
             query = "select origenImportacion from merchandise group by origenImportacion";
 
-        else if(feed.equals(TipoFeed.CLASSIFICATION))
-            query = "select origenImportacion from classification group by origenImportacion";
+        else if(feed.equals(TipoFeed.CLASIFICACION))
+            query = "select origenImportacion from clasificacion group by origenImportacion";
 
         try
         {
