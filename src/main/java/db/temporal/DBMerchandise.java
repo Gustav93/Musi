@@ -216,10 +216,11 @@ public class DBMerchandise
                 m.setTarget(res.getString(3));
                 m.setRelacion(res.getString(4));
                 m.setQualifier(res.getString(5));
-                m.setOrigenImportacion(res.getString(6));
-                m.setEstadoProcesamiento(res.getString(7));
-                m.setDescripcionError(res.getString(8));
-                m.setEmpresa(res.getString(9));
+                m.setPreselected(res.getString(6));
+                m.setOrigenImportacion(res.getString(7));
+                m.setEstadoProcesamiento(res.getString(8));
+                m.setDescripcionError(res.getString(9));
+                m.setEmpresa(res.getString(10));
 
                 lista.add(m);
             }

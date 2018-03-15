@@ -81,7 +81,7 @@ public class Utilities
         else if(feedType.equals("PRICE"))
             patron = "precio-\\d+.csv";
 
-        else if(feedType.equals("STOCK"))
+        else if(feedType.equals("STOCK") && !path.contains("_aud"))
             patron = "stock-\\d+.csv";
 
         else if(feedType.equals("MEDIA"))
@@ -93,11 +93,25 @@ public class Utilities
         else if(feedType.equals("CLASSIFICATION"))
             patron = "clasificacion-\\d+.csv";
 
+        else if(path.contains("_aud") && path.contains("stock"))
+            patron = "stock-\\d+";
+
         Pattern pattern = Pattern.compile(patron);
         Matcher matcher = pattern.matcher(path);
+//
+//        if(matcher.find() && !path.contains("_aud"))
+//            origenImportacion = matcher.group();
+//
+//        else if (matcher.find() && path.contains("_aud"))
+//            origenImportacion = matcher.group() + ".csv";
 
         if(matcher.find())
-            origenImportacion = matcher.group();
+        {
+            if(path.contains("_aud") && path.contains("stock"))
+                origenImportacion = matcher.group() + ".csv";
+            else
+                origenImportacion = matcher.group();
+        }
 
         return origenImportacion;
     }
