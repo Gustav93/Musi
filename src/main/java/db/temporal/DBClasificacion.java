@@ -331,7 +331,7 @@ public class DBClasificacion
 
         else if(contador.equals(Contador.CARSA))
             //language=SQL
-            query = "select count(*) from clasificacion where estadoProcesamiento like 'C'";
+            query = "select count(*) from clasificacion where empresa like 'C'";
 
         else if(contador.equals(Contador.EMSA))
             //language=SQL

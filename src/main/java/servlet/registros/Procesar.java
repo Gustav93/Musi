@@ -59,7 +59,7 @@ public class Procesar extends HttpServlet
         else if(feed.equals("Clasificacion"))
         {
             dbManager.verificarClasificacion();
-            RequestDispatcher rq = request.getRequestDispatcher("Procesar.html");
+            RequestDispatcher rq = request.getRequestDispatcher("Clasificacion.html");
             rq.forward(request, response);
         }
     }

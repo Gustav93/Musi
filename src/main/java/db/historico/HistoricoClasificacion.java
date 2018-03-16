@@ -19,13 +19,14 @@ public class HistoricoClasificacion
     public void crearTabla()
     {
         //language=SQL
-        String query = "create table historico_clasificacion (codigoProducto, codigoAtributo, codigoCategoria, valorAtributo, origenImportacion, estadoProcesamiento, descripcionError, empresa) values (?,?,?,?,?,?,?,?)";
+        String query = "create table historico_clasificacion (codigoProducto VARCHAR(50), codigoAtributo VARCHAR(200), codigoCategoria VARCHAR(200), valorAtributo VARCHAR(200), origenImportacion VARCHAR(100), estadoProcesamiento VARCHAR(100), descripcionError VARCHAR(600), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
         try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
         } catch (SQLException e) {
+            e.getStackTrace();
             System.out.println("La tabla HISTORICO_CLASIFICACION ya existe");
         }
 

@@ -2712,6 +2712,50 @@ if (typeof NProgress != 'undefined') {
                         responsive: true
                     });
                 }
+
+                if ($("#datatable_clasificacion").length) {
+                        $("#datatable_clasificacion").DataTable({
+
+                            ajax:{url:'/mostrar_clasificacion?codigo=' + codigoProducto,dataSrc:"", type: 'GET'},
+                            columns: [
+
+                                {"data": "codigoProducto" },
+                                {"data": "codigoAtributo" },
+                                {"data": "codigoCategoria" },
+                                {"data": "valorAtributo" },
+                                {"data": "origenImportacion" },
+                                {"data": "estadoProcesamiento" },
+                                {"data": "descripcionError" },
+                                {"data": "empresa" },
+                            ],
+
+                            dom: "Blfrtip",
+                            buttons: [
+                                {
+                                    extend: "copy",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "csv",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "excel",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "pdfHtml5",
+                                    className: "btn-sm"
+                                },
+                                {
+                                    extend: "print",
+                                    className: "btn-sm"
+                                },
+                            ],
+                            responsive: true
+                        });
+                    }
+
             };
 
 				TableManageButtons = function() {

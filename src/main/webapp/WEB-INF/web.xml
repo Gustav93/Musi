@@ -102,6 +102,19 @@
 	</servlet-mapping>
 
 	<servlet>
+		<description>
+		</description>
+		<display-name>MostrarClasificacion</display-name>
+		<servlet-name>MostrarClasificacion</servlet-name>
+		<servlet-class>servlet.registros.mostrar.MostrarClasificacion</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MostrarClasificacion</servlet-name>
+		<url-pattern>/mostrar_clasificacion</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 	<description>
 	</description>
 	<display-name>Procesar</display-name>
@@ -177,6 +190,19 @@
 	<servlet-mapping>
 		<servlet-name>EnviarMailMerchandise</servlet-name>
 		<url-pattern>/enviar_mail_merchandise</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EnviarMailClasificacion</display-name>
+		<servlet-name>EnviarMailClasificacion</servlet-name>
+		<servlet-class>servlet.mail.EnviarMailClasificacion</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EnviarMailClasificacion</servlet-name>
+		<url-pattern>/enviar_mail_clasificacion</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -442,7 +468,7 @@
 	<servlet>
 		<description>
 		</description>
-		<display-name>CanterchandiseError</display-name>
+		<display-name>CantMerchandiseError</display-name>
 		<servlet-name>CantMerchandiseError</servlet-name>
 		<servlet-class>servlet.reportes.merchandise.CantMerchandiseError</servlet-class>
 	</servlet>
@@ -450,6 +476,58 @@
 	<servlet-mapping>
 		<servlet-name>CantMerchandiseError</servlet-name>
 		<url-pattern>/cant_merchandise_error</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantClasificacionTotal</display-name>
+		<servlet-name>CantClasificacionTotal</servlet-name>
+		<servlet-class>servlet.reportes.clasificacion.CantClasificacionTotal</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantClasificacionTotal</servlet-name>
+		<url-pattern>/cant_clasificacion_total</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantClasificacionProcesado</display-name>
+		<servlet-name>CantClasificacionProcesado</servlet-name>
+		<servlet-class>servlet.reportes.clasificacion.CantClasificacionProcesado</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantClasificacionProcesado</servlet-name>
+		<url-pattern>/cant_clasificacion_procesado</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantClasificacionNoProcesado</display-name>
+		<servlet-name>CantClasificacionNoProcesado</servlet-name>
+		<servlet-class>servlet.reportes.clasificacion.CantClasificacionNoProcesado</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantClasificacionNoProcesado</servlet-name>
+		<url-pattern>/cant_clasificacion_no_procesado</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CantClasificacionError</display-name>
+		<servlet-name>CantClasificacionError</servlet-name>
+		<servlet-class>servlet.reportes.clasificacion.CantClasificacionError</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CantClasificacionError</servlet-name>
+		<url-pattern>/cant_clasificacion_error</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -515,6 +593,19 @@
 	<servlet-mapping>
 		<servlet-name>CargarHistoricoMerchandise</servlet-name>
 		<url-pattern>/cargar_historico_merchandise</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>CargarHistoricoClasificacion</display-name>
+		<servlet-name>CargarHistoricoClasificacion</servlet-name>
+		<servlet-class>servlet.registros.historico.cargar.CargarHistoricoClasificacion</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CargarHistoricoClasificacion</servlet-name>
+		<url-pattern>/cargar_historico_clasificacion</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -598,6 +689,19 @@
 	<servlet>
 		<description>
 		</description>
+		<display-name>DescargarClasificacion</display-name>
+		<servlet-name>DescargarClasificacion</servlet-name>
+		<servlet-class>servlet.registros.descargar.DescargarClasificacion</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarClasificacion</servlet-name>
+		<url-pattern>/descargar_clasificacion</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
 		<display-name>LimpiarTablaAuditoria</display-name>
 		<servlet-name>LimpiarTablaAuditoria</servlet-name>
 		<servlet-class>servlet.registros.LimpiarTablaAuditoria</servlet-class>
@@ -671,6 +775,19 @@
 	<servlet-mapping>
 		<servlet-name>DescargarMerchandiseNoCorrectos</servlet-name>
 		<url-pattern>/descargar_merchandise_no_correctos</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>DescargarClasificacionNoCorrectos</display-name>
+		<servlet-name>DescargarClasificacionNoCorrectos</servlet-name>
+		<servlet-class>servlet.registros.descargar.DescargarClasificacionNoCorrectos</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DescargarClasificacionNoCorrectos</servlet-name>
+		<url-pattern>/descargar_clasificacion_no_correctos</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
