@@ -67,6 +67,8 @@ public class Reader
                             continue;
                         }
 
+                        //el origen de importacion almacena el archivo con nombre "classification", debe ser cambiado
+                        // porque los archivos que generan las empresas se llaman "clasificacion".
                         else if(reader.get(i).contains("classification"))
                         {
                             String origenImportacion = reader.get(i).replaceAll("classification", "clasificacion");
@@ -121,6 +123,10 @@ public class Reader
         reader.close();
         return filas;
     }
+
+    //para poder leer los feed clasificacion hubo que hacer un metodo diferente para poder leerlos ya que el reader
+    // utilizado en las demas clase lo hacia con errores. El problema surge en que los campos del archivo tienen
+    // comillas dobles y eso afecra de alguna manera al reader.
     private List<List<String>> leer(String path) throws IOException {
         List<List<String>> list = new ArrayList();
         File archivo = new File(path);
@@ -130,8 +136,8 @@ public class Reader
         String line;
         while ((line = reader.readLine()) != null)
         {
-            line = line.substring(1, line.length()-1);
-            line = line + "," + path;
+            line = line.substring(1, line.length()-1); //le elimino las comillas de cada linea que estan de sobra
+            line = line + "," + path; //agrego el path del archivo a la linea que esta leyendo
             List<String> fila = Arrays.asList(line.split(","));
 
             list.add(fila);

@@ -168,8 +168,8 @@ public class Main
 //        FileLoader fl = new FileLoader();
 //
 //        fl.loadFile("D:\\export (3)_aud.csv");
-        DBManager dbManager = new DBManager();
-        dbManager.verificarClasificacion();
+//        DBManager dbManager = new DBManager();
+//        dbManager.verificarClasificacion();
 
     }
 }
