@@ -17,10 +17,10 @@ public class Mail
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     private final String PWD = "fff0303456fff";
     private String[] destinatarios = {"gsanchez@musi.com.ar"};
-//    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "marcelo.hassan@grupocarsa.com", "nestor.gatter@grupocarsa.com", "federico.henchoz@grupocarsa.com"};
-//    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "alejandro.brun@emusimundo.com"};
-    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar"};
-    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar"};
+    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar", "jbasombr@musi.com.ar", "marcelo.hassan@grupocarsa.com", "nestor.gatter@grupocarsa.com", "federico.henchoz@grupocarsa.com"};
+    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar", "jbasombr@musi.com.ar", "alejandro.brun@emusimundo.com"};
+//    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar"};
+//    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar"};
 
     public Mail()
     {

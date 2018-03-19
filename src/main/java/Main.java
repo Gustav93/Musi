@@ -4,6 +4,7 @@ import csv.Writer;
 import db.manager.DBManager;
 import file_loader.FileLoader;
 
+
 import java.util.List;
 
 public class Main
@@ -170,6 +171,5 @@ public class Main
 //        fl.loadFile("D:\\export (3)_aud.csv");
 //        DBManager dbManager = new DBManager();
 //        dbManager.verificarClasificacion();
-
     }
 }
