@@ -29,6 +29,22 @@ public class Reader
         if (Utilities.isAudit(path))
             reader.setDelimiter(';');
 
+//        if(Utilities.isClassificationFeed(path))
+//        {
+//            filas = leer(path);
+//            reader.close();
+//            return filas;
+//        }
+
+        //si el nombre del archivo del feed clasificacion contiene 2018, es porque dicho feed pertenece a CARSA
+//        if(Utilities.isClassificationFeed(path) && !path.contains("2018"))
+//        {
+//            filas = leer(path);
+//            reader.close();
+//            return filas;
+//        }
+
+
         while(reader.readRecord())
         {
             List<String> celda = new ArrayList<>();
@@ -102,12 +118,18 @@ public class Reader
                 filas.add(celda);
             }
 
-            else if(Utilities.isClassificationFeed(path))
+            else if (Utilities.isStockFeed(path))
             {
-                filas = leer(path);
+                for(int i=0; i<4; i++)
+                    celda.add(reader.get(i));
+
+                celda.add(path);
+                filas.add(celda);
             }
 
-            else if (Utilities.isStockFeed(path))
+            //si se llego a hasta este punto es porque el feed de clasificacion pertenece a EMSA y este se puede
+            // procesar como los demas feeds.
+            else if (Utilities.isClassificationFeed(path))
             {
                 for(int i=0; i<4; i++)
                     celda.add(reader.get(i));
@@ -118,32 +140,46 @@ public class Reader
 
             else
                 throw new IllegalArgumentException("Archivo invalido");
+
         }
 
         reader.close();
         return filas;
     }
 
-    //para poder leer los feed clasificacion hubo que hacer un metodo diferente para poder leerlos ya que el reader
+    //para poder procesar los feeds clasificacion hubo que hacer un metodo diferente para poder leerlos ya que el reader
     // utilizado en las demas clase lo hacia con errores. El problema surge en que los campos del archivo tienen
-    // comillas dobles y eso afecra de alguna manera al reader.
+    // comillas dobles al inicio y al final de cada linea y eso afecta de alguna manera al reader.
     private List<List<String>> leer(String path) throws IOException {
         List<List<String>> list = new ArrayList();
         File archivo = new File(path);
         InputStream in = new FileInputStream(archivo);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-        String line;
-        while ((line = reader.readLine()) != null)
+        String line = reader.readLine();
+        while (line != null)
         {
-            line = line.substring(1, line.length()-1); //le elimino las comillas de cada linea que estan de sobra
+            if(line.equals(""))
+            {
+                line = reader.readLine();
+                continue;
+            }
+
+            line = line.substring(1,line.length()-1); //le elimino las comillas
             line = line + "," + path; //agrego el path del archivo a la linea que esta leyendo
             List<String> fila = Arrays.asList(line.split(","));
 
             list.add(fila);
+
+            line = reader.readLine();
         }
         reader.close();
 
         return list;
+    }
+
+    private String quitarComillas(String str)
+    {
+        return str.substring(1,str.length()-1);
     }
 }

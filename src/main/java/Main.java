@@ -171,5 +171,14 @@ public class Main
 //        fl.loadFile("D:\\export (3)_aud.csv");
 //        DBManager dbManager = new DBManager();
 //        dbManager.verificarClasificacion();
+
+//        String string = "\"173567,\"\"PROCESADOR\"\",\"\"NOTEBOOK \"\",\"\"INTEL CORE I5\"\"\"";
+
+
+//        string = string.substring(1,string.length()-1);
+
+//        System.out.println(quitarComillas(string));
     }
+
+
 }
