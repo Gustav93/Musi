@@ -792,8 +792,7 @@
 
 	<welcome-file-list>
 		<welcome-file>
-		Main.html
+			Main.html
 		</welcome-file>
 	</welcome-file-list>
-   
 </web-app>  

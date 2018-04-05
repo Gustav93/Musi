@@ -17,8 +17,8 @@ public class Mail
     private final String EMAILSENDER = "gsanchez@musi.com.ar";
     private final String PWD = "fff0303456fff";
     private String[] destinatarios = {"gsanchez@musi.com.ar"};
-    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar", "jbasombr@musi.com.ar", "marcelo.hassan@grupocarsa.com", "nestor.gatter@grupocarsa.com", "federico.henchoz@grupocarsa.com"};
-    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar", "jbasombr@musi.com.ar", "alejandro.brun@emusimundo.com"};
+    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar", "marcelo.hassan@grupocarsa.com", "nestor.gatter@grupocarsa.com", "federico.henchoz@grupocarsa.com"};
+    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar", "cbaez@musi.com.ar", "jbasombr@musi.com.ar", "alejandro.brun@emusimundo.com"};
 //    private String[] destinatariosCARSA = {"gsanchez@musi.com.ar"};
 //    private String[] destinatariosEMSA = {"gsanchez@musi.com.ar"};
 
@@ -330,13 +330,20 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
-            asuntoMail = "Media Procesados (CARSA)";
+        {
+            asuntoMail = "Media Procesado (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
+
 
         else if (empresa.equals(Empresa.EMSA))
-            asuntoMail = "Media Procesados (EMSA)";
+        {
+            asuntoMail = "Media Procesado (EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
 
         else
-            asuntoMail ="Media Procesados";
+            asuntoMail ="Media Procesado";
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -420,13 +427,20 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
-            asuntoMail = "Merchandise Procesados (CARSA)";
+        {
+            asuntoMail = "Merchandise Procesado (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
+
 
         else if (empresa.equals(Empresa.EMSA))
-            asuntoMail = "Merchandise Procesados (EMSA)";
+        {
+            asuntoMail = "Merchandise Procesado (EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
 
         else
-            asuntoMail ="Merchandise Procesados";
+            asuntoMail ="Merchandise Procesado";
 
         Properties props = new Properties();
         props.setProperty("mail.smtp.host", "smtp.gmail.com");
