@@ -116,7 +116,7 @@ public class DBManager
             {
                 p.setEmpresa(auditItem.getEmpresa());
                 p.setDescripcionError(auditItem.getErrorCode() + ": " + auditItem.getDescription());
-                p.setEstadoProcesamiento("Procesado con error");
+                p.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 
@@ -157,7 +157,7 @@ public class DBManager
             {
                 p.setEmpresa(registro.getEmpresa());
                 p.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                p.setEstadoProcesamiento("Procesado con error");
+                p.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 
@@ -197,7 +197,7 @@ public class DBManager
             {
                 stock.setEmpresa(registro.getEmpresa());
                 stock.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                stock.setEstadoProcesamiento("Procesado con error");
+                stock.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 
@@ -239,7 +239,7 @@ public class DBManager
             {
                 media.setEmpresa(registro.getEmpresa());
                 media.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                media.setEstadoProcesamiento("Procesado con error");
+                media.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 
@@ -280,7 +280,7 @@ public class DBManager
             {
                 m.setEmpresa(registro.getEmpresa());
                 m.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                m.setEstadoProcesamiento("Procesado con error");
+                m.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 
@@ -319,7 +319,7 @@ public class DBManager
             for (RegistroAuditoria registro : listaRegistrosAuditoria) {
                 c.setEmpresa(registro.getEmpresa());
                 c.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                c.setEstadoProcesamiento("Procesado con error");
+                c.setEstadoProcesamiento("Procesado con Warning");
                 break;
             }
 

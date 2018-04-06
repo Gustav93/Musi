@@ -32,7 +32,7 @@ public class CantPreciosError extends HttpServlet
         else
         {
             HistoricoPrecios historicoPrecios = new HistoricoPrecios();
-            totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistrosProcesadosConError(codigoProducto));
+            totalPrecios = String.valueOf(historicoPrecios.getCantidadRegistrosNoProcesadosCorrectamente(codigoProducto));
         }
 
         response.getWriter().append(totalPrecios);

@@ -30,7 +30,7 @@ public class CantClasificacionError extends HttpServlet {
         else
         {
             HistoricoClasificacion historicoClasificacion = new HistoricoClasificacion();
-            cantError = String.valueOf(historicoClasificacion.getCantidadRegistrosProcesadosConError(codigoProducto));
+            cantError = String.valueOf(historicoClasificacion.getCantidadRegistrosNoProcesadosCorrectamente(codigoProducto));
         }
 
         response.getWriter().append(cantError);

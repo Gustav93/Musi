@@ -200,7 +200,7 @@ public class DBMerchandise
 
         else if (filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
-            query = "SELECT * FROM merchandise WHERE estadoProcesamiento = 'Procesado con Error' OR estadoProcesamiento = 'Sin Procesar'";
+            query = "SELECT * FROM merchandise WHERE estadoProcesamiento = 'Procesado con Error' OR estadoProcesamiento = 'Sin Procesar' OR estadoProcesamiento = 'Procesado con Warning'";
 
         try
         {
@@ -281,7 +281,7 @@ public class DBMerchandise
 
     public int getCantidadRegistrosProcesadosConError()
     {
-        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
+        return getCantRegistros(Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     public int getCantidadRegistrosCARSA()
@@ -306,13 +306,21 @@ public class DBMerchandise
             //language=SQL
             query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Warning'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
 
         try
         {
@@ -350,13 +358,22 @@ public class DBMerchandise
             //language=SQL
             query = "select count(*) from merchandise where estadoProcesamiento like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from merchandise where estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from merchandise where estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from merchandise where estadoProcesamiento like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Warning'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from merchandise where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+
 
         else if(contador.equals(Contador.CARSA))
             //language=SQL
@@ -402,6 +419,7 @@ public class DBMerchandise
             reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
             reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
             reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
+            reporte.setProcesadosConWarning(getCantRegistros(Contador.PROCESADO_CON_WARNING, nombreArchivo));
 
             reportes.add(reporte);
         }
@@ -418,7 +436,7 @@ public class DBMerchandise
         try
         {
             //language=SQL
-            String query = "select count(*) from merchandise where importOrigin like ?";
+            String query = "select count(*) from merchandise where origenImportacion like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);
             ResultSet res = statement.executeQuery();

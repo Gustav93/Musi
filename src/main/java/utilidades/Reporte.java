@@ -3,7 +3,7 @@ package utilidades;
 public class Reporte
 {
     private String nombreArchivo;
-    private Integer totalRegistros, procesadosCorrectamente, noProcesados, procesadosConError;
+    private Integer totalRegistros, procesadosCorrectamente, noProcesados, procesadosConError, procesadosConWarning;
 
     public Reporte()
     {
@@ -12,6 +12,7 @@ public class Reporte
         procesadosCorrectamente = null;
         noProcesados = null;
         procesadosConError = null;
+        procesadosConWarning = null;
     }
 
     public String getNombreArchivo() {
@@ -55,9 +56,17 @@ public class Reporte
         this.procesadosConError = procesadosConError;
     }
 
+    public Integer getProcesadosConWarning() {
+        return procesadosConWarning;
+    }
+
+    public void setProcesadosConWarning(Integer procesadosConWarning) {
+        this.procesadosConWarning = procesadosConWarning;
+    }
+
     @Override
     public String toString()
     {
-        return "Nombre del Archivo: " + nombreArchivo + ", Cantidad Total de Registros: " + totalRegistros + ", Procesados Correctamente: " + procesadosCorrectamente + ", Procesados con Error: " + procesadosConError + ", No Procesados: " + noProcesados;
+        return "Nombre del Archivo: " + nombreArchivo + ", Cantidad Total de Registros: " + totalRegistros + ", Procesados Correctamente: " + procesadosCorrectamente + ", Procesados con Error: " + procesadosConError +", Procesados con Warning: " + procesadosConWarning + ", No Procesados: " + noProcesados;
     }
 }

@@ -142,9 +142,9 @@ public class HistoricoPrecios
         return getCantidadRegistros(codigoProducto, Contador.SIN_PROCESAR);
     }
 
-    public int getCantidadRegistrosProcesadosConError(String codigoProducto)
+    public int getCantidadRegistrosNoProcesadosCorrectamente(String codigoProducto)
     {
-        return getCantidadRegistros(codigoProducto, Contador.PROCESADO_CON_ERROR);
+        return getCantidadRegistros(codigoProducto, Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     //devuelve la cantidad de registros con el codigo de producto pasado como parametro
@@ -190,13 +190,21 @@ public class HistoricoPrecios
             //language=SQL
             query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado'";
 
-        else if(estadoProcesado.equals(Contador.PROCESADO_CON_ERROR))
+        else if(estadoProcesado.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado con Error'";
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
 
         else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from historico_precios where productCode like ? and processed like 'Sin Procesar'";
+
+        else if(estadoProcesado.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado con Error'";
+
+        else if(estadoProcesado.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from historico_precios where productCode like ? and processed like 'Procesado con Warning'";
 
         try
         {

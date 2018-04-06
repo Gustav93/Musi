@@ -166,7 +166,7 @@ public class DBClasificacion
 
         else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
             //language=SQL
-            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Procesado con Warning'";
 
         else if(filtro.equals(Filtro.SIN_PROCESAR))
             //language=SQL
@@ -252,7 +252,7 @@ public class DBClasificacion
 
     public int getCantidadRegistrosProcesadosConError()
     {
-        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
+        return getCantRegistros(Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     public int getCantidadRegistrosCARSA()
@@ -277,13 +277,21 @@ public class DBClasificacion
             //language=SQL
             query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
             query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Warning'";
 
         try
         {
@@ -321,13 +329,22 @@ public class DBClasificacion
             //language=SQL
             query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado con Error' or estadoProcesamineto like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from clasificacion where estadoProcesamiento like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Warning'";
+
 
         else if(contador.equals(Contador.CARSA))
             //language=SQL
@@ -373,6 +390,7 @@ public class DBClasificacion
             reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
             reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
             reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
+            reporte.setProcesadosConWarning(getCantRegistros(Contador.PROCESADO_CON_WARNING, nombreArchivo));
 
             reportes.add(reporte);
         }

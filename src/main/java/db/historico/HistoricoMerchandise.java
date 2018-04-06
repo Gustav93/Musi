@@ -157,9 +157,9 @@ public class HistoricoMerchandise
         return getCantidadRegistros(source, Contador.SIN_PROCESAR);
     }
 
-    public int getCantidadRegistrosProcesadosConError(String source)
+    public int getCantidadRegistrosNoProcesadosCorrectamente(String source)
     {
-        return getCantidadRegistros(source, Contador.PROCESADO_CON_ERROR);
+        return getCantidadRegistros(source, Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     //devuelve la cantidad de registros con el codigo de producto pasado como parametro
@@ -205,9 +205,9 @@ public class HistoricoMerchandise
             //language=SQL
             query = "select count(*) from historico_merchandise where source like ? and estadoProcesamiento like 'Procesado'";
 
-        else if(estadoProcesamiento.equals(Contador.PROCESADO_CON_ERROR))
+        else if(estadoProcesamiento.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from historico_merchandise where source like ? and estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from historico_merchandise where source like ? and estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
 
         else if(estadoProcesamiento.equals(Contador.SIN_PROCESAR))
             //language=SQL

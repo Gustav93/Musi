@@ -36,7 +36,7 @@ public class CantMediaError extends HttpServlet
         else
         {
             HistoricoMedia historicoMedia = new HistoricoMedia();
-            cantError = String.valueOf(historicoMedia.getCantidadRegistrosProcesadosConError(codigoProducto));
+            cantError = String.valueOf(historicoMedia.getCantidadRegistrosNoProcesadosCorectamente(codigoProducto));
         }
 
         response.getWriter().append(cantError);

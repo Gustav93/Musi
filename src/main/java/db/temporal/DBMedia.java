@@ -172,7 +172,7 @@ public class DBMedia
 
         else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
-            query = "select * from media where processed = 'Procesado con Error' or processed = 'Sin Procesar'";
+            query = "select * from media where processed = 'Procesado con Error' or processed = 'Sin Procesar' or processed = 'Procesado con Warning'";
 
         try
         {
@@ -249,7 +249,7 @@ public class DBMedia
 
     public int getCantidadRegistrosProcesadosConError()
     {
-        return getCantRegistros(Contador.PROCESADO_CON_ERROR);
+        return getCantRegistros(Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     public int getCantidadRegistrosCARSA()
@@ -274,13 +274,21 @@ public class DBMedia
             //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Error'";
+            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from media where importOrigin like ? and processed like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Warning'";
+
+        else  if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Error'";
 
         try
         {
@@ -318,13 +326,21 @@ public class DBMedia
             //language=SQL
             query = "select count(*) from media where processed like 'Procesado'";
 
-        else if(contador.equals(Contador.PROCESADO_CON_ERROR))
+        else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from media where processed like 'Procesado con Error'";
+            query = "select count(*) from media where processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from media where processed like 'Sin Procesar'";
+
+        else if(contador.equals(Contador.PROCESADO_CON_WARNING))
+            //language=SQL
+            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Warning'";
+
+        else  if(contador.equals(Contador.PROCESADO_CON_ERROR))
+            //language=SQL
+            query = "select count(*) from media where importOrigin like ? and processed like 'Procesado con Error'";
 
         else if(contador.equals(Contador.CARSA))
             //language=SQL
@@ -370,6 +386,7 @@ public class DBMedia
             reporte.setNoProcesados(getCantRegistros(Contador.SIN_PROCESAR, nombreArchivo));
             reporte.setProcesadosConError(getCantRegistros(Contador.PROCESADO_CON_ERROR, nombreArchivo));
             reporte.setProcesadosCorrectamente(getCantRegistros(Contador.PROCESADO, nombreArchivo));
+            reporte.setProcesadosConWarning(getCantRegistros(Contador.PROCESADO_CON_WARNING, nombreArchivo));
 
             reportes.add(reporte);
         }
@@ -385,7 +402,6 @@ public class DBMedia
 
         try
         {
-            //language=SQL
             String query = "select count(*) from media where importOrigin like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, nombreArchivo);

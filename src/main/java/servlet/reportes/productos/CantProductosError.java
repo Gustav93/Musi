@@ -29,7 +29,7 @@ public class CantProductosError extends HttpServlet
         else
         {
             HistoricoProductos historicoProductos = new HistoricoProductos();
-            cantProductosError = String.valueOf(historicoProductos.getCantidadRegistrosProcesadosConError(codigoProducto));
+            cantProductosError = String.valueOf(historicoProductos.getCantidadRegistrosNoProcesadosCorrectamente(codigoProducto));
         }
 
         response.getWriter().append(cantProductosError);
