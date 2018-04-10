@@ -328,7 +328,7 @@ public class DBManager
             for (RegistroAuditoria registro : listaRegistrosAuditoria) {
                 c.setEmpresa(registro.getEmpresa());
                 c.setDescripcionError(registro.getErrorCode() + ": " + registro.getDescription());
-                c.setEstadoProcesamiento("Procesado con error");
+                c.setEstadoProcesamiento("Procesado con Error");
                 break;
             }
 

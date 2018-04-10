@@ -25,8 +25,8 @@ public class CantClasificacionProcesado extends HttpServlet
 
         if(codigoProducto.equals("false"))
         {
-            DBClasificacion dbmedia = new DBClasificacion();
-            cantProcesados = String.valueOf(dbmedia.getCantidadRegistrosProcesados());
+            DBClasificacion dbClasificacion = new DBClasificacion();
+            cantProcesados = String.valueOf(dbClasificacion.getCantidadRegistrosProcesados());
         }
 
         else

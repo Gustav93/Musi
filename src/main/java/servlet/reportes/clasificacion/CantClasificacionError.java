@@ -23,8 +23,8 @@ public class CantClasificacionError extends HttpServlet {
 
         if(codigoProducto.equals("false"))
         {
-            DBClasificacion dbmedia = new DBClasificacion();
-            cantError = String.valueOf(dbmedia.getCantidadRegistrosProcesadosConError());
+            DBClasificacion dbClasificacion = new DBClasificacion();
+            cantError = String.valueOf(dbClasificacion.getCantidadRegistrosProcesadosConError());
         }
 
         else

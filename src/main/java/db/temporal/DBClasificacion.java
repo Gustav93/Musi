@@ -166,7 +166,7 @@ public class DBClasificacion
 
         else if(filtro.equals(Filtro.PROCESADOS_CON_ERRORES))
             //language=SQL
-            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Procesado con Warning'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error'";
 
         else if(filtro.equals(Filtro.SIN_PROCESAR))
             //language=SQL
@@ -174,7 +174,7 @@ public class DBClasificacion
 
         else if(filtro.equals(Filtro.NO_PROCESADOS_CORRECTAMENTE))
             //language=SQL
-            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Sin Procesar'";
+            query = "select * from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Procesado con Warning'";
 
         try
         {
@@ -279,7 +279,7 @@ public class DBClasificacion
 
         else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error'";
+            query = "select count(*) from clasificacion where origenImportacion like ? and estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
@@ -331,7 +331,8 @@ public class DBClasificacion
 
         else if(contador.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado con Error' or estadoProcesamineto like 'Procesado con Warning'";
+            query = "select count(*) from clasificacion where estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
+//            query = "select count(*) from clasificacion where estadoProcesamiento = 'Procesado con Error' or estadoProcesamiento = 'Procesado con Warning'";
 
         else if(contador.equals(Contador.SIN_PROCESAR))
             //language=SQL
