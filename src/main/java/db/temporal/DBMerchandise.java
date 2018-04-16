@@ -33,10 +33,12 @@ public class DBMerchandise
         {
             System.out.println("La tabla MERCHANDISE ya existe");
         }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
 
         Utilities.crearIndice(TipoFeed.MERCHANDISE);
-        DBConectionManager.closeConnection(c);
-
     }
 
     public void eliminarTabla()
@@ -52,7 +54,10 @@ public class DBMerchandise
             System.out.println("Hubo un problema al eliminar la tabla MERCHANDISE");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Merchandise merchandise)

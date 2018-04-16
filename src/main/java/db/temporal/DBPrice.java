@@ -32,8 +32,11 @@ public class DBPrice
         {
             System.out.println("La tabla PRECIO ya existe");
         }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
 
-        DBConectionManager.closeConnection(c);
         Utilities.crearIndice(TipoFeed.PRECIO);
 
     }
@@ -54,9 +57,10 @@ public class DBPrice
         {
             System.out.println("Hubo un problema al eliminar la tabla PRICE");
         }
-
-        DBConectionManager.closeConnection(c);
-
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Price price)

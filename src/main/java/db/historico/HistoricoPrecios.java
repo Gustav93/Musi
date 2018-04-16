@@ -28,7 +28,10 @@ public class HistoricoPrecios
             System.out.println("La tabla HISTORICO_PRECIOS ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
         Utilities.crearIndiceHistorico(TipoFeed.PRECIO);
     }
 
@@ -129,7 +132,10 @@ public class HistoricoPrecios
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String codigoProducto)

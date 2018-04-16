@@ -53,8 +53,10 @@ public class DBClasificacion
         {
             System.out.println("Hubo un problema al eliminar la tabla CLASIFICACION");
         }
-
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Classification classification)

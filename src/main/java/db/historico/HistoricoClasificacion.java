@@ -29,7 +29,11 @@ public class HistoricoClasificacion
             System.out.println("La tabla HISTORICO_CLASIFICACION ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndiceHistorico(TipoFeed.CLASIFICACION);
     }
 
@@ -137,7 +141,10 @@ public class HistoricoClasificacion
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String codigoProducto)

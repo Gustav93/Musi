@@ -31,7 +31,11 @@ public class HistoricoMedia
             System.out.println("La tabla HISTORICO_MEDIA ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndiceHistorico(TipoFeed.MEDIA);
     }
 
@@ -141,7 +145,10 @@ public class HistoricoMedia
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String codigoProducto)

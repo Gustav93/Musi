@@ -33,7 +33,10 @@ public class DBProduct
             System.out.println("La tabla PRODUCT ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndice(TipoFeed.PRODUCTO);
     }
 
@@ -54,7 +57,10 @@ public class DBProduct
             System.out.println("Hubo un problema al eliminar la tabla PRODUCT");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Product p)

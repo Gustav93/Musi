@@ -304,7 +304,10 @@ public class Utilities
             e.getStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     //crea un indice en la db historica del feed pasado como parametro
@@ -343,7 +346,10 @@ public class Utilities
             e.getStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     //Devuelve una lista con los nombres de los archivos que hay en los registros de la db del feed solicitado
@@ -393,6 +399,4 @@ public class Utilities
 
         return importOriginList;
     }
-
-
 }

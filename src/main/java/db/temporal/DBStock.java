@@ -33,7 +33,11 @@ public class DBStock
             System.out.println("La tabla STOCK ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndice(TipoFeed.STOCK);
     }
 
@@ -54,7 +58,10 @@ public class DBStock
             System.out.println("Hubo un problema al eliminar la tabla STOCK");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Stock stock)

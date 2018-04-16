@@ -25,7 +25,10 @@ public class DBNombreArchivosProcesados
             System.out.println("La tabla NOMBRE_ARCHIVOS ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
 
         crearIndice();
     }
@@ -100,7 +103,10 @@ public class DBNombreArchivosProcesados
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
 
         return res;
     }
@@ -123,6 +129,9 @@ public class DBNombreArchivosProcesados
             e.getStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 }

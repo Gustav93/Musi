@@ -31,7 +31,11 @@ public class HistoricoStock
             System.out.println("La tabla HISTORICO_STOCK ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndiceHistorico(TipoFeed.STOCK);
     }
 
@@ -141,7 +145,10 @@ public class HistoricoStock
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String codigoProducto)

@@ -27,8 +27,10 @@ public class HistoricoMerchandise
         } catch (SQLException e) {
             System.out.println("La tabla HISTORICO_MERCHANDISE ya existe");
         }
-
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
         Utilities.crearIndiceHistorico(TipoFeed.MERCHANDISE);
     }
 
@@ -144,7 +146,10 @@ public class HistoricoMerchandise
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String source)

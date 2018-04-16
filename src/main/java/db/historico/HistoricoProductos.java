@@ -31,7 +31,11 @@ public class HistoricoProductos
             System.out.println("La tabla HISTORICO_PRODUCTOS ya existe");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
+
         Utilities.crearIndiceHistorico(TipoFeed.PRODUCTO);
     }
 
@@ -155,7 +159,10 @@ public class HistoricoProductos
             e.printStackTrace();
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public int getCantidadRegistrosProcesados(String codigoProducto)

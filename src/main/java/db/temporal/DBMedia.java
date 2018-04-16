@@ -31,8 +31,11 @@ public class DBMedia
         {
             System.out.println("La tabla MEDIA ya existe");
         }
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
 
-        DBConectionManager.closeConnection(c);
         Utilities.crearIndice(TipoFeed.MEDIA);
     }
 
@@ -53,7 +56,10 @@ public class DBMedia
             System.out.println("Hubo un problema al eliminar la tabla MEDIA");
         }
 
-        DBConectionManager.closeConnection(c);
+        finally
+        {
+            DBConectionManager.closeConnection(c);
+        }
     }
 
     public void crearRegistro(Media media)
