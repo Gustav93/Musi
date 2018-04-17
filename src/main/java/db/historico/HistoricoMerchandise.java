@@ -53,38 +53,6 @@ public class HistoricoMerchandise
 //        DBConectionManager.closeConnection(c);
 //    }
 
-//    public void crearRegistro(Price price)
-//    {
-//        String query = "insert into historico_precios (productCode, onlinePrice, currency, storePrice, hasPriority, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?,?,?)";
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try {
-//            PreparedStatement ps = c.prepareStatement(query);
-//            ps.setString(1, price.getProductCode());
-//            ps.setString(2, price.getOnlinePrice());
-//            ps.setString(3, price.getCurrency());
-//            ps.setString(4, price.getStorePrice());
-//            ps.setString(5, price.getHasPriority());
-//            ps.setString(6, price.getImportOrigin());
-//            ps.setString(7, price.getProcessed());
-//            ps.setString(8, price.getErrorDescription());
-//            ps.setString(9, price.getEmpresa());
-//
-//            ps.executeUpdate();
-//
-//            DBConectionManager.commit(c);
-//        }
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-//
-//    }
-
     public List<Merchandise> getRegistros(String source)
     {
         List<Merchandise> listaMerchandise = new ArrayList<>();

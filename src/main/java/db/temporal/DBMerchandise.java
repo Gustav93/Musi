@@ -118,45 +118,6 @@ public class DBMerchandise
 //        return merchandise;
 //    }
 
-//    public List<Merchandise> getMerchandiseList()
-//    {
-//
-//        ArrayList<Merchandise> merchandises = new ArrayList<>();
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try
-//        {
-//            PreparedStatement statement = c.prepareStatement(MERCHANDISE_LIST);
-//            ResultSet res = statement.executeQuery();
-//
-//            while(res.next())
-//            {
-//                Merchandise m = new Merchandise();
-//
-//                m.setSource(res.getString(1));
-//                m.setRefType(res.getString(2));
-//                m.setTarget(res.getString(3));
-//                m.setRelacion(res.getString(4));
-//                m.setQualifier(res.getString(5));
-//                m.setPreselected(res.getString(6));
-//                m.setOrigenImportacion(res.getString(7));
-//
-//                merchandises.add(m);
-//            }
-//        }
-//
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-//
-//        return merchandises;
-//    }
-
     public void editar(Merchandise m)
     {
         //language=SQL

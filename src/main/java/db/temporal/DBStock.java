@@ -128,37 +128,8 @@ public class DBStock
 //        return stock;
 //    }
 
-//    public List<Stock> getStockList()
-//    {
-//        return filtrarPor(STOCK_LIST);
-//    }
-
     public void editar(Stock stock)
     {
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try
-//        {
-//            PreparedStatement ps = c.prepareStatement(EDIT);
-//
-//            ps.setString(1, stock.getProcessed());
-//            ps.setString(2, stock.getErrorDescription());
-//            ps.setString(3,stock.getEmpresa());
-//            ps.setString(4, stock.getProductCode());
-//
-//            ps.executeUpdate();
-//            DBConectionManager.commit(c);
-//        }
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-
         //language=SQL
         String query = "update stock set processed = ?, errorDescription = ?, empresa = ? WHERE productCode = ? and importOrigin = ?";
         Connection c = DBConectionManager.openConnection();

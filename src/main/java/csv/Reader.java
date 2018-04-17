@@ -29,22 +29,6 @@ public class Reader
         if (Utilities.isAudit(path))
             reader.setDelimiter(';');
 
-//        if(Utilities.isClassificationFeed(path))
-//        {
-//            filas = leer(path);
-//            reader.close();
-//            return filas;
-//        }
-
-        //si el nombre del archivo del feed clasificacion contiene 2018, es porque dicho feed pertenece a CARSA
-//        if(Utilities.isClassificationFeed(path) && !path.contains("2018"))
-//        {
-//            filas = leer(path);
-//            reader.close();
-//            return filas;
-//        }
-
-
         while(reader.readRecord())
         {
             List<String> celda = new ArrayList<>();
@@ -176,10 +160,5 @@ public class Reader
         reader.close();
 
         return list;
-    }
-
-    private String quitarComillas(String str)
-    {
-        return str.substring(1,str.length()-1);
     }
 }

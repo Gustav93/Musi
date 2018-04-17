@@ -250,34 +250,6 @@ public class DBProduct
         return getCantRegistros(Contador.EMSA);
     }
 
-//    private List<String> getImportOriginList()
-//    {
-//        List<String> importOriginList = new ArrayList<>();
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try
-//        {
-//            PreparedStatement statement = c.prepareStatement(GET_IMPORT_ORIGIN);
-//            ResultSet res = statement.executeQuery();
-//
-//            while(res.next())
-//            {
-//                importOriginList.add(res.getString(1));
-//            }
-//        }
-//
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-//
-//        return importOriginList;
-//    }
-
     private int getCantRegistros(Contador contador, String nombreArchivo)
     {
         Connection c = DBConectionManager.openConnection();

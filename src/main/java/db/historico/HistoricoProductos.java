@@ -59,44 +59,6 @@ public class HistoricoProductos
 //        DBConectionManager.closeConnection(c);
 //    }
 
-//    public void crearRegistro(Product p)
-//    {
-//        Connection c = DBConectionManager.openConnection();
-//        //language=SQL
-//        String query = "insert into historico_productos (code, ean, brand, name, category, weight, onlineDateTime, offlineDateTime, approvalStatus, Description, importOrigin, processed, errorDescription, empresa) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//
-//        try
-//        {
-//            PreparedStatement ps = c.prepareStatement(query);
-//            ps.setString(1, p.getCode());
-//            ps.setString(2, p.getEan());
-//            ps.setString(3, p.getBrand());
-//            ps.setString(4, p.getName());
-//            ps.setString(5, p.getCategory());
-//            ps.setString(6, p.getWeight());
-//            ps.setString(7, p.getOnlineDateTime());
-//            ps.setString(8, p.getOfflineDateTime());
-//            ps.setString(9, p.getApprovalStatus());
-//            ps.setString(10, p.getDescription());
-//            ps.setString(11, p.getImportOrigin());
-//            ps.setString(12, p.getProcessed());
-//            ps.setString(13, p.getErrorDescription());
-//            ps.setString(14, p.getEmpresa());
-//
-//            ps.executeUpdate();
-//            DBConectionManager.commit(c);
-//        }
-//
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-//    }
-
     public List<Product> getRegistros(String code)
     {
         List<Product> productList = new ArrayList<>();

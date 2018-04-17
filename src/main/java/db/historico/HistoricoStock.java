@@ -57,38 +57,6 @@ public class HistoricoStock
 //        }
 //    }
 //
-//    public void crearRegistro(Stock stock)
-//    {
-//        //language=SQL
-//        String query = "insert into historico_stock (productCode, stock, warehouse, status, importOrigin, processed, errorDescription, empresa) VALUES (?,?,?,?,?,?,?,?)";
-//        Connection c = DBConectionManager.openConnection();
-//
-//        try
-//        {
-//            PreparedStatement ps = c.prepareStatement(query);
-//            ps.setString(1, stock.getProductCode());
-//            ps.setString(2, stock.getRegistros());
-//            ps.setString(3, stock.getWarehouse());
-//            ps.setString(4, stock.getStatus());
-//            ps.setString(5, stock.getImportOrigin());
-//            ps.setString(6, stock.getProcessed());
-//            ps.setString(7,stock.getErrorDescription());
-//            ps.setString(8, stock.getEmpresa());
-//
-//            ps.executeUpdate();
-//
-//            DBConectionManager.commit(c);
-//        }
-//
-//        catch (Exception e)
-//        {
-//            DBConectionManager.rollback(c);
-//        }
-//        finally
-//        {
-//            DBConectionManager.closeConnection(c);
-//        }
-//    }
 
     public List<Stock> getRegistros(String productCode)
     {

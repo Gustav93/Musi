@@ -129,11 +129,6 @@ public class DBPrice
 //        return price;
 //    }
 
-//    public List<Price> getPriceList()
-//    {
-//        return filtrarPor(PRICE_LIST);
-//    }
-
     public void editar(Price p)
     {
         //language=SQL
