@@ -13,26 +13,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoricoProductos
-{
-    public void crearTabla()
-    {
+public class HistoricoProductos {
+    public void crearTabla() {
         //language=SQL
         String query = "create table historico_productos (code VARCHAR(50), ean VARCHAR(50), brand VARCHAR(50), name VARCHAR(100), category VARCHAR(100), weight VARCHAR(50) , onlineDateTime VARCHAR(50), offlineDateTime VARCHAR(50), approvalStatus VARCHAR(50), description VARCHAR(500), importOrigin VARCHAR(100), processed VARCHAR(100), errorDescription VARCHAR(500), empresa VARCHAR(10))";
         Connection c = DBConectionManager.openConnection();
 
-        try
-        {
+        try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("La tabla HISTORICO_PRODUCTOS ya existe");
-        }
-
-        finally
-        {
+        } finally {
             DBConectionManager.closeConnection(c);
         }
 
@@ -59,20 +51,17 @@ public class HistoricoProductos
 //        DBConectionManager.closeConnection(c);
 //    }
 
-    public List<Product> getRegistros(String code)
-    {
+    public List<Product> getRegistros(String code) {
         List<Product> productList = new ArrayList<>();
         Connection c = DBConectionManager.openConnection();
         String query = "select * from historico_productos where code = ?";
 
-        try
-        {
+        try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.setString(1, code);
             ResultSet res = ps.executeQuery();
 
-            while (res.next())
-            {
+            while (res.next()) {
                 Product p = new Product();
                 p.setCodigoProducto(code);
                 p.setEan(res.getString(2));
@@ -91,126 +80,96 @@ public class HistoricoProductos
 
                 productList.add(p);
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DBConectionManager.rollback(c);
-        }
-        finally
-        {
+        } finally {
             DBConectionManager.closeConnection(c);
         }
 
         return productList;
     }
 
-    public void importarProductos()
-    {
+    public void importarProductos() {
         //language=SQL
         String query = "insert into historico_productos select * from product";
         Connection c = DBConectionManager.openConnection();
 
-        try
-        {
+        try {
             PreparedStatement ps = c.prepareStatement(query);
             ps.execute();
             DBConectionManager.commit(c);
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        finally
-        {
+        } finally {
             DBConectionManager.closeConnection(c);
         }
     }
 
-    public int getCantidadRegistrosProcesados(String codigoProducto)
-    {
+    public int getCantidadRegistrosProcesados(String codigoProducto) {
         return getCantidadRegistros(codigoProducto, Contador.PROCESADO);
     }
 
-    public int getCantidadRegistrosNoProcesados(String codigoProducto)
-    {
+    public int getCantidadRegistrosNoProcesados(String codigoProducto) {
         return getCantidadRegistros(codigoProducto, Contador.SIN_PROCESAR);
     }
 
-    public int getCantidadRegistrosNoProcesadosCorrectamente(String codigoProducto)
-    {
+    public int getCantidadRegistrosNoProcesadosCorrectamente(String codigoProducto) {
         return getCantidadRegistros(codigoProducto, Contador.NO_PROCESADO_CORRECTAMENTE);
     }
 
     //devuelve la cantidad de registros con el codigo de producto pasado como parametro
-    public int getCantidadRegistros(String codigoProducto)
-    {
+    public int getCantidadRegistros(String codigoProducto) {
         Connection c = DBConectionManager.openConnection();
         int total = 0;
 
-        try
-        {
+        try {
             //language=SQL
             String query = "select count(*) from historico_productos where code like ?";
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
-            while(res.next())
-            {
+            while (res.next()) {
                 total = res.getInt(1);
             }
-        }
-
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DBConectionManager.rollback(c);
-        }
-        finally
-        {
+        } finally {
             DBConectionManager.closeConnection(c);
         }
 
         return total;
     }
 
-    private int getCantidadRegistros(String codigoProducto, Contador estadoProcesado)
-    {
+    private int getCantidadRegistros(String codigoProducto, Contador estadoProcesado) {
         Connection c = DBConectionManager.openConnection();
         int procesados = 0;
 
         String query = null;
 
-        if(estadoProcesado.equals(Contador.PROCESADO))
+        if (estadoProcesado.equals(Contador.PROCESADO))
             //language=SQL
             query = "select count(*) from historico_productos where code like ? and processed like 'Procesado'";
 
-        else if(estadoProcesado.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
+        else if (estadoProcesado.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
             query = "select count(*) from historico_productos where code like ? and processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
 
-        else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
+        else if (estadoProcesado.equals(Contador.SIN_PROCESAR))
             //language=SQL
             query = "select count(*) from historico_productos where code like ? and processed like 'Sin Procesar'";
 
-        try
-        {
+        try {
             PreparedStatement statement = c.prepareStatement(query);
             statement.setString(1, codigoProducto);
             ResultSet res = statement.executeQuery();
 
-            while(res.next())
-            {
+            while (res.next()) {
                 procesados = res.getInt(1);
             }
-        }
-
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             DBConectionManager.rollback(c);
-        }
-        finally
-        {
+        } finally {
             DBConectionManager.closeConnection(c);
         }
         return procesados;
