@@ -524,10 +524,18 @@ public class Mail
         String asuntoMail;
 
         if(empresa.equals(Empresa.CARSA))
+        {
             asuntoMail = "Clasificacion Procesado (CARSA)";
+            destinatarios = destinatariosCARSA;
+        }
+
 
         else if (empresa.equals(Empresa.EMSA))
+        {
             asuntoMail = "Clasificacion Procesado (EMSA)";
+            destinatarios = destinatariosEMSA;
+        }
+
 
         else
             asuntoMail ="Clasificacion Procesado";
