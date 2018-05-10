@@ -205,7 +205,7 @@ public class HistoricoClasificacion
 
         else if(estadoProcesado.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from historico_clasificacion where codigoProducto like ? and estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
+            query = "select count(*) from historico_clasificacion where codigoProducto like ? and estadoProcesamiento in ('Procesado con Error', 'Procesado con Warning')";
 
         else if(estadoProcesado.equals(Contador.SIN_PROCESAR))
             //language=SQL

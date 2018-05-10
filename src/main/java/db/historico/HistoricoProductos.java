@@ -153,7 +153,9 @@ public class HistoricoProductos {
 
         else if (estadoProcesado.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from historico_productos where code like ? and processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
+            query = "select count(*) from historico_productos where code like ? and processed in ('Procesado con Error', 'Procesado con Warning')";
+//        query = "select count(*) from historico_productos where code like ? and processed like 'Procesado con Error' or processed like 'Procesado con Warning'";
+
 
         else if (estadoProcesado.equals(Contador.SIN_PROCESAR))
             //language=SQL

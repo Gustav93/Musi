@@ -180,7 +180,7 @@ public class HistoricoMerchandise
 
         else if(estadoProcesamiento.equals(Contador.NO_PROCESADO_CORRECTAMENTE))
             //language=SQL
-            query = "select count(*) from historico_merchandise where source like ? and estadoProcesamiento like 'Procesado con Error' or estadoProcesamiento like 'Procesado con Warning'";
+            query = "select count(*) from historico_merchandise where source like ? and estadoProcesamiento in ('Procesado con Error', 'Procesado con Warning')";
 
         else if(estadoProcesamiento.equals(Contador.SIN_PROCESAR))
             //language=SQL
