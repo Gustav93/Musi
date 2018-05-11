@@ -430,7 +430,7 @@ public class Writer
 
             writer.write("Codigo de Producto");
             writer.write("Codigo del Atributo");
-            writer.write("Codifo de Categoria");
+            writer.write("Codigo de Categoria");
             writer.write("Valor del Atributo");
             writer.write("Origen Importacion");
             writer.write("Estado Procesamiento");
