@@ -35,6 +35,8 @@ public class Stock extends FeedPadre
         this.status = status;
     }
 
+
+
 //    @Override
 //    public String toString() {
 //        return "Stock{" +

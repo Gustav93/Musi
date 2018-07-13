@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DBConectionManager
 {
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_USERNAME = "auditoriaadmin";
+    private static final String DB_PASSWORD = "audiadmin2018";
 
     public static Connection openConnection()
     {
@@ -26,9 +26,9 @@ public class DBConectionManager
         try
         {
 //            c = DriverManager.getConnection("jdbc:mysql://localhost/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
-            c = DriverManager.getConnection("jdbc:mysql://10.5.202.62/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
+//            c = DriverManager.getConnection("jdbc:mysql://10.5.202.62/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
 //            c = DriverManager.getConnection("jdbc:mysql://10.5.202.62/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
-//            c = DriverManager.getConnection("jdbc:mysql://localhost/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
+            c = DriverManager.getConnection("jdbc:mysql://200.61.221.197/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
 
             c.setAutoCommit(false);
         }
