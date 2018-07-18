@@ -130,35 +130,4 @@ public class Reader
         reader.close();
         return filas;
     }
-
-    //para poder procesar los feeds clasificacion hubo que hacer un metodo diferente para poder leerlos ya que el reader
-    // utilizado en las demas clase lo hacia con errores. El problema surge en que los campos del archivo tienen
-    // comillas dobles al inicio y al final de cada linea y eso afecta de alguna manera al reader.
-//    private List<List<String>> leer(String path) throws IOException {
-//        List<List<String>> list = new ArrayList();
-//        File archivo = new File(path);
-//        InputStream in = new FileInputStream(archivo);
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//
-//        String line = reader.readLine();
-//        while (line != null)
-//        {
-//            if(line.equals(""))
-//            {
-//                line = reader.readLine();
-//                continue;
-//            }
-//
-//            line = line.substring(1,line.length()-1); //le elimino las comillas
-//            line = line + "," + path; //agrego el path del archivo a la linea que esta leyendo
-//            List<String> fila = Arrays.asList(line.split(","));
-//
-//            list.add(fila);
-//
-//            line = reader.readLine();
-//        }
-//        reader.close();
-//
-//        return list;
-//    }
 }

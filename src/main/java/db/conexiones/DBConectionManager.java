@@ -28,7 +28,7 @@ public class DBConectionManager
 //            c = DriverManager.getConnection("jdbc:mysql://localhost/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
 //            c = DriverManager.getConnection("jdbc:mysql://10.5.202.62/Feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
 //            c = DriverManager.getConnection("jdbc:mysql://10.5.202.62/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
-            c = DriverManager.getConnection("jdbc:mysql://200.61.221.197/feed_test?useSSL=false", DB_USERNAME, DB_PASSWORD);
+            c = DriverManager.getConnection("jdbc:mysql://200.61.221.197/feed?useSSL=false", DB_USERNAME, DB_PASSWORD);
 
             c.setAutoCommit(false);
         }
